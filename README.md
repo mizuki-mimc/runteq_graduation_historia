@@ -211,3 +211,6 @@ historia(仮)は娯楽小説の一貫性維持と創作活動の継続を支援�
   ・rspec-rails : テストフレームワーク
   ・factory_bot_rails : テストデータ作成用
   ・capybara : 結合テスト用
+
+■ 画面遷移図
+https://www.figma.com/design/Bsqfd6ElrLcRTSR7h7lltT/Historia?node-id=113-42&t=oFVxdjpxMcLoQG1c-1
