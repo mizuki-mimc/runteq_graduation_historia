@@ -216,4 +216,4 @@ historia(仮)は娯楽小説の一貫性維持と創作活動の継続を支援�
 https://www.figma.com/design/Bsqfd6ElrLcRTSR7h7lltT/Historia?node-id=113-42&t=oFVxdjpxMcLoQG1c-1
 
 ■ ER図
-https://drive.google.com/file/d/1Dh83ghrC-9nNslIp5kEOWFTigSfEgm8S/view?usp=sharing
+https://drive.google.com/file/d/1HUQCqgzlIbGiE9C-4NPgN5kA-7T0zBcv/view?usp=sharing
