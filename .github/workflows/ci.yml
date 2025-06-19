@@ -39,7 +39,7 @@ jobs:
           bundler-cache: false
       
       - name: Install Ruby Gems (explicitly for scan_js)
-        run: bundle install --jobs 4 --retry 3
+        run: bundle install --jobs 4 --retry 3 --force
 
       - name: Make bin scripts executable for scan_js
         run: chmod +x bin/*
@@ -62,6 +62,11 @@ jobs:
           bundle exec rails -v
           bundle exec rails about # Railsの詳細情報を表示し、importmapが有効か確認
         shell: bash
+
+      - name: Run Importmap Install (if needed)
+        run: bundle exec rails importmap:install
+        shell: bash
+        continue-on-error: true
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bundle exec rails importmap audit
