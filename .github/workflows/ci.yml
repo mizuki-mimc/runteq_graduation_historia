@@ -32,14 +32,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Clear Bundler Cache (if exists)
+        run: |
+          # Bundlerのキャッシュディレクトリを削除
+          rm -rf ~/.bundle/cache || true
+          rm -rf /opt/hostedtoolcache/Ruby/3.3.8/x64/lib/ruby/gems/3.3.0/cache || true
+        shell: bash
+        continue-on-error: true
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: false
+          bundler-cache: true
       
       - name: Install Ruby Gems (explicitly for scan_js)
-        run: bundle install --jobs 4 --retry 3 --force
+        run: bundle install --jobs 4 --retry 3
 
       - name: Make bin scripts executable for scan_js
         run: chmod +x bin/*
