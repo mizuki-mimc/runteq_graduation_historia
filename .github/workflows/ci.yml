@@ -19,6 +19,9 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Make bin scripts executable for scan_ruby
+        run: chmod +x bin/*
+
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
 
@@ -35,8 +38,11 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Make bin scripts executable for scan_js
+        run: chmod +x bin/*
+
       - name: Scan for security vulnerabilities in JavaScript dependencies
-        run: bin/importmap audit
+        run: bin/rails importmap audit 
 
   lint:
     runs-on: ubuntu-latest
@@ -49,6 +55,9 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+
+      - name: Make bin scripts executable for lint
+        run: chmod +x bin/*
 
       - name: Lint code for consistent style
         run: bin/rubocop -f github
@@ -84,6 +93,9 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+
+      - name: Make bin scripts executable for test
+        run: chmod +x bin/*
 
       - name: Run tests
         env:
