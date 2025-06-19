@@ -19,6 +19,9 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Make bin scripts executable for scan_ruby
+        run: chmod +x bin/*
+
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
 
@@ -35,8 +38,16 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Make bin scripts executable for scan_js
+        run: chmod +x bin/*
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Scan for security vulnerabilities in JavaScript dependencies
-        run: bin/importmap audit
+        run: bin/rails importmap audit 
 
   lint:
     runs-on: ubuntu-latest
@@ -49,6 +60,9 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+
+      - name: Make bin scripts executable for lint
+        run: chmod +x bin/*
 
       - name: Lint code for consistent style
         run: bin/rubocop -f github
@@ -85,12 +99,20 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Run tests
+      - name: Make bin scripts executable for test
+        run: chmod +x bin/*
+      
+      - name: Create test database
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
-          # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test test:system
+        run: bin/rails db:create
+
+      - name: Run database migrations for test environment
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432
+        run: bin/rails db:migrate
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
