@@ -48,6 +48,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+      
+      - name: Debug - List installed gems
+        run: bundle list --only-group default # defaultグループのgemリストを表示
+        shell: bash
+
+      - name: Debug - Check importmap-rails gem path
+        run: bundle show importmap-rails # importmap-railsがどこにインストールされているか確認
+        shell: bash
+
+      - name: Debug - Check Rails environment
+        run: |
+          bundle exec rails -v
+          bundle exec rails about # Railsの詳細情報を表示し、importmapが有効か確認
+        shell: bash
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bundle exec rails importmap audit
