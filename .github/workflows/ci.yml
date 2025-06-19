@@ -27,6 +27,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Clean RubyGems Environment
+        run: |
+          # Bundlerのキャッシュディレクトリを削除
+          rm -rf ~/.bundle/cache || true
+          # setup-rubyアクションが使用する可能性のあるツールキャッシュを削除（より強力なクリーンアップ）
+          sudo rm -rf /opt/hostedtoolcache/Ruby/* || true
+          # GitHub ActionsのRubyセットアップアクションのキャッシュも明示的に削除を試みる
+          # これは確実ではないが、試す価値あり
+          sudo rm -rf "${{ runner.tool_cache }}/Ruby_*" || true
+          gem pristine --all || true # 全てのGemをpristine（クリーンな状態）にする
+        shell: bash
+        continue-on-error: true
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -34,7 +47,7 @@ jobs:
           bundler-cache: false
 
       - name: Install Ruby Gems (explicitly for setup_js_env)
-        run: bundle install --jobs 4 --retry 3 --force
+        run: bundle install --jobs 4 --retry 3
         shell: bash
 
       - name: Make bin scripts executable for setup_js_env
