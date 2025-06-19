@@ -37,6 +37,9 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+      
+      - name: Install Ruby Gems (explicitly for scan_js)
+        run: bundle install --jobs 4 --retry 3
 
       - name: Make bin scripts executable for scan_js
         run: chmod +x bin/*
