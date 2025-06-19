@@ -50,7 +50,8 @@ jobs:
           node-version: '20'
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
-        run: bin/rails importmap audit 
+        run: bundle exec rails importmap audit
+        shell: bash 
 
   lint:
     runs-on: ubuntu-latest
