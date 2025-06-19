@@ -1,0 +1,27 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: historia_development # アプリ名_development
+  username: postgres             # docker-compose.yml の POSTGRES_USER と合わせる
+  password: password             # docker-compose.yml の POSTGRES_PASSWORD と合わせる
+  host: db                       # docker-compose.yml の db サービス名
+
+test:
+  <<: *default
+  database: historia_test
+  username: postgres
+  password: password
+  host: db
+
+production:
+  <<: *default
+  database: <%= ENV["RAILS_DB_NAME"] %>
+  username: <%= ENV["RAILS_DB_USERNAME"] %>
+  password: <%= ENV["RAILS_DB_PASSWORD"] %>
+  host: <%= ENV["RAILS_DB_HOST"] %>
+  port: <%= ENV["RAILS_DB_PORT"] %>
