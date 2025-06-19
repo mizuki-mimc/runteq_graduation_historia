@@ -118,6 +118,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+      
+      - name: Debug - Check PATH
+        run: echo $PATH
+        shell: bash
 
       - name: Debug - Verify bin/importmap exists (scan_js_audit)
         run: ls -l bin/importmap || echo "bin/importmap not found!"
@@ -130,7 +134,7 @@ jobs:
         shell: bash
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
-        run: bundle exec rails importmap audit
+        run: bundle exec bin/importmap audit
         shell: bash
 
   lint:
