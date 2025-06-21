@@ -1,0 +1,50 @@
+.header-before-login {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  border-bottom: 1px solid #000000;
+  background-color: white;
+}
+
+.logo {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+  border: 1px solid black;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.header-right .btn {
+  display: inline-block;
+  padding: 10px 15px;
+  margin-left: 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.header-right .btn-outline {
+  border: 1px solid #000000;
+  color: black;
+  background-color: white;
+}
+
+.header-right .btn-outline:hover {
+  background-color: #f0f0f0;
+}
+
+.header-right .btn-primary {
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+}
+
+.header-right .btn-primary:hover {
+  background-color: #333;
+}
+
