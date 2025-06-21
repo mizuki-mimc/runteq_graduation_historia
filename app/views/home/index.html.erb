@@ -1,13 +1,13 @@
-<div class="main-content">
-  <h1>Historiaへようこそ</h1>
+<div class="main-content flex flex-col items-center max-w-4xl mx-auto font-bold px-5 py-2 min-h-[calc(100vh-150px)]">
+  <h1 class="text-5xl mt-12 mb-8 text-black">Historiaへようこそ</h1>
 
-  <div class="service-description">
-    <p>
+  <div class="service-description text-center leading-relaxed text-black font-normal mb-12 max-w-2xl w-full">
+    <p class="mb-4 text-lg">
       「Historia (ヒストリア)」は、<br>
       娯楽小説の作者が物語の一貫性を維持し、<br>
       創作活動を継続できるよう支援するWebアプリケーションです。
     </p>
-    <p>
+    <p class="text-lg">
       物語を書き進める中で生じる、登場人物や世界観の設定、<br>
       複雑なストーリー展開、伏線といった情報を<br>
       見やすく管理することで情報の煩雑化を防ぎ、<br>
@@ -15,66 +15,66 @@
     </p>
   </div>
 
-  <h2 class="guide-title">使い方ガイド</h2>
+  <h2 class="text-2xl mb-4 text-black">使い方ガイド</h2>
 
-  <div class="guide-sections" data-controller="before-home-accordion">
-    <div class="guide-item">
-      <div class="guide-header" data-action="click->before-home-accordion#toggle">
+  <div class="guide-sections w-11/12 max-w-2xl mb-8" data-controller="before-home-accordion">
+    <div class="guide-item border border-black rounded-lg overflow-hidden mb-3 last:mb-0">
+      <div class="guide-header flex justify-between items-center p-4 bg-white text-black text-lg font-bold cursor-pointer hover:bg-gray-100 transition-colors duration-300" data-action="click->before-home-accordion#toggle">
         ストーリーを作成しよう！
-        <span class="arrow">&#9660;</span>
+        <span class="arrow transition-transform duration-300">&#9660;</span>
       </div>
-      <div class="guide-content" data-before-home-accordion-target="content" style="display:none;">
-        <p>ストーリー作成に関する説明予定</p>
+      <div class="guide-content p-6 bg-gray-50 border-t border-gray-200 text-gray-700 text-left" data-before-home-accordion-target="content" style="display:none;">
+        <p class="m-0">ストーリー作成に関する説明予定</p>
       </div>
     </div>
 
-    <div class="guide-item">
-      <div class="guide-header" data-action="click->before-home-accordion#toggle">
+    <div class="guide-item border border-black rounded-lg overflow-hidden mb-3 last:mb-0">
+      <div class="guide-header flex justify-between items-center p-4 bg-white text-black text-lg font-bold cursor-pointer hover:bg-gray-100 transition-colors duration-300" data-action="click->before-home-accordion#toggle">
         ワールドガイドを作成しよう！
-        <span class="arrow">&#9660;</span>
+        <span class="arrow transition-transform duration-300">&#9660;</span>
       </div>
-      <div class="guide-content" data-before-home-accordion-target="content" style="display:none;">
-        <p>ワールドガイド作成に関する説明予定</p>
+      <div class="guide-content p-6 bg-gray-50 border-t border-gray-200 text-gray-700 text-left" data-before-home-accordion-target="content" style="display:none;">
+        <p class="m-0">ワールドガイド作成に関する説明予定</p>
       </div>
     </div>
 
-    <div class="guide-item">
-      <div class="guide-header" data-action="click->before-home-accordion#toggle">
+    <div class="guide-item border border-black rounded-lg overflow-hidden mb-3 last:mb-0">
+      <div class="guide-header flex justify-between items-center p-4 bg-white text-black text-lg font-bold cursor-pointer hover:bg-gray-100 transition-colors duration-300" data-action="click->before-home-accordion#toggle">
         キャラクターを作成しよう！
-        <span class="arrow">&#9660;</span>
+        <span class="arrow transition-transform duration-300">&#9660;</span>
       </div>
-      <div class="guide-content" data-before-home-accordion-target="content" style="display:none;">
-        <p>キャラクター作成に関する説明予定</p>
+      <div class="guide-content p-6 bg-gray-50 border-t border-gray-200 text-gray-700 text-left" data-before-home-accordion-target="content" style="display:none;">
+        <p class="m-0">キャラクター作成に関する説明予定</p>
       </div>
     </div>
 
-    <div class="guide-item">
-      <div class="guide-header" data-action="click->before-home-accordion#toggle">
+    <div class="guide-item border border-black rounded-lg overflow-hidden mb-3 last:mb-0">
+      <div class="guide-header flex justify-between items-center p-4 bg-white text-black text-lg font-bold cursor-pointer hover:bg-gray-100 transition-colors duration-300" data-action="click->before-home-accordion#toggle">
         フラグを作成しよう！
-        <span class="arrow">&#9660;</span>
+        <span class="arrow transition-transform duration-300">&#9660;</span>
       </div>
-      <div class="guide-content" data-before-home-accordion-target="content" style="display:none;">
-        <p>フラグ作成に関する説明予定</p>
+      <div class="guide-content p-6 bg-gray-50 border-t border-gray-200 text-gray-700 text-left" data-before-home-accordion-target="content" style="display:none;">
+        <p class="m-0">フラグ作成に関する説明予定</p>
       </div>
     </div>
 
-    <div class="guide-item">
-      <div class="guide-header" data-action="click->before-home-accordion#toggle">
+    <div class="guide-item border border-black rounded-lg overflow-hidden mb-3 last:mb-0">
+      <div class="guide-header flex justify-between items-center p-4 bg-white text-black text-lg font-bold cursor-pointer hover:bg-gray-100 transition-colors duration-300" data-action="click->before-home-accordion#toggle">
         プロットを作成しよう！
-        <span class="arrow">&#9660;</span>
+        <span class="arrow transition-transform duration-300">&#9660;</span>
       </div>
-      <div class="guide-content" data-before-home-accordion-target="content" style="display:none;">
-        <p>プロット作成に関する説明予定</p>
+      <div class="guide-content p-6 bg-gray-50 border-t border-gray-200 text-gray-700 text-left" data-before-home-accordion-target="content" style="display:none;">
+        <p class="m-0">プロット作成に関する説明予定</p>
       </div>
     </div>
   </div>
 
-  <div class="action-buttons">
-    <%= link_to "お試し作成", "#", class: "btn btn-outline-lg" %>
-    <%= link_to "ログイン / 新規登録", "#", class: "btn btn-primary-lg" %>
+  <div class="action-buttons flex justify-center mt-5 mb-5 space-x-4">
+    <%= link_to "お試し作成", "#", class: "px-8 py-4 border-2 border-black text-black bg-white rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors duration-300" %>
+    <%= link_to "ログイン / 新規登録", "#", class: "px-8 py-4 bg-black text-white border-2 border-black rounded-lg font-bold text-lg hover:bg-gray-700 transition-colors duration-300" %>
   </div>
-  <p class="note">
-    ※注意：「お試し作成」では作成したストーリーの保存は行われません。<br>
+  <p class="note text-sm text-black leading-relaxed mt-0 mb-20">
+    ※注意 : 「お試し作成」では作成したストーリーの保存は行われません。<br>
     作成したストーリーを保存したいときは新規登録をお願いします。
   </p>
 </div>
