@@ -1,5 +1,3 @@
-# Dockerfile (推奨のNode.js 20 LTSインストール方法)
-
 FROM ruby:3.3.8-slim-bullseye
 
 WORKDIR /app
@@ -21,6 +19,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
 
 COPY Gemfile Gemfile.lock ./
 RUN bundle install --jobs 4 --retry 3
+
+RUN RAILS_ENV=production SECRET_KEY_BASE_DUMMY=1 RAILS_MASTER_KEY_DUMMY=1 bundle exec rails assets:precompile
 
 RUN echo "Final final rebuild trigger"
 COPY . .
