@@ -1,0 +1,80 @@
+<div class="main-content">
+  <h1>Historiaへようこそ</h1>
+
+  <div class="service-description">
+    <p>
+      「Historia (ヒストリア)」は、<br>
+      娯楽小説の作者が物語の一貫性を維持し、<br>
+      創作活動を継続できるよう支援するWebアプリケーションです。
+    </p>
+    <p>
+      物語を書き進める中で生じる、登場人物や世界観の設定、<br>
+      複雑なストーリー展開、伏線といった情報を<br>
+      見やすく管理することで情報の煩雑化を防ぎ、<br>
+      作者が最後まで楽しく執筆できる環境を提供します。
+    </p>
+  </div>
+
+  <h2 class="guide-title">使い方ガイド</h2>
+
+  <div class="guide-sections" data-controller="before-home-accordion">
+    <div class="guide-item">
+      <div class="guide-header" data-action="click->before-home-accordion#toggle">
+        ストーリーを作成しよう！
+        <span class="arrow">&#9660;</span>
+      </div>
+      <div class="guide-content" data-before-home-accordion-target="content" style="display:none;">
+        <p>ストーリー作成に関する説明予定</p>
+      </div>
+    </div>
+
+    <div class="guide-item">
+      <div class="guide-header" data-action="click->before-home-accordion#toggle">
+        ワールドガイドを作成しよう！
+        <span class="arrow">&#9660;</span>
+      </div>
+      <div class="guide-content" data-before-home-accordion-target="content" style="display:none;">
+        <p>ワールドガイド作成に関する説明予定</p>
+      </div>
+    </div>
+
+    <div class="guide-item">
+      <div class="guide-header" data-action="click->before-home-accordion#toggle">
+        キャラクターを作成しよう！
+        <span class="arrow">&#9660;</span>
+      </div>
+      <div class="guide-content" data-before-home-accordion-target="content" style="display:none;">
+        <p>キャラクター作成に関する説明予定</p>
+      </div>
+    </div>
+
+    <div class="guide-item">
+      <div class="guide-header" data-action="click->before-home-accordion#toggle">
+        フラグを作成しよう！
+        <span class="arrow">&#9660;</span>
+      </div>
+      <div class="guide-content" data-before-home-accordion-target="content" style="display:none;">
+        <p>フラグ作成に関する説明予定</p>
+      </div>
+    </div>
+
+    <div class="guide-item">
+      <div class="guide-header" data-action="click->before-home-accordion#toggle">
+        プロットを作成しよう！
+        <span class="arrow">&#9660;</span>
+      </div>
+      <div class="guide-content" data-before-home-accordion-target="content" style="display:none;">
+        <p>プロット作成に関する説明予定</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-buttons">
+    <%= link_to "お試し作成", "#", class: "btn btn-outline-lg" %>
+    <%= link_to "ログイン / 新規登録", "#", class: "btn btn-primary-lg" %>
+  </div>
+  <p class="note">
+    ※注意：「お試し作成」では作成したストーリーの保存は行われません。<br>
+    作成したストーリーを保存したいときは新規登録をお願いします。
+  </p>
+</div>
