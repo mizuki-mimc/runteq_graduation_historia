@@ -32,8 +32,8 @@ gem "jbuilder"
 # gem "sassc-rails"
 gem "sass"
 
+gem "omniauth-google-oauth2", "~> 1.0"
 gem "omniauth-rails_csrf_protection"
-gem "omniauth-google_oauth2", "~> 0.1.5"
 
 gem "dotenv-rails", groups: [ :development, :test ]
 
