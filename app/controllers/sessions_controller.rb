@@ -1,10 +1,10 @@
 class SessionsController < ApplicationController
   def omniauth
-    auth = request.env['omniauth.auth']
+    auth = request.env["omniauth.auth"]
 
-    user = User.find_or_initialize_by(provider: auth['provider'], uid: auth['uid'])
-    user.email = auth['info']['email']
-    user.name = auth['info']['name']
+    user = User.find_or_initialize_by(provider: auth["provider"], uid: auth["uid"])
+    user.email = auth["info"]["email"]
+    user.name = auth["info"]["name"]
     user.save!
 
     session[:user_id] = user.id
