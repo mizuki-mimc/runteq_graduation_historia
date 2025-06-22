@@ -6,7 +6,7 @@ const application = Application.start()
 application.debug = false
 window.Stimulus = application
 
-import BeforeHomeAccordionController from "./controllers/before_home_accordion_controller"
+import BeforeHomeAccordionController from "before_home_accordion_controller"
 application.register("before-home-accordion", BeforeHomeAccordionController)
 
 export { application }
