@@ -3,9 +3,9 @@ source "https://rubygems.org"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.2", ">= 7.2.2.1"
 
-gem 'rack', '~> 2.2.8'
-gem 'rack-session', '~> 1.0.2'
-gem 'rackup', '~> 1.0.0'
+gem "rack", "~> 2.2.8"
+gem "rack-session", "~> 1.0.2"
+gem "rackup", "~> 1.0.0"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -35,7 +35,7 @@ gem "sass"
 gem "omniauth-rails_csrf_protection"
 gem "omniauth-google_oauth2", "~> 0.1.5"
 
-gem "dotenv-rails", groups: [:development, :test]
+gem "dotenv-rails", groups: [ :development, :test ]
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
