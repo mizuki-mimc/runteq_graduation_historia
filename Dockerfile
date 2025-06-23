@@ -13,20 +13,16 @@ RUN apt-get update -qq && \
         gnupg \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs --no-install-recommends && \
-    rm -rf /var/lib/apt/lists/*
-
 COPY . .
 
 RUN bundle install --jobs 4 --retry 3
 
 RUN bundle exec rails tmp:clear
 
-RUN RAILS_ENV=production SECRET_KEY_BASE_DUMMY=1 RAILS_MASTER_KEY_DUMMY=1 bundle exec bin/rails assets:precompile
+# RUN RAILS_ENV=production SECRET_KEY_BASE_DUMMY=1 RAILS_MASTER_KEY_BASE_DUMMY=1 bundle exec bin/rails assets:precompile
 
 RUN echo "Final final rebuild trigger"
 
 EXPOSE 3000
 
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["bash", "-c", "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"]

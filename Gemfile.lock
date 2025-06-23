@@ -121,6 +121,7 @@ GEM
     ffi (1.17.2-x86_64-darwin)
     ffi (1.17.2-x86_64-linux-gnu)
     ffi (1.17.2-x86_64-linux-musl)
+    foreman (0.88.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
@@ -386,6 +387,7 @@ DEPENDENCIES
   capybara
   debug
   dotenv-rails
+  foreman
   importmap-rails
   jbuilder
   omniauth-google-oauth2 (~> 1.0)

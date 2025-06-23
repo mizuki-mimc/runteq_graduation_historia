@@ -1,0 +1,15 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or vendor/assets/stylesheets
+ * can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file.
+ *
+ * Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
+ * about supported directives.
+ */
+
+@import "application.tailwind";
