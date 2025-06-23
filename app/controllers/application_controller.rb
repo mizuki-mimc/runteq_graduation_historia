@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_layout
-    if controller_name == 'home' && action_name == 'index' && !logged_in?
+    if controller_name == "home" && action_name == "index" && !logged_in?
       "before_login"
     elsif logged_in?
       "after_login"
