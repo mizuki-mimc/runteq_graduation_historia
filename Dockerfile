@@ -19,7 +19,7 @@ RUN bundle install --jobs 4 --retry 3
 
 RUN bundle exec rails tmp:clear
 
-# RUN RAILS_ENV=production SECRET_KEY_BASE_DUMMY=1 RAILS_MASTER_KEY_BASE_DUMMY=1 bundle exec bin/rails assets:precompile
+RUN RAILS_ENV=production SECRET_KEY_BASE_DUMMY=1 RAILS_MASTER_KEY_BASE_DUMMY=1 bundle exec bin/rails assets:precompile
 
 RUN echo "Final final rebuild trigger"
 
