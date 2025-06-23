@@ -1,0 +1,12 @@
+<header class="flex justify-between items-center px-8 py-4 border-b border-black bg-white shadow-sm">
+  <div class="flex items-center">
+    <%= link_to root_path, class: "" do %>
+      <%= image_tag "logo.png", alt: "Historia", class: "w-24" %>
+    <% end %>
+  </div>
+  <nav class="flex space-x-2">
+    <%= link_to "ストーリー作成", new_story_path, class: "px-4 py-2 bg-black text-white border border-black rounded-md hover:bg-gray-700 transition-colors duration-300" %>
+    <%= link_to "使い方ガイド", "#", class: "px-4 py-2 border border-black text-black bg-white rounded-md hover:bg-gray-100 transition-colors duration-300" %>
+    <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete }, class: "px-4 py-2 border border-black text-black bg-white rounded-md hover:bg-gray-100 transition-colors duration-300" %>
+  </nav>
+</header>
