@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :stories, only: [ :index, :new, :create, :show ] do
     member do
-      patch 'set_status'
+      patch "set_status"
     end
   end
 
