@@ -1,8 +1,6 @@
 class ApplicationController < ActionController::Base
   helper_method :current_user, :logged_in?
 
-  layout :set_layout
-
   private
 
   def current_user
@@ -11,15 +9,5 @@ class ApplicationController < ActionController::Base
 
   def logged_in?
     !current_user.nil?
-  end
-
-  def set_layout
-    if controller_name == "home" && action_name == "index" && !logged_in?
-      "before_login"
-    elsif logged_in?
-      "after_login"
-    else
-      "before_login"
-    end
   end
 end
