@@ -3,9 +3,9 @@ source "https://rubygems.org"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.2", ">= 7.2.2.1"
 
-gem "rack", "~> 2.2.8"
-gem "rack-session", "~> 1.0.2"
-gem "rackup", "~> 1.0.0"
+gem "rack", "~> 3.1.16"
+gem "rack-session", "~> 2.1.1"
+gem "rackup", "~> 2.2.1"
 
 gem "rails-i18n", "~> 7.0"
 gem "enum_help"
