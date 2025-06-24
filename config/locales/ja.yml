@@ -2,9 +2,20 @@ ja:
   activerecord:
     attributes:
       story:
+        title: "タイトル"
+        genre: "ジャンル"
+        thema: "テーマ" 
+        synopsis: "あらすじ"
         statuses:
           draft: "下書き"
           published: "公開"
+        genres:
+          fantasy: "ファンタジー"
+          sf: "SF"
+          romance: "恋愛"
+          mystery: "ミステリー"
+          horror: "ホラー"
+          other: "その他"
 
   time:
     formats:

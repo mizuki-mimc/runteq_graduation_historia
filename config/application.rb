@@ -11,6 +11,9 @@ module App
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.2
 
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
+
     config.i18n.default_locale = :ja
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
