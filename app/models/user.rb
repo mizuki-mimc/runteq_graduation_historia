@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-
   has_many :stories
 
   validates :email, presence: true, uniqueness: true
