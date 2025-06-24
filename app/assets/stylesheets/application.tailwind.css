@@ -12,7 +12,3 @@ html, body {
   box-sizing: border-box;
   font-family: 'Noto Sans JP', sans-serif;
 }
-body {
-  display: flex;
-  flex-direction: column;
-}

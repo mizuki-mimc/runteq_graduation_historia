@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 
     session[:user_id] = user.id
 
-    redirect_to root_path, notice: "ログインしました。ようこそ、#{user.name}さん！"
+    redirect_to stories_path
   rescue => e
     logger.error "OAuth認証エラー: #{e.message}"
     redirect_to root_path, alert: "ログインに失敗しました。"
@@ -23,6 +23,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_path, notice: "ログアウトしました。"
+    
+    redirect_to root_path
   end
 end

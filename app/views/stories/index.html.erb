@@ -1,0 +1,48 @@
+<div class="px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-screen-xl mx-auto">
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-4xl font-bold tracking-tighter border-l-8 border-black pl-4">ストーリー</h1>
+    </div>
+
+    <% if @stories.empty? %>
+      <div class="text-center py-20 border-2 border-dashed rounded-lg bg-gray-50">
+        <h2 class="text-xl font-semibold text-gray-700">まだストーリーはありません</h2>
+        <p class="mt-2 text-gray-500">ヘッダーの「ストーリー作成」ボタンから、あなたの最初の物語を始めましょう！</p>
+      </div>
+    <% else %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <% @stories.each do |story| %>
+          <div class="border-2 rounded-lg flex flex-col h-full hover:border-black hover:shadow-lg transition-all duration-200 <%= story.published? ? 'border-blue-400' : 'border-black' %>">
+            <div class="flex justify-between items-center text-xs p-2 border-b border-black">
+              <div class="font-semibold text-gray-600 flex items-center">
+                <span><%= t("activerecord.attributes.story.statuses.#{story.status}") %></span>
+                <span class="mx-1">/</span>
+                <span><%= story.genre %></span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-black">最終更新: <%= l story.updated_at, format: :short %></span>
+                <%= link_to "削除", story_path(story), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' }, class: "border border-black rounded-md px-2 py-0.5 hover:bg-black hover:text-white transition-colors text-xs" %>
+              </div>
+            </div>
+
+            <%= link_to story_path(story), class: "flex-grow block" do %>
+              <div class="p-4">
+                <div class="mb-3">
+                  <p class="font-bold text-black">【 タイトル 】</p>
+                  <h2 class="text-lg truncate"><%= story.title %></h2>
+                </div>
+                <div>
+                  <p class="font-bold text-black">【 テーマ 】</p>
+                  <div class="text-sm text-black h-12 overflow-hidden">
+                    <%= simple_format(story.thema) %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
