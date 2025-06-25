@@ -1,0 +1,39 @@
+<%= form_with model: story, local: true, class: "space-y-6" do |f| %>
+  <% if story.errors.any? %>
+    <div id="error_explanation" class="text-red-600 border border-red-300 bg-red-50 p-4 rounded-md">
+      <h2 class="font-bold text-lg mb-2"><%= story.errors.count %>件のエラーがあります。</h2>
+      <ul>
+        <% story.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :title, "タイトル", class: "block text-lg font-bold" %>
+    <%= f.text_field :title, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black" %>
+  </div>
+
+  <div>
+    <%= f.label :genre, "ジャンル", class: "block text-lg font-bold" %>
+    <%= f.select :genre, options_for_select(Story.genres.keys.map { |k| [t("activerecord.attributes.story.genres.#{k}"), k] }, f.object.genre),
+      { include_blank: "ジャンルを選択してください。" },
+      class: "mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black" %>
+  </div>
+
+  <div>
+    <%= f.label :thema, "テーマ", class: "block text-lg font-bold" %>
+    <%= f.text_field :thema, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black" %>
+  </div>
+
+  <div>
+    <%= f.label :synopsis, "あらすじ", class: "block text-lg font-bold" %>
+    <%= f.text_area :synopsis, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black h-32", placeholder: "あらすじを記入してください。（あとから記入しても構いません）" %>
+  </div>
+
+  <div class="pt-4">
+    <% submit_text = f.object.new_record? ? "ストーリーをはじめる！" : "ストーリーを編集する" %>
+    <%= f.submit submit_text, class: "w-full py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-black hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black cursor-pointer" %>
+  </div>
+<% end %>
