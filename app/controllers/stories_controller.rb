@@ -1,6 +1,6 @@
 class StoriesController < ApplicationController
   before_action :require_login
-  before_action :set_story, only: [ :show, :set_status, :destroy ]
+  before_action :set_story, only: [ :show, :set_status, :destroy, :edit, :update ]
 
   def index
     @stories = current_user.stories.order(updated_at: :desc)
@@ -26,6 +26,18 @@ class StoriesController < ApplicationController
   def destroy
     @story.destroy
     redirect_to stories_path, notice: "ストーリー「#{@story.title}」を削除しました。", status: :see_other
+  end
+
+  def edit
+  end
+
+  def update
+    if @story.update(story_params)
+      redirect_to story_path(@story), success: "ストーリー「#{@story.title}」を更新しました。"
+    else
+      flash.now[:error] = "ストーリーの更新に失敗しました。"
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def set_status
