@@ -10,6 +10,8 @@ gem "rackup", "~> 1.0.0"
 gem "rails-i18n", "~> 7.0"
 gem "enum_help"
 
+gem "gretel"
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 # Use postgresql as the database for Active Record
