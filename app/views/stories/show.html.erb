@@ -73,7 +73,13 @@
     </div>
 
     <div class="flex justify-center mt-14 mb-6">
-      <%= link_to "ストーリーを削除する", "#", class: "border border-gray-400 px-4 py-3 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300" %>
+      <%= link_to "ストーリーを削除する", "#",
+        class: "border border-gray-400 px-4 py-3 rounded-md font-semibold hover:bg-red-500 hover:text-white transition-colors duration-300",
+        data: {
+          action: "click->modal#open",
+          modal_url: story_path(@story),
+          modal_story_title: @story.title
+        } %>
     </div>
   </div>
 </div>

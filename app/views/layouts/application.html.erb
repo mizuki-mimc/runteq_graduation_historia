@@ -10,7 +10,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="flex flex-col min-h-screen">
+  <body class="flex flex-col min-h-screen" data-controller="modal">
     <% if logged_in? %>
       <% if controller_name == 'stories' && action_name == 'index' %>
         <%= render 'layouts/header_after_story' %>
@@ -26,13 +26,30 @@
         <nav class="text-sm text-black py-4" aria-label="Breadcrumb">
           <%= breadcrumbs separator: " / " %>
         </nav>
+
+        <% flash.each do |type, message| %>
+          <%
+            case type.to_sym
+            when :success, :notice
+              color_class = "bg-green-100 border-green-500 text-green-700"
+            when :error, :alert
+              color_class = "bg-red-100 border-red-500 text-red-700"
+            when :warning
+              color_class = "bg-yellow-100 border-yellow-500 text-yellow-700"
+            else
+              color_class = "bg-blue-100 border-blue-500 text-blue-700"
+            end
+          %>
+          <div class="border-l-4 p-4 my-4 <%= color_class %>" role="alert">
+            <p><%= message %></p>
+          </div>
+        <% end %>
       </div>
-      
-      <% if notice %><p class="notice"><%= notice %></p><% end %>
-      <% if alert %><p class="alert"><%= alert %></p><% end %>
       <%= yield %>
     </main>
 
     <%= render 'layouts/footer' %>
+
+    <%= render 'shared/delete_modal' %>
   </body>
 </html>
