@@ -1,6 +1,6 @@
 class StoriesController < ApplicationController
   before_action :require_login
-  before_action :set_story, only: [ :show, :set_status ]
+  before_action :set_story, only: [ :show, :set_status, :destroy ]
 
   def index
     @stories = current_user.stories.order(updated_at: :desc)
@@ -23,9 +23,14 @@ class StoriesController < ApplicationController
   def show
   end
 
+  def destroy
+    @story.destroy
+    redirect_to stories_path, notice: "ストーリー「#{@story.title}」を削除しました。", status: :see_other
+  end
+
   def set_status
     if @story.update(status: params[:status])
-      redirect_to story_path(@story), notice: "ステータスを'#{t("activerecord.attributes.story.statuses.#{@story.status}")}'に変更しました。"
+      redirect_to story_path(@story), notice: "ステータスを「#{t("activerecord.attributes.story.statuses.#{@story.status}")}」に変更しました。"
     else
       redirect_to story_path(@story), alert: "ステータスの変更に失敗しました。"
     end

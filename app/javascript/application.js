@@ -1,12 +1,7 @@
+// Turboをインポートして起動します
 import "@hotwired/turbo-rails"
 
-import { Application } from "@hotwired/stimulus"
-const application = Application.start()
-
-application.debug = false
-window.Stimulus = application
-
-import BeforeHomeAccordionController from "before_home_accordion_controller"
-application.register("before-home-accordion", BeforeHomeAccordionController)
-
-export { application }
+// これで controllers/index.js が読み込まれ、
+// 結果的にStimulusの初期化と全コントローラの登録が完了します。
+// これ以外の記述はすべて不要です。
+import "controllers"
