@@ -10,7 +10,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="flex flex-col min-h-screen">
+  <body class="flex flex-col min-h-screen" data-controller="modal">
     <% if logged_in? %>
       <% if controller_name == 'stories' && action_name == 'index' %>
         <%= render 'layouts/header_after_story' %>
