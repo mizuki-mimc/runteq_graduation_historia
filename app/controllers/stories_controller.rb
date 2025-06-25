@@ -1,6 +1,6 @@
 class StoriesController < ApplicationController
   before_action :require_login
-  before_action :set_story, only: [:show, :set_status, :destroy]
+  before_action :set_story, only: [ :show, :set_status, :destroy ]
 
   def index
     @stories = current_user.stories.order(updated_at: :desc)
