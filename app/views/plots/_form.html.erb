@@ -1,0 +1,63 @@
+<%= form_with model: [story, plot], local: true, class: "space-y-8" do |f| %>
+
+  <% if plot.errors.any? %>
+    <div id="error_explanation" class="text-red-600 border border-red-300 bg-red-50 p-4 rounded-md">
+      <h2 class="font-bold text-lg mb-2"><%= plot.errors.count %>件のエラーがあります。</h2>
+      <ul>
+        <% plot.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :chapter, "章", class: "block text-lg font-bold" %>
+    <%= f.text_field :chapter, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm", placeholder: "第一章、プロローグなど" %>
+  </div>
+
+  <div>
+    <%= f.label :title, "タイトル", class: "block text-lg font-bold" %>
+    <%= f.text_field :title, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm", placeholder: "タイトルを記入してください。" %>
+  </div>
+
+  <div>
+    <%= f.label :summary, "要約", class: "block text-lg font-bold" %>
+    <%= f.text_field :summary, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm", placeholder: "30文字以内で記入してください。" %>
+  </div>
+  
+  <div>
+    <label class="block text-lg font-bold">ワールドガイド</label>
+    <select disabled class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm bg-gray-100 text-gray-500">
+      <option>作成したワールドガイドを選択できます。ワールドガイドを作成してください。</option>
+    </select>
+  </div>
+  <div>
+    <label class="block text-lg font-bold">キャラクター</label>
+    <select disabled class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm bg-gray-100 text-gray-500">
+      <option>作成したキャラクターを選択できます。キャラクターを作成してください。</option>
+    </select>
+  </div>
+  <div>
+    <label class="block text-lg font-bold">フラグ</label>
+    <select disabled class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm bg-gray-100 text-gray-500">
+      <option>作成したフラグを選択できます。フラグを作成してください。</option>
+    </select>
+  </div>
+
+  <div>
+    <%= f.label :content, "構成メモ", class: "block text-lg font-bold" %>
+    <select disabled class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm bg-gray-100 text-gray-500 mb-2">
+      <option>テンプレートを選択し追加することも可能です。</option>
+    </select>
+    <%= f.text_area :content, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm h-48", placeholder: "登録した要素を基に本編のメモ書きとしてご利用ください。" %>
+  </div>
+
+  <div class="flex justify-center items-center gap-4 pt-4">
+    <button type="button" disabled class="w-1/2 py-3 px-4 border rounded-md shadow-sm text-lg font-medium text-gray-500 bg-gray-100">
+      AIプロットチェック
+    </button>
+    <%= f.submit "プロットを作成", class: "w-1/2 py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-black hover:bg-gray-700 cursor-pointer" %>
+  </div>
+
+<% end %>

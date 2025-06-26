@@ -51,12 +51,6 @@ class StoriesController < ApplicationController
 
   private
 
-  def require_login
-    unless logged_in?
-      redirect_to root_path, alert: "ログインしてください"
-    end
-  end
-
   def set_story
     @story = current_user.stories.find(params[:id])
   end

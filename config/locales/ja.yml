@@ -15,7 +15,11 @@ ja:
           romance: "恋愛"
           mystery: "ミステリー"
           horror: "ホラー"
+          history: "歴史"
+          contemporary: "現代小説"
           other: "その他"
+      plot:
+        chapter: "「 章 」"
 
   time:
     formats:

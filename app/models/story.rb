@@ -1,6 +1,7 @@
 class Story < ApplicationRecord
   attribute :status, :integer, default: 0
   belongs_to :user
+  has_many :plots, dependent: :destroy
 
   enum status: { draft: 0, published: 1 }
 
@@ -10,6 +11,8 @@ class Story < ApplicationRecord
     romance: "恋愛",
     mystery: "ミステリー",
     horror: "ホラー",
+    history: "歴史",
+    contemporary: "現代小説",
     other: "その他"
   }
 

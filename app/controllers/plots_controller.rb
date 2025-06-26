@@ -1,0 +1,28 @@
+class PlotsController < ApplicationController
+  before_action :require_login
+  before_action :set_story
+
+  def new
+    @plot = @story.plots.build
+  end
+
+  def create
+    @plot = @story.plots.build(plot_params)
+    if @plot.save
+      redirect_to story_path(@story), success: "プロットを追加しました。"
+    else
+      flash.now[:error] = "プロットの作成に失敗しました。"
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def set_story
+    @story = current_user.stories.find(params[:story_id])
+  end
+
+  def plot_params
+    params.require(:plot).permit(:chapter, :title, :summary, :content, :order)
+  end
+end

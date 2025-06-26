@@ -65,11 +65,64 @@
 
     <div class="mt-12">
       <p class="font-bold text-lg mb-2">■ プロット</p>
-
       <div class="border-2 rounded-lg p-8 border-black">
 
-        <div class="flex justify-center mt-2">
-          <%= link_to "プロットに追加する", "#", class: "border border-gray-400 px-4 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
+        <div class="space-y-6">
+          <% if @story.plots.any? %>
+            <% @story.plots.order(:order, :created_at).each do |plot| %>
+              <div class="border rounded-lg p-6 space-y-4">
+
+                <div class="flex items-baseline">
+                  <span class="font-bold text-xl mr-2">【<%= plot.chapter %>】</span>
+                  <span class="text-xl"><%= plot.title %></span>
+                </div>
+
+                <div>
+                  <p class="font-bold">【要約】</p>
+                  <p class="ml-4 text-gray-700"><%= plot.summary %></p>
+                </div>
+
+                <div>
+                  <p class="font-bold">【ワールドガイド】</p>
+                  <div class="flex flex-wrap gap-2 mt-2 ml-4">
+                    <span class="px-3 py-1 text-sm bg-gray-200 text-gray-700 rounded-full">（未実装）</span>
+                  </div>
+                </div>
+
+                <div>
+                  <p class="font-bold">【キャラクター】</p>
+                  <div class="flex flex-wrap gap-2 mt-2 ml-4">
+                     <span class="px-3 py-1 text-sm bg-gray-200 text-gray-700 rounded-full">（未実装）</span>
+                  </div>
+                </div>
+
+                <div>
+                  <p class="font-bold">【フラグ】</p>
+                  <div class="flex flex-wrap gap-2 mt-2 ml-4">
+                    <span class="px-3 py-1 text-sm bg-gray-200 text-gray-700 rounded-full">（未実装）</span>
+                  </div>
+                </div>
+
+                <div>
+                  <p class="font-bold">【構成メモ】</p>
+                  <div class="ml-4 mt-1 text-gray-700 prose max-w-none">
+                    <%= simple_format(plot.content) %>
+                  </div>
+                </div>
+            
+                <div class="flex justify-end items-center gap-4 mt-6">
+                  <%= link_to "編集する", "#", class: "border border-gray-400 bg-white px-8 py-2 rounded-md font-semibold hover:bg-gray-100" %>
+                  <%= link_to "削除する", "#", class: "border border-gray-400 px-8 py-2 rounded-md font-semibold hover:bg-red-500 hover:text-white transition-colors duration-300" %>
+                </div>
+              </div>
+            <% end %>
+          <% else %>
+            <p class="text-center text-gray-500">まだプロットはありません。</p>
+          <% end %>
+        </div>
+
+        <div class="flex justify-center mt-8">
+          <%= link_to "プロットに追加する", new_story_plot_path(@story), class: "border border-gray-400 px-4 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
         </div>
       </div>
     </div>
