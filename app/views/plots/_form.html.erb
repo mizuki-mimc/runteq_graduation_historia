@@ -58,7 +58,7 @@
       AIプロットチェック
     </button>
     <% submit_text = plot.new_record? ? "プロットを作成" : "プロットを編集する" %>
-    <%= f.submit submit_text, class: "w-1/2 py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-semibold text-white bg-black hover:bg-gray-700 cursor-pointer" %>
+    <%= f.submit submit_text, class: "w-1/2 py-3 px-4 border border-gray-400 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300" %>
   </div>
 
 <% end %>

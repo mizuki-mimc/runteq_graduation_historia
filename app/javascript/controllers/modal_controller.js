@@ -1,27 +1,25 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  // モーダル本体、タイトル、そして削除実行フォームをターゲットとして定義
-  static targets = [ "container", "title", "form" ]
+  static targets = [ "container", "form", "modalTitle", "body", "submitButton" ]
 
-  // 削除リンクがクリックされた時に呼ばれる
   open(event) {
-    // リンクのデフォルトの動き（ページ遷移）を止める
     event.preventDefault()
-
-    // リンクのdata属性から、削除用のURLとタイトルを取得
-    const deleteUrl = event.currentTarget.dataset.modalUrl
-    const storyTitle = event.currentTarget.dataset.modalStoryTitle
-
-    // モーダル内のタイトルと、フォームの送信先URLを動的に書き換える
-    this.titleTarget.textContent = storyTitle
-    this.formTarget.action = deleteUrl
     
-    // モーダル本体を表示する
+    const dataset = event.currentTarget.dataset
+
+    const url = dataset.modalUrl
+    const title = dataset.modalTitle || "確認"
+    const body = dataset.modalBody || "この操作を続けてもよろしいですか？"
+    const buttonText = dataset.modalButtonText || "実行する"
+
+    this.formTarget.action = url
+    this.modalTitleTarget.textContent = title
+    this.bodyTarget.innerHTML = body
+    this.submitButtonTarget.value = buttonText
     this.containerTarget.classList.remove("hidden")
   }
 
-  // キャンセルボタンか、背景がクリックされたときに呼ばれる
   close() {
     this.containerTarget.classList.add("hidden")
   }

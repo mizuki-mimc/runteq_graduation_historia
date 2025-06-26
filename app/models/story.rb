@@ -20,8 +20,8 @@ class Story < ApplicationRecord
   validates :title, presence: true, length: { maximum: 100 }
   # ジャンルは必須。
   validates :genre, presence: true
-  # テーマは必須。52文字まで
-  validates :thema, presence: true, length: { maximum: 52 }
+  # テーマはなくてもいいけど。50文字まで
+  validates :thema, length: { maximum: 50 }
   # あらすじはなくてもいいけど500文字まで
   validates :synopsis, length: { maximum: 500 }
 end

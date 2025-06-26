@@ -1,7 +1,7 @@
 class PlotsController < ApplicationController
   before_action :require_login
   before_action :set_story
-  before_action :set_plot, only: [ :edit, :update ]
+  before_action :set_plot, only: [ :edit, :update, :destroy ]
 
   def new
     @plot = @story.plots.build
@@ -27,6 +27,11 @@ class PlotsController < ApplicationController
       flash.now[:error] = "プロットの更新に失敗しました。"
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @plot.destroy
+    redirect_to story_path(@story), success: "プロットを削除しました。", status: :see_other
   end
 
   private

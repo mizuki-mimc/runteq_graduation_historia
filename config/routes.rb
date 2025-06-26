@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     member do
       patch "set_status"
     end
-    resources :plots, only: [ :new, :create, :edit, :update ]
+    resources :plots, only: [ :new, :create, :edit, :update, :destroy ]
   end
 
   root "home#index"

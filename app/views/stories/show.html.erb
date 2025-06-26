@@ -108,7 +108,15 @@
             
                 <div class="flex justify-end items-center gap-4 mt-6">
                   <%= link_to "編集する", edit_story_plot_path(@story, plot), class: "border border-gray-400 px-8 py-2 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
-                  <%= link_to "削除する", "#", class: "border border-gray-400 px-8 py-2 rounded-md font-semibold hover:bg-red-500 hover:text-white transition-colors duration-300" %>
+                  <%= link_to "削除する", "#",
+                      class: "border border-gray-400 px-8 py-2 rounded-md font-semibold hover:bg-red-500 hover:text-white transition-colors duration-300",
+                      data: {
+                        action: "click->modal#open",
+                        modal_url: story_plot_path(@story, plot),
+                        modal_title: "プロットの削除",
+                        modal_body: "「<strong>#{plot.chapter}：#{plot.title}</strong>」を完全に削除します。この操作は元に戻せません。",
+                        modal_button_text: "削除する"
+                      } %>
                 </div>
               </div>
             <% end %>
@@ -118,7 +126,7 @@
         </div>
 
         <div class="flex justify-center mt-8">
-          <%= link_to "プロットに追加する", new_story_plot_path(@story), class: "border border-gray-400 px-4 py-3 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300" %>
+          <%= link_to "プロットを追加する", new_story_plot_path(@story), class: "border border-gray-400 px-4 py-3 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300" %>
         </div>
       </div>
     </div>
@@ -129,7 +137,9 @@
         data: {
           action: "click->modal#open",
           modal_url: story_path(@story),
-          modal_story_title: @story.title
+          modal_title: "ストーリーの削除",
+          modal_body: "「<strong>#{@story.title}</strong>」を完全に削除します。この操作は元に戻せません。",
+          modal_button_text: "削除する"
         } %>
     </div>
   </div>
