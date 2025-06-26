@@ -26,3 +26,18 @@ crumb :world_guides do |story|
   link "ワールドガイド一覧", story_world_guides_path(story)
   parent :story, story
 end
+
+crumb :new_world_guide do |story|
+  link "ワールドガイド作成", new_story_world_guide_path(story)
+  parent :world_guides, story
+end
+
+crumb :world_guide do |story, world_guide|
+  link world_guide.world_name, story_world_guide_path(story, world_guide)
+  parent :world_guides, story
+end
+
+crumb :edit_world_guide do |story, world_guide|
+  link "ワールドガイド編集", edit_story_world_guide_path(story, world_guide)
+  parent :world_guide, story, world_guide
+end

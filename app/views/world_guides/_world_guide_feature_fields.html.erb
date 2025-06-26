@@ -1,0 +1,11 @@
+<div class="nested-fields-wrapper mt-4 border-t pt-4" data-new-record="<%= f.object.new_record? %>">
+  <div class="space-y-2">
+    <%= f.collection_select :world_feature_category_id, WorldFeatureCategory.all, :id, :name, { prompt: "特徴を選択してください" }, { class: "block w-full px-3 py-2 border border-black rounded-md" } %>
+    <%= f.text_field :explanation, class: "block w-full px-3 py-2 border border-black rounded-md", placeholder: "説明を記入してください" %>
+  </div>
+  
+  <%# 削除ボタン %>
+  <%= link_to "ー 削除", "#", class: "mt-2 text-sm text-red-600 hover:text-red-800", data: { action: "nested-form#remove" } %>
+
+  <%= f.hidden_field :_destroy %>
+</div>

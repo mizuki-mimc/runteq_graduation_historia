@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_26_064412) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_26_082511) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,6 +47,22 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_26_064412) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "world_feature_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "world_guide_features", force: :cascade do |t|
+    t.text "explanation"
+    t.bigint "world_guide_id", null: false
+    t.bigint "world_feature_category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["world_feature_category_id"], name: "index_world_guide_features_on_world_feature_category_id"
+    t.index ["world_guide_id"], name: "index_world_guide_features_on_world_guide_id"
+  end
+
   create_table "world_guides", force: :cascade do |t|
     t.string "category"
     t.string "world_name"
@@ -60,5 +76,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_26_064412) do
 
   add_foreign_key "plots", "stories"
   add_foreign_key "stories", "users"
+  add_foreign_key "world_guide_features", "world_feature_categories"
+  add_foreign_key "world_guide_features", "world_guides"
   add_foreign_key "world_guides", "stories"
 end
