@@ -33,18 +33,15 @@
               </div>
             </div>
 
-            <%= link_to story_path(story), class: "flex-grow block" do %>
-              <div class="p-4">
+            <%= link_to story_path(story), class: "flex-grow block relative" do %>
+              <div class="p-4 pb-16">
                 <div class="mb-3">
                   <p class="font-bold text-black">【 タイトル 】</p>
                   <h2 class="text-lg truncate"><%= story.title %></h2>
                 </div>
-                <div>
-                  <p class="font-bold text-black">【 テーマ 】</p>
-                  <div class="text-sm text-black h-12 overflow-hidden">
-                    <%= simple_format(story.thema) %>
-                  </div>
-                </div>
+              </div>
+              <div class="absolute bottom-4 right-4">
+                <%= image_tag "#{story.genre}.jpg", class: "h-12 w-12 opacity-30" %>
               </div>
             <% end %>
           </div>
