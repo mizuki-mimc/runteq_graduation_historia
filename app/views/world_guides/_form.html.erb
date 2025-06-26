@@ -1,0 +1,32 @@
+<%= form_with model: [story, world_guide], local: true, class: "space-y-6" do |f| %>
+  <% if world_guide.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= world_guide.errors.count %>件のエラーがあります。</h2>
+      <ul>
+        <% world_guide.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :category, "カテゴリ", class: "block text-lg font-bold" %>
+    <%= f.select :category, WorldGuide.categories.keys.map { |k| [WorldGuide.categories[k], k] }, {}, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md" %>
+  </div>
+  <div>
+    <%= f.label :world_name, "ワールド名", class: "block text-lg font-bold" %>
+    <%= f.text_field :world_name, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md" %>
+  </div>
+  <div>
+    <%= f.label :country_name, "国名", class: "block text-lg font-bold" %>
+    <%= f.text_field :country_name, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md" %>
+  </div>
+  <div>
+    <%= f.label :region_name, "地域名", class: "block text-lg font-bold" %>
+    <%= f.text_field :region_name, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md" %>
+  </div>
+  <div class="text-center pt-4">
+    <%= f.submit "作成する", class: "bg-black text-white px-8 py-3 rounded-md font-semibold cursor-pointer" %>
+  </div>
+<% end %>

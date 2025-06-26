@@ -1,0 +1,34 @@
+class WorldGuidesController < ApplicationController
+  before_action :require_login
+  before_action :set_story
+
+  def index
+    @world_guides = @story.world_guides.order(:created_at)
+    @grouped_world_guides = @world_guides.group_by(&:category)
+    @categories = WorldGuide.categories.keys
+  end
+
+  def new
+    @world_guide = @story.world_guides.build
+  end
+
+  def create
+    @world_guide = @story.world_guides.build(world_guide_params)
+    if @world_guide.save
+      redirect_to story_world_guides_path(@story), success: "ワールドガイドを追加しました。"
+    else
+      flash.now[:error] = "ワールドガイドの作成に失敗しました。"
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def set_story
+    @story = current_user.stories.find(params[:story_id])
+  end
+
+  def world_guide_params
+    params.require(:world_guide).permit(:category, :world_name, :country_name, :region_name)
+  end
+end

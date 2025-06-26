@@ -2,6 +2,7 @@ class Story < ApplicationRecord
   attribute :status, :integer, default: 0
   belongs_to :user
   has_many :plots, dependent: :destroy
+  has_many :world_guides, dependent: :destroy
 
   enum status: { draft: 0, published: 1 }
 
