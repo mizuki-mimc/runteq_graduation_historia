@@ -20,6 +20,8 @@ ja:
           other: "その他"
       plot:
         chapter: "「 章 」"
+        title: "「 タイトル 」"
+        summary: "「 要約 」"
 
   time:
     formats:

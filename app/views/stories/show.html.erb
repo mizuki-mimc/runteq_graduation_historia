@@ -15,20 +15,16 @@
     <div class="mb-12">
       <div>
         <nav class="-mb-px flex justify-center space-x-8" aria-label="Tabs">
-          <%# 現在のページ（ストーリー）のタブ %>
-          <a href="<%= story_path(@story) %>" class="border-black text-black whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg" aria-current="page">
+          <a href="<%= story_path(@story) %>" class="border-black text-black whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg" aria-current="page">
             ストーリー
           </a>
-          <%# ワールドガイドのタブ（リンク先はダミー） %>
-          <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg">
+          <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg">
             ワールドガイド
           </a>
-          <%# キャラクターのタブ（リンク先はダミー） %>
-          <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-400 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg">
+          <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-400 whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg">
             キャラクター
           </a>
-          <%# フラグのタブ（リンク先はダミー） %>
-          <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-400 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg">
+          <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-400 whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg">
             フラグ
           </a>
         </nav>
@@ -111,7 +107,7 @@
                 </div>
             
                 <div class="flex justify-end items-center gap-4 mt-6">
-                  <%= link_to "編集する", "#", class: "border border-gray-400 bg-white px-8 py-2 rounded-md font-semibold hover:bg-gray-100" %>
+                  <%= link_to "編集する", edit_story_plot_path(@story, plot), class: "border border-gray-400 px-8 py-2 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
                   <%= link_to "削除する", "#", class: "border border-gray-400 px-8 py-2 rounded-md font-semibold hover:bg-red-500 hover:text-white transition-colors duration-300" %>
                 </div>
               </div>
@@ -122,7 +118,7 @@
         </div>
 
         <div class="flex justify-center mt-8">
-          <%= link_to "プロットに追加する", new_story_plot_path(@story), class: "border border-gray-400 px-4 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
+          <%= link_to "プロットに追加する", new_story_plot_path(@story), class: "border border-gray-400 px-4 py-3 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300" %>
         </div>
       </div>
     </div>

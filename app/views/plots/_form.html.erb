@@ -13,12 +13,12 @@
 
   <div>
     <%= f.label :chapter, "章", class: "block text-lg font-bold" %>
-    <%= f.text_field :chapter, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm", placeholder: "第一章、プロローグなど" %>
+    <%= f.text_field :chapter, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm", placeholder: "第一章、プロローグなど10文字以内で記入してください。" %>
   </div>
 
   <div>
     <%= f.label :title, "タイトル", class: "block text-lg font-bold" %>
-    <%= f.text_field :title, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm", placeholder: "タイトルを記入してください。" %>
+    <%= f.text_field :title, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm", placeholder: "30文字以内で記入してください。" %>
   </div>
 
   <div>
@@ -48,16 +48,17 @@
   <div>
     <%= f.label :content, "構成メモ", class: "block text-lg font-bold" %>
     <select disabled class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm bg-gray-100 text-gray-500 mb-2">
-      <option>テンプレートを選択し追加することも可能です。</option>
+      <option>テンプレート機能は本リリース時実装予定です。</option>
     </select>
     <%= f.text_area :content, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm h-48", placeholder: "登録した要素を基に本編のメモ書きとしてご利用ください。" %>
   </div>
 
   <div class="flex justify-center items-center gap-4 pt-4">
-    <button type="button" disabled class="w-1/2 py-3 px-4 border rounded-md shadow-sm text-lg font-medium text-gray-500 bg-gray-100">
+    <button type="button" disabled class="w-1/2 py-3 px-4 border rounded-md shadow-sm text-lg font-semibold text-gray-500 bg-gray-100">
       AIプロットチェック
     </button>
-    <%= f.submit "プロットを作成", class: "w-1/2 py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-black hover:bg-gray-700 cursor-pointer" %>
+    <% submit_text = plot.new_record? ? "プロットを作成" : "プロットを編集する" %>
+    <%= f.submit submit_text, class: "w-1/2 py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-semibold text-white bg-black hover:bg-gray-700 cursor-pointer" %>
   </div>
 
 <% end %>

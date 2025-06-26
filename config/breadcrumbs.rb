@@ -16,3 +16,8 @@ crumb :new_plot do |story|
   link "プロット作成", new_story_plot_path(story)
   parent :story, story
 end
+
+crumb :edit_plot do |story, plot|
+  link "プロット編集", edit_story_plot_path(story, plot)
+  parent :story, story
+end
