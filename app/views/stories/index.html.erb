@@ -26,8 +26,10 @@
                 <%= link_to "削除", "#",
                   data: {
                     action: "click->modal#open",
-                     modal_url: story_path(story),
-                     modal_story_title: story.title
+                    modal_url: story_path(story),
+                    modal_title: "ストーリーの削除",
+                    modal_body: "「<strong>#{story.title}</strong>」を完全に削除します。この操作は元に戻せません。",
+                    modal_button_text: "削除する"
                   },
                   class: "border border-gray-400 rounded-md px-2 py-0.5 hover:bg-red-500 hover:text-white transition-colors text-xs" %>
               </div>
