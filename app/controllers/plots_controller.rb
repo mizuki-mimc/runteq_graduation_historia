@@ -31,7 +31,7 @@ class PlotsController < ApplicationController
 
   def destroy
     @plot.destroy
-    redirect_to story_path(@story), success: 'プロットを削除しました。', status: :see_other
+    redirect_to story_path(@story), success: "プロットを削除しました。", status: :see_other
   end
 
   private
