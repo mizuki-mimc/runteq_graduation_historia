@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_26_022728) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_26_064412) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,6 +47,18 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_26_022728) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "world_guides", force: :cascade do |t|
+    t.string "category"
+    t.string "world_name"
+    t.string "country_name"
+    t.string "region_name"
+    t.bigint "story_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["story_id"], name: "index_world_guides_on_story_id"
+  end
+
   add_foreign_key "plots", "stories"
   add_foreign_key "stories", "users"
+  add_foreign_key "world_guides", "stories"
 end

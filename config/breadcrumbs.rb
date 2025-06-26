@@ -21,3 +21,8 @@ crumb :edit_plot do |story, plot|
   link "プロット編集", edit_story_plot_path(story, plot)
   parent :story, story
 end
+
+crumb :world_guides do |story|
+  link "ワールドガイド一覧", story_world_guides_path(story)
+  parent :story, story
+end

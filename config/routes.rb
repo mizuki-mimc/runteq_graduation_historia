@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       patch "set_status"
     end
     resources :plots, only: [ :new, :create, :edit, :update, :destroy ]
+    resources :world_guides, only: [ :index, :new, :create ]
   end
 
   root "home#index"
