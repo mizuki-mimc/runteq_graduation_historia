@@ -28,9 +28,11 @@
             <%= link_to "追加", new_story_world_guide_path(@story, world_guide: { category: category_key }), class: "border border-gray-400 px-4 py-1 gap-6 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300" %>
           </div>
           <div class="pl-8 flex flex-wrap gap-3">
-            <% if @grouped_world_guides[category_name] %>
-              <% @grouped_world_guides[category_name].each do |wg| %>
-                <span class="px-4 py-1.5 text-md bg-gray-100 border border-black rounded-full"><%= [wg.world_name, wg.country_name, wg.region_name].compact.join(' / ') %></span>
+            <% if @grouped_world_guides[category_key] %>
+              <% @grouped_world_guides[category_key].each do |wg| %>
+                <%= link_to story_world_guide_path(@story, wg), class: "px-4 py-1.5 text-md bg-gray-100 border border-black rounded-full hover:bg-gray-200" do %>
+                  <%= [wg.country_name, wg.region_name].compact.reject(&:blank?).join(' / ') %>
+                <% end %>
               <% end %>
             <% else %>
               <p class="text-gray-500">まだ登録されていません。</p>

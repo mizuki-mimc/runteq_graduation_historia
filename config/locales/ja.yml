@@ -22,7 +22,11 @@ ja:
         chapter: "「 章 」"
         title: "「 タイトル 」"
         summary: "「 要約 」"
-
+      world_guide:
+        world_name: "「 世界名 」"
+        country_name: "「 国名 」"
+        region_name: "「 地域名 」"
+        
   time:
     formats:
       default: "%Y/%m/%d %H:%M"
