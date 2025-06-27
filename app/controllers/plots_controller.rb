@@ -11,10 +11,10 @@ class PlotsController < ApplicationController
   def create
     @plot = @story.plots.build(plot_params)
     if @plot.save
-      redirect_to story_path(@story), success: 'プロットを追加しました。'
+      redirect_to story_path(@story), success: "プロットを追加しました。"
     else
       @world_guides = @story.world_guides.order(:created_at)
-      flash.now[:error] = 'プロットの作成に失敗しました。'
+      flash.now[:error] = "プロットの作成に失敗しました。"
       render :new, status: :unprocessable_entity
     end
   end

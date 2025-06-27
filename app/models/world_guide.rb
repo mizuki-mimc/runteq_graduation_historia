@@ -14,7 +14,7 @@ class WorldGuide < ApplicationRecord
   }
 
   def country_and_region
-    [country_name, region_name].compact.reject(&:blank?).join(' / ')
+    [ country_name, region_name ].compact.reject(&:blank?).join(" / ")
   end
 
   validates :world_name, length: { maximum: 20 }
