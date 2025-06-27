@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_26_082511) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_27_022326) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "plot_world_guides", force: :cascade do |t|
+    t.bigint "plot_id", null: false
+    t.bigint "world_guide_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plot_id"], name: "index_plot_world_guides_on_plot_id"
+    t.index ["world_guide_id"], name: "index_plot_world_guides_on_world_guide_id"
+  end
 
   create_table "plots", force: :cascade do |t|
     t.string "chapter"
@@ -74,6 +83,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_26_082511) do
     t.index ["story_id"], name: "index_world_guides_on_story_id"
   end
 
+  add_foreign_key "plot_world_guides", "plots"
+  add_foreign_key "plot_world_guides", "world_guides"
   add_foreign_key "plots", "stories"
   add_foreign_key "stories", "users"
   add_foreign_key "world_guide_features", "world_feature_categories"

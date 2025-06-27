@@ -26,18 +26,49 @@
     <%= f.text_field :summary, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm", placeholder: "30文字以内で記入してください。" %>
   </div>
   
-  <div>
+  <div data-controller="multi-select">
     <label class="block text-lg font-bold">ワールドガイド</label>
-    <select disabled class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm bg-gray-100 text-gray-500">
-      <option>作成したワールドガイドを選択できます。ワールドガイドを作成してください。</option>
-    </select>
+
+    <div class="flex items-center gap-2 mt-1">
+      <select data-multi-select-target="select" class="flex-grow block px-3 py-2 border border-black rounded-md shadow-sm">
+        <option value="">作成したワールドガイドを選択できます。</option>
+        <% @world_guides.each do |wg| %>
+          <option value="<%= wg.id %>" data-name="<%= wg.country_and_region %>"><%= wg.country_and_region %></option>
+        <% end %>
+      </select>
+      <button type="button" data-action="multi-select#add" class="flex-shrink-0 border border-gray-400 px-4 py-2 rounded-md font-semibold hover:bg-black hover:text-white">追加</button>
+    </div>
+
+    <div data-multi-select-target="flashContainer" class="mt-2">
+
+    </div>
+    
+    <div data-multi-select-target="container" class="flex flex-wrap gap-2 mt-2 mb-4">
+      <% plot.world_guides.each do |wg| %>
+        <div class="capsule inline-flex items-center gap-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full">
+          <span><%= wg.country_and_region %></span>
+          <button type="button" data-action="multi-select#remove" class="text-red-500 hover:text-red-700 font-bold">×</button>
+          <input type="hidden" name="plot[world_guide_ids][]" value="<%= wg.id %>">
+        </div>
+      <% end %>
+    </div>
+
+    <template data-multi-select-target="template">
+      <div class="capsule inline-flex items-center gap-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full">
+        <span data-multi-select-target="name"></span>
+        <button type="button" data-action="multi-select#remove" class="text-red-500 hover:text-red-700 font-bold">×</button>
+        <input type="hidden" name="plot[world_guide_ids][]" data-multi-select-target="value">
+      </div>
+    </template>
   </div>
+
   <div>
     <label class="block text-lg font-bold">キャラクター</label>
     <select disabled class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm bg-gray-100 text-gray-500">
       <option>作成したキャラクターを選択できます。キャラクターを作成してください。</option>
     </select>
   </div>
+
   <div>
     <label class="block text-lg font-bold">フラグ</label>
     <select disabled class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm bg-gray-100 text-gray-500">
@@ -57,7 +88,7 @@
     <button type="button" disabled class="w-1/2 py-3 px-4 border rounded-md shadow-sm text-lg font-semibold text-gray-500 bg-gray-100">
       AIプロットチェック
     </button>
-    <% submit_text = plot.new_record? ? "プロットを作成" : "プロットを編集する" %>
+    <% submit_text = plot.new_record? ? "プロットを作成" : "プロットを更新する" %>
     <%= f.submit submit_text, class: "w-1/2 py-3 px-4 border border-gray-400 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300" %>
   </div>
 

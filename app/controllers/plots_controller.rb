@@ -5,6 +5,7 @@ class PlotsController < ApplicationController
 
   def new
     @plot = @story.plots.build
+    @world_guides = @story.world_guides.order(:created_at)
   end
 
   def create
@@ -12,18 +13,21 @@ class PlotsController < ApplicationController
     if @plot.save
       redirect_to story_path(@story), success: "プロットを追加しました。"
     else
+      @world_guides = @story.world_guides.order(:created_at)
       flash.now[:error] = "プロットの作成に失敗しました。"
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
+    @world_guides = @story.world_guides.order(:created_at)
   end
 
   def update
     if @plot.update(plot_params)
       redirect_to story_path(@story), success: "プロットを更新しました。"
     else
+      @world_guides = @story.world_guides.order(:created_at)
       flash.now[:error] = "プロットの更新に失敗しました。"
       render :edit, status: :unprocessable_entity
     end
@@ -45,6 +49,6 @@ class PlotsController < ApplicationController
   end
 
   def plot_params
-    params.require(:plot).permit(:chapter, :title, :summary, :content, :order)
+    params.require(:plot).permit(:chapter, :title, :summary, :content, :order, world_guide_ids: [])
   end
 end

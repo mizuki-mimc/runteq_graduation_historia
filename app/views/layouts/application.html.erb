@@ -10,7 +10,9 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="flex flex-col min-h-screen" data-controller="modal">
+  <body class="flex flex-col min-h-screen" 
+      data-controller="modal" 
+      data-action="show-warning@window->modal#showWarning">
     <% if logged_in? %>
       <% if controller_name == 'stories' && action_name == 'index' %>
         <%= render 'layouts/header_after_story' %>
@@ -21,7 +23,7 @@
       <%= render 'layouts/header_before_login' %>
     <% end %>
 
-    <main class="flex-grow mb-20">
+    <main class="flex-grow mb-16">
       <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <nav class="text-sm text-black py-4" aria-label="Breadcrumb">
           <%= breadcrumbs separator: " / " %>
