@@ -41,3 +41,8 @@ crumb :edit_world_guide do |story, world_guide|
   link "ワールドガイド編集", edit_story_world_guide_path(story, world_guide)
   parent :world_guide, story, world_guide
 end
+
+crumb :characters do |story|
+  link "キャラクター一覧", story_characters_path(story)
+  parent :story, story
+end

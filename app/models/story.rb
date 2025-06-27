@@ -4,6 +4,8 @@ class Story < ApplicationRecord
   has_many :plots, dependent: :destroy
   has_many :world_guides, dependent: :destroy
 
+  has_many :characters, dependent: :destroy
+
   enum status: { draft: 0, published: 1 }
 
   enum genre: {

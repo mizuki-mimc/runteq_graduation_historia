@@ -4,6 +4,8 @@ class WorldGuide < ApplicationRecord
   has_many :world_feature_categories, through: :world_guide_features
   has_many :plot_world_guides, dependent: :destroy
   has_many :plots, through: :plot_world_guides
+  has_many :birthplace_characters, class_name: "Character", foreign_key: "birthplace_world_guide_id", dependent: :nullify
+  has_many :address_characters, class_name: "Character", foreign_key: "address_world_guide_id", dependent: :nullify
   accepts_nested_attributes_for :world_guide_features, allow_destroy: true, reject_if: :all_blank
 
   enum category: {
