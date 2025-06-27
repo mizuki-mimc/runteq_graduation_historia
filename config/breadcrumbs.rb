@@ -33,7 +33,7 @@ crumb :new_world_guide do |story|
 end
 
 crumb :world_guide do |story, world_guide|
-  link world_guide.world_name, story_world_guide_path(story, world_guide)
+  link world_guide.region_name, story_world_guide_path(story, world_guide)
   parent :world_guides, story
 end
 

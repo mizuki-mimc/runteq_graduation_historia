@@ -10,12 +10,12 @@
               action: "click->modal#open",
               modal_url: story_world_guide_path(@story, @world_guide),
               modal_title: "ワールドガイドの削除",
-              modal_body: "「<strong>#{@world_guide.world_name}</strong>」を完全に削除します。よろしいですか？",
+              modal_body: "「<strong>#{[@world_guide.country_name, @world_guide.region_name].compact.reject(&:blank?).join(' / ')}</strong>」を完全に削除します。よろしいですか？",
               modal_button_text: "削除する"
             } %>
     </div>
     
-    <div class="max-w-3xl mx-auto space-y-6">
+    <div class="max-w-3xl mx-auto space-y-6 border-2 border-glay p-8 rounded-lg">
       <div>
         <p class="font-bold">【世界名】</p>
         <p class="text-xl ml-4 mt-2"><%= @world_guide.world_name %></p>
