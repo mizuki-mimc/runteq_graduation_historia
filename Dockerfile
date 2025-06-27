@@ -21,7 +21,11 @@ RUN bundle exec rails tmp:clear
 
 RUN RAILS_ENV=production SECRET_KEY_BASE_DUMMY=1 RAILS_MASTER_KEY_BASE_DUMMY=1 bundle exec bin/rails assets:precompile
 
-RUN echo "Final final rebuild trigger"
+COPY bin/render-entrypoint.sh /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/render-entrypoint.sh
+
+ENTRYPOINT ["render-entrypoint.sh"]
 
 EXPOSE 3000
 
