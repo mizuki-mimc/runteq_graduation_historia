@@ -5,7 +5,9 @@ export default class extends Controller {
 
   open(event) {
     event.preventDefault()
-    
+
+    this.submitButtonTarget.classList.remove("hidden")
+
     const dataset = event.currentTarget.dataset
 
     const url = dataset.modalUrl
@@ -22,5 +24,16 @@ export default class extends Controller {
 
   close() {
     this.containerTarget.classList.add("hidden")
+  }
+
+  showWarning(event) {
+    const { title, body } = event.detail
+
+    this.modalTitleTarget.textContent = title
+    this.bodyTarget.innerHTML = `<p>${body}</p>`
+
+    this.submitButtonTarget.classList.add("hidden")
+
+    this.containerTarget.classList.remove("hidden")
   }
 }
