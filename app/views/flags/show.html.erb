@@ -5,7 +5,15 @@
 
     <div class="flex justify-center items-center gap-4 mb-12">
       <%= link_to "フラグを編集する", edit_story_flag_path(@story, @flag), class: "border border-gray-400 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
-      <%= link_to "フラグを削除する", story_flag_path(@story, @flag), data: { turbo_method: :delete, turbo_confirm: "「#{@flag.title}」を完全に削除します。よろしいですか？" }, class: "border border-gray-400 px-8 py-3 rounded-md font-semibold hover:bg-red-500 hover:text-white transition-colors duration-300" %>
+      <%= link_to "フラグを削除する", "#", 
+            class: "border border-gray-400 px-8 py-3 rounded-md font-semibold hover:bg-red-500 hover:text-white transition-colors duration-300",
+            data: { 
+              action: "click->modal#open",
+              modal_url: story_flag_path(@story, @flag),
+              modal_title: "フラグの削除",
+              modal_body: "「<strong>#{@flag.title}</strong>」を完全に削除します。よろしいですか？",
+              modal_button_text: "削除する"
+            } %>
     </div>
     
     <div class="max-w-3xl mx-auto space-y-6 border-2 border-gray-300 p-8 rounded-lg bg-white shadow">
