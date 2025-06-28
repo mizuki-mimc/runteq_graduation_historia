@@ -60,8 +60,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_28_084519) do
     t.bigint "story_id", null: false
     t.string "title"
     t.text "content"
-    t.boolean "check_created"
-    t.boolean "check_recovered"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["story_id"], name: "index_flags_on_story_id"
@@ -82,6 +80,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_28_084519) do
     t.bigint "flag_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "check_created", default: false, null: false
+    t.boolean "check_recovered", default: false, null: false
     t.index ["flag_id"], name: "index_plot_flags_on_flag_id"
     t.index ["plot_id", "flag_id"], name: "index_plot_flags_on_plot_id_and_flag_id", unique: true
     t.index ["plot_id"], name: "index_plot_flags_on_plot_id"
@@ -136,7 +136,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_28_084519) do
   end
 
   create_table "world_guide_features", force: :cascade do |t|
-    t.text "explanation"
+    t.string "explanation"
     t.bigint "world_guide_id", null: false
     t.bigint "world_feature_category_id", null: false
     t.datetime "created_at", null: false
