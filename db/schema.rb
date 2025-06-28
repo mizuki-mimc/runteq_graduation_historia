@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_28_020342) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_28_060451) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,6 +54,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_28_020342) do
     t.index ["address_world_guide_id"], name: "index_characters_on_address_world_guide_id"
     t.index ["birthplace_world_guide_id"], name: "index_characters_on_birthplace_world_guide_id"
     t.index ["story_id"], name: "index_characters_on_story_id"
+  end
+
+  create_table "plot_characters", force: :cascade do |t|
+    t.bigint "plot_id", null: false
+    t.bigint "character_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_plot_characters_on_character_id"
+    t.index ["plot_id", "character_id"], name: "index_plot_characters_on_plot_id_and_character_id", unique: true
+    t.index ["plot_id"], name: "index_plot_characters_on_plot_id"
   end
 
   create_table "plot_world_guides", force: :cascade do |t|
@@ -132,6 +142,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_28_020342) do
   add_foreign_key "characters", "stories"
   add_foreign_key "characters", "world_guides", column: "address_world_guide_id"
   add_foreign_key "characters", "world_guides", column: "birthplace_world_guide_id"
+  add_foreign_key "plot_characters", "characters"
+  add_foreign_key "plot_characters", "plots"
   add_foreign_key "plot_world_guides", "plots"
   add_foreign_key "plot_world_guides", "world_guides"
   add_foreign_key "plots", "stories"

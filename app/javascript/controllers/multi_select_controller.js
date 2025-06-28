@@ -3,9 +3,12 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["select", "container", "template", "name", "value", "flashContainer"]
 
+  static values = {
+    duplicateMessage: { type: String, default: "すでに追加されています。この項目は複数追加できません。" }
+  }
+
   add(event) {
     event.preventDefault()
-
     const selectedOption = this.selectTarget.selectedOptions[0]
     const selectedValue = selectedOption.value
     const selectedName = selectedOption.dataset.name
@@ -13,7 +16,7 @@ export default class extends Controller {
     if (!selectedValue) return
 
     if (this.containerTarget.querySelector(`input[value="${selectedValue}"]`)) {
-      this.showFlash("すでに追加されています。同じワールドガイドは複数追加できません。")
+      this.showFlash(this.duplicateMessageValue)
       return
     }
 
