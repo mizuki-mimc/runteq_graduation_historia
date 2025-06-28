@@ -3,6 +3,7 @@ class Story < ApplicationRecord
   belongs_to :user
   has_many :plots, dependent: :destroy
   has_many :world_guides, dependent: :destroy
+  has_many :flags, dependent: :destroy
 
   has_many :characters, dependent: :destroy
 
