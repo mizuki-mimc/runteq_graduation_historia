@@ -14,6 +14,9 @@ class Character < ApplicationRecord
   has_many :relating_characters, through: :reverse_of_relationships, source: :character
   accepts_nested_attributes_for :relationships, allow_destroy: true, reject_if: proc { |attributes| attributes["relationship_type"].blank? }
 
+  has_many :plot_characters, dependent: :destroy
+  has_many :plots, through: :plot_characters
+
   enum category: {
     present: "現在",
     future: "未来",
