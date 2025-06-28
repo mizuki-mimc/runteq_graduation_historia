@@ -46,3 +46,18 @@ crumb :characters do |story|
   link "キャラクター一覧", story_characters_path(story)
   parent :story, story
 end
+
+crumb :new_character do |story|
+  link "キャラクター作成", new_story_character_path(story)
+  parent :characters, story
+end
+
+crumb :character do |story, character|
+  link character.name, story_character_path(story, character)
+  parent :characters, story
+end
+
+crumb :edit_character do |story, character|
+  link "キャラクター編集", edit_story_character_path(story, character)
+  parent :character, story, character
+end

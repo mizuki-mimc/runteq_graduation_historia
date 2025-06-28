@@ -10,14 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_27_074958) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_28_020342) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "character_feature_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "character_features", force: :cascade do |t|
+    t.string "explanation"
+    t.bigint "character_id", null: false
+    t.bigint "character_feature_category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_feature_category_id"], name: "index_character_features_on_character_feature_category_id"
+    t.index ["character_id"], name: "index_character_features_on_character_id"
+  end
+
+  create_table "character_relationships", force: :cascade do |t|
+    t.string "relationship_type"
+    t.bigint "character_id", null: false
+    t.bigint "related_character_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_character_relationships_on_character_id"
+    t.index ["related_character_id"], name: "index_character_relationships_on_related_character_id"
+  end
 
   create_table "characters", force: :cascade do |t|
     t.string "name"
     t.string "race"
-    t.string "gender"
+    t.integer "gender"
     t.string "age"
     t.string "category"
     t.bigint "story_id", null: false
@@ -99,6 +125,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_27_074958) do
     t.index ["story_id"], name: "index_world_guides_on_story_id"
   end
 
+  add_foreign_key "character_features", "character_feature_categories"
+  add_foreign_key "character_features", "characters"
+  add_foreign_key "character_relationships", "characters"
+  add_foreign_key "character_relationships", "characters", column: "related_character_id"
   add_foreign_key "characters", "stories"
   add_foreign_key "characters", "world_guides", column: "address_world_guide_id"
   add_foreign_key "characters", "world_guides", column: "birthplace_world_guide_id"

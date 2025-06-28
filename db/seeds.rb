@@ -8,3 +8,14 @@ feature_categories.each do |cat_name|
 end
 
 puts '...World Feature Categories recreated!'
+
+puts 'Creating Character Feature Categories...'
+
+CharacterFeatureCategory.destroy_all
+
+character_feature_categories = [ "性格", "身長", "体重", "髪型", "髪色", "目の色", "肌の色", "武器", "思想", "宗教", "能力", "特技", "服装", "言語", "癖", "その他" ]
+character_feature_categories.each do |cat_name|
+  CharacterFeatureCategory.create!(name: cat_name)
+end
+
+puts '...Character Feature Categories created!'
