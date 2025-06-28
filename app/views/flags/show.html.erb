@@ -1,0 +1,37 @@
+<% breadcrumb :flag, @story, @flag %>
+<div class="px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-screen-xl mx-auto">
+    <h1 class="text-center text-4xl font-bold tracking-tight mt-12 mb-14">フラグを確認しよう！</h1>
+
+    <div class="flex justify-center items-center gap-4 mb-12">
+      <%= link_to "フラグを編集する", "#", class: "border border-gray-400 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
+      <%= link_to "フラグを削除する", "#", data: { turbo_method: :delete, turbo_confirm: "「#{@flag.title}」を完全に削除します。よろしいですか？" }, class: "border border-gray-400 px-8 py-3 rounded-md font-semibold hover:bg-red-500 hover:text-white transition-colors duration-300" %>
+    </div>
+    
+    <div class="max-w-3xl mx-auto space-y-6 border-2 border-gray-300 p-8 rounded-lg bg-white shadow">
+      <div>
+        <p class="font-bold">【フラグタイトル】</p>
+        <p class="text-xl ml-4 mt-2"><%= @flag.title %></p>
+      </div>
+      <div>
+        <p class="font-bold">【内容】</p>
+        <div class="text-lg ml-4 mt-2 prose max-w-none">
+          <%= simple_format(@flag.content.presence || "未設定") %>
+        </div>
+      </div>
+      <div>
+        <p class="font-bold">【状態】</p>
+        <div class="ml-4 mt-2">
+          <span class="inline-block px-4 py-2 text-base font-semibold border rounded-full <%= @flag.status_color_class %>">
+            <%= @flag.status_display %>
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-center mt-12">
+      <%= link_to "フラグ一覧に戻る", story_flags_path(@story), class: "border border-gray-400 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
+    </div>
+  </div>
+</div>
+

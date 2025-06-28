@@ -1,6 +1,11 @@
 ja:
   activerecord:
+    models:
+      flag: "フラグ"
     attributes:
+      flag:
+        title: "「 フラグタイトル 」"
+        content: "「 フラグ内容 」"
       story:
         title: "タイトル"
         genre: "ジャンル"

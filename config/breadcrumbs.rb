@@ -66,3 +66,13 @@ crumb :flags do |story|
   link "フラグ一覧", story_flags_path(story)
   parent :story, story
 end
+
+crumb :new_flag do |story|
+  link "フラグ作成", new_story_flag_path(story)
+  parent :flags, story
+end
+
+crumb :flag do |story, flag|
+  link truncate(flag.title, length: 15), story_flag_path(story, flag)
+  parent :flags, story
+end

@@ -18,28 +18,18 @@
       </nav>
     </div>
 
-    <div class="space-y-6">
+    <div class="space-y-10">
       <div class="text-center">
-        <%= link_to "フラグを作成する", "#", class: "inline-block border border-gray-400 px-8 py-2 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300" %>
+        <%= link_to "フラグを作成する", new_story_flag_path(@story), class: "inline-block border border-gray-400 px-8 py-2 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300" %>
       </div>
 
-      <div class="space-y-4">
+      <div class="space-y-3 max-w-2xl mx-auto">
         <% if @flags.any? %>
           <% @flags.each do |flag| %>
-            <div class="flex items-center gap-4 p-4 border rounded-lg shadow-sm bg-white">
-              <div class="flex flex-col items-center">
-                <%= check_box_tag "check_created_#{flag.id}", 1, flag.check_created, disabled: true, class: "h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
-                <label for="check_created_#{flag.id}" class="text-xs font-bold text-gray-500">P</label>
-              </div>
-              <div class="flex flex-col items-center">
-                <%= check_box_tag "check_recovered_#{flag.id}", 1, flag.check_recovered, disabled: true, class: "h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
-                <label for="check_recovered_#{flag.id}" class="text-xs font-bold text-gray-500">I</label>
-              </div>
+            <div class="flex items-center gap-6">
+              <%= flag_status_indicator(flag) %>
               <div class="flex-grow">
-                <%= link_to flag.title, "#", class: "font-semibold text-gray-800 hover:text-black" %>
-              </div>
-              <div class="flex-shrink-0">
-                <%= link_to "編集", "#", class: "text-sm font-medium text-indigo-600 hover:text-indigo-900" %>
+                <%= link_to flag.title, story_flag_path(@story, flag), class: "block w-full text-left px-4 py-2 text-md bg-gray-100 border border-black rounded-full hover:bg-gray-200 transition-colors" %>
               </div>
             </div>
           <% end %>
