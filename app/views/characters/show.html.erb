@@ -5,7 +5,15 @@
 
     <div class="flex justify-center items-center gap-4 mb-12">
       <%= link_to "キャラクターを編集する", edit_story_character_path(@story, @character), class: "border border-gray-400 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
-      <%= link_to "キャラクターを削除する", story_character_path(@story, @character), data: { turbo_method: :delete, turbo_confirm: "「#{@character.name}」を完全に削除します。よろしいですか？" }, class: "border border-gray-400 px-8 py-3 rounded-md font-semibold hover:bg-red-500 hover:text-white transition-colors duration-300" %>
+      <%= link_to "キャラクターを削除する", "#", 
+        class: "border border-gray-400 px-8 py-3 rounded-md font-semibold hover:bg-red-500 hover:text-white",
+        data: { 
+          action: "click->modal#open",
+          modal_url: story_character_path(@story, @character),
+          modal_title: "キャラクターの削除",
+          modal_body: "「<strong>#{@character.name}</strong>」を完全に削除します。よろしいですか？",
+          modal_button_text: "削除する"
+        } %>
     </div>
     
     <div class="max-w-3xl mx-auto space-y-6 border-2 border-gray-300 p-8 rounded-lg bg-white shadow">
@@ -84,7 +92,7 @@
     </div>
     
     <div class="text-center mt-12">
-      <%= link_to "キャラクター一覧に戻る", story_characters_path(@story), class: "bg-black text-white px-8 py-3 rounded-md font-semibold hover:bg-gray-800 transition-colors duration-300" %>
+      <%= link_to "キャラクター一覧に戻る", story_characters_path(@story), class: "border border-gray-400 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
     </div>
   </div>
 </div>
