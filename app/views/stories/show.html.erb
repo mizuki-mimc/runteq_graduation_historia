@@ -100,11 +100,13 @@
                   </div>
                 <% end %>
 
-                <% if false %>
+                <% if plot.flags.any? %>
                   <div>
                     <p class="font-bold mt-6">【フラグ】</p>
                     <div class="flex flex-wrap gap-2 mt-2 ml-4">
-                    
+                      <% plot.flags.each do |flag| %>
+                        <%= link_to flag.title, story_flag_path(@story, flag), class: "px-3 py-1 text-sm border border-black bg-gray-100 text-black rounded-full hover:bg-gray-300 transition-colors" %>
+                      <% end %>
                     </div>
                   </div>
                 <% end %>

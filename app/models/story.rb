@@ -4,6 +4,7 @@ class Story < ApplicationRecord
   has_many :plots, dependent: :destroy
   has_many :world_guides, dependent: :destroy
   has_many :flags, dependent: :destroy
+  has_many :plot_flags, through: :plots
 
   has_many :characters, dependent: :destroy
 
@@ -20,12 +21,8 @@ class Story < ApplicationRecord
     other: "その他"
   }
 
-  # タイトルは必須。100文字までね
   validates :title, presence: true, length: { maximum: 100 }
-  # ジャンルは必須。
   validates :genre, presence: true
-  # テーマはなくてもいいけど。50文字まで
   validates :thema, length: { maximum: 50 }
-  # あらすじはなくてもいいけど500文字まで
   validates :synopsis, length: { maximum: 500 }
 end
