@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :plots, only: [ :new, :create, :edit, :update, :destroy ]
     resources :world_guides, only: [ :index, :new, :create, :show, :edit, :update, :destroy ]
     resources :characters, only: [ :index, :new, :create, :show, :edit, :update, :destroy ]
+    resources :flags, only: [ :index, :new, :create, :show, :edit, :update, :destroy ]
   end
 
   root "home#index"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_28_060451) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_28_073106) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,6 +56,17 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_28_060451) do
     t.index ["story_id"], name: "index_characters_on_story_id"
   end
 
+  create_table "flags", force: :cascade do |t|
+    t.bigint "story_id", null: false
+    t.string "title"
+    t.text "content"
+    t.boolean "check_created"
+    t.boolean "check_recovered"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["story_id"], name: "index_flags_on_story_id"
+  end
+
   create_table "plot_characters", force: :cascade do |t|
     t.bigint "plot_id", null: false
     t.bigint "character_id", null: false
@@ -64,6 +75,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_28_060451) do
     t.index ["character_id"], name: "index_plot_characters_on_character_id"
     t.index ["plot_id", "character_id"], name: "index_plot_characters_on_plot_id_and_character_id", unique: true
     t.index ["plot_id"], name: "index_plot_characters_on_plot_id"
+  end
+
+  create_table "plot_flags", force: :cascade do |t|
+    t.bigint "plot_id", null: false
+    t.bigint "flag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["flag_id"], name: "index_plot_flags_on_flag_id"
+    t.index ["plot_id", "flag_id"], name: "index_plot_flags_on_plot_id_and_flag_id", unique: true
+    t.index ["plot_id"], name: "index_plot_flags_on_plot_id"
   end
 
   create_table "plot_world_guides", force: :cascade do |t|
@@ -142,8 +163,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_28_060451) do
   add_foreign_key "characters", "stories"
   add_foreign_key "characters", "world_guides", column: "address_world_guide_id"
   add_foreign_key "characters", "world_guides", column: "birthplace_world_guide_id"
+  add_foreign_key "flags", "stories"
   add_foreign_key "plot_characters", "characters"
   add_foreign_key "plot_characters", "plots"
+  add_foreign_key "plot_flags", "flags"
+  add_foreign_key "plot_flags", "plots"
   add_foreign_key "plot_world_guides", "plots"
   add_foreign_key "plot_world_guides", "world_guides"
   add_foreign_key "plots", "stories"

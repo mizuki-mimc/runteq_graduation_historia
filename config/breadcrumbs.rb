@@ -61,3 +61,8 @@ crumb :edit_character do |story, character|
   link "キャラクター編集", edit_story_character_path(story, character)
   parent :character, story, character
 end
+
+crumb :flags do |story|
+  link "フラグ一覧", story_flags_path(story)
+  parent :story, story
+end

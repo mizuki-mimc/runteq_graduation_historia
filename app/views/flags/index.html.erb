@@ -1,0 +1,52 @@
+<% breadcrumb :flags, @story %>
+<div class="px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-screen-xl mx-auto">
+    <div class="mb-14">
+      <nav class="-mb-px flex justify-center space-x-8" aria-label="Tabs">
+        <a href="<%= story_path(@story) %>" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-400 whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg">
+          ストーリー
+        </a>
+        <a href="<%= story_world_guides_path(@story) %>" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-400 whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg">
+          ワールドガイド
+        </a>
+        <a href="<%= story_characters_path(@story) %>" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-400 whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg">
+          キャラクター
+        </a>
+        <a href="<%= story_flags_path(@story) %>" class="border-black text-black whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg" aria-current="page">
+          フラグ
+        </a>
+      </nav>
+    </div>
+
+    <div class="space-y-6">
+      <div class="text-center">
+        <%= link_to "フラグを作成する", "#", class: "inline-block border border-gray-400 px-8 py-2 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300" %>
+      </div>
+
+      <div class="space-y-4">
+        <% if @flags.any? %>
+          <% @flags.each do |flag| %>
+            <div class="flex items-center gap-4 p-4 border rounded-lg shadow-sm bg-white">
+              <div class="flex flex-col items-center">
+                <%= check_box_tag "check_created_#{flag.id}", 1, flag.check_created, disabled: true, class: "h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+                <label for="check_created_#{flag.id}" class="text-xs font-bold text-gray-500">P</label>
+              </div>
+              <div class="flex flex-col items-center">
+                <%= check_box_tag "check_recovered_#{flag.id}", 1, flag.check_recovered, disabled: true, class: "h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+                <label for="check_recovered_#{flag.id}" class="text-xs font-bold text-gray-500">I</label>
+              </div>
+              <div class="flex-grow">
+                <%= link_to flag.title, "#", class: "font-semibold text-gray-800 hover:text-black" %>
+              </div>
+              <div class="flex-shrink-0">
+                <%= link_to "編集", "#", class: "text-sm font-medium text-indigo-600 hover:text-indigo-900" %>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <p class="text-center text-gray-500 py-10">まだフラグはありません。</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
