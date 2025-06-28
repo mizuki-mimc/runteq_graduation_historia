@@ -26,6 +26,28 @@ ja:
         world_name: "「 世界名 」"
         country_name: "「 国名 」"
         region_name: "「 地域名 」"
+      character:
+        name: "名前"
+        race: "種族"
+        gender: "性別"
+        age: "年齢"
+        category: "カテゴリ"
+        birthplace_world_guide_id: "出身地"
+        address_world_guide_id: "現住所"
+        
+  
+  enums:
+    character:
+      category:
+        present: "現在"
+        future: "未来"
+        past: "過去"
+        fantasy: "空想"
+      gender:
+        male: "男性"
+        female: "女性"
+        other: "その他"
+        unknown: "不明"
         
   time:
     formats:

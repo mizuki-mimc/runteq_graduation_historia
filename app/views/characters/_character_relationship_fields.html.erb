@@ -1,0 +1,6 @@
+<div class="nested-fields flex items-center gap-2 mb-2">
+  <%= f.collection_select :related_character_id, @characters_for_relation, :id, :name, { prompt: "関連するキャラクターを選択" }, { class: "w-1/2 p-2 border border-black rounded" } %>
+  <%= f.text_field :relationship_type, placeholder: "関係性（例：友人、ライバル）", class: "w-1/2 p-2 border border-black rounded" %>
+  <%= f.hidden_field :_destroy %>
+  <button type="button" data-action="nested-form#remove" class="text-red-500 hover:underline">削除</button>
+</div>

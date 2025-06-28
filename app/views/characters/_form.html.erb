@@ -1,0 +1,135 @@
+<%= form_with model: [story, character], local: true, class: "space-y-8" do |f| %>
+  <% if character.errors.any? %>
+    <div id="error_explanation" class="text-red-500 border border-red-300 bg-red-50 p-4 rounded-md">
+      <h2 class="font-bold text-lg mb-2"><%= character.errors.count %>件のエラーがあります。</h2>
+      <ul>
+        <% character.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :category, "カテゴリ", class: "block text-lg font-bold" %>
+    <%= f.select :category, Character.categories.keys.map { |k| [t("enums.character.category.#{k}"), k] }, { prompt: "カテゴリを選択してください" }, { class: "mt-2 w-full p-2 border border-black rounded" } %>
+  </div>
+
+  <div>
+    <%= f.label :name, "キャラクター名", class: "block text-lg font-bold" %>
+    <%= f.text_field :name, placeholder: "キャラクター名を記載してください", class: "mt-2 w-full p-2 border border-black rounded" %>
+  </div>
+  <div>
+    <%= f.label :race, "種族", class: "block text-lg font-bold" %>
+    <%= f.text_field :race, placeholder: "キャラクターの種族を記載してください", class: "mt-2 w-full p-2 border border-black rounded" %>
+  </div>
+  <div>
+    <%= f.label :gender, "性別", class: "block text-lg font-bold" %>
+    <%= f.select :gender, Character.genders.keys.map { |k| [I18n.t("enums.character.gender.#{k}"), k] }, { prompt: "キャラクターの性別を選択してください" }, { class: "mt-2 w-full p-2 border border-black rounded" } %>
+  </div>
+  <div>
+    <%= f.label :age, "年齢", class: "block text-lg font-bold" %>
+    <%= f.text_field :age, placeholder: "キャラクターの年齢を記載してください", class: "mt-2 w-full p-2 border border-black rounded" %>
+  </div>
+
+  <div>
+    <%= f.label :birthplace_world_guide_id, "出身地", class: "block text-lg font-bold" %>
+    <%= f.collection_select :birthplace_world_guide_id, @world_guides, :id, :country_and_region, { prompt: "作成済みのワールドガイドから選択してください" }, { class: "mt-2 w-full p-2 border border-black rounded" } %>
+  </div>
+  <div>
+    <%= f.label :address_world_guide_id, "現住所", class: "block text-lg font-bold" %>
+    <%= f.collection_select :address_world_guide_id, @world_guides, :id, :country_and_region, { prompt: "作成済みのワールドガイドから選択してください" }, { class: "mt-2 w-full p-2 border border-black rounded" } %>
+  </div>
+
+  <div data-controller="nested-form">
+    <p class="block text-lg font-bold mb-1">関連するキャラクター</p>
+    <div class="border rounded-lg p-4 mb-2 space-y-2">
+      <select data-nested-form-target="inputType" class="block w-full px-3 py-2 border border-black rounded-md">
+        <option value="">キャラクターを選択してください</option>
+        <% @characters_for_relation.each do |char| %>
+          <option value="<%= char.id %>" data-name="<%= char.name %>"><%= char.name %></option>
+        <% end %>
+      </select>
+      <input type="text" data-nested-form-target="inputExplanation" class="block w-full px-3 py-2 border border-black rounded-md" placeholder="関係性を記入してください（例：友人、ライバル）">
+      <button type="button" data-action="click->nested-form#add" class="border border-gray-400 w-full py-2 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300">関係性を追加</button>
+    </div>
+    <div data-nested-form-target="flashContainer" class="mb-4"></div>
+    <div data-nested-form-target="container" class="flex flex-wrap gap-2">
+      <%= f.fields_for :relationships do |relation_form| %>
+        <% unless relation_form.object.new_record? %>
+          <div class="nested-fields-wrapper inline-flex items-center gap-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full cursor-pointer" data-action="click->nested-form#remove">
+            <span><%= relation_form.object.related_character.name %> / <%= relation_form.object.relationship_type %></span>
+            <span class="text-xs text-red-500 font-bold">×</span>
+            <%= relation_form.hidden_field :id %>
+            <%= relation_form.hidden_field :_destroy %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <template data-nested-form-target="template">
+      <div class="nested-fields-wrapper inline-flex items-center gap-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full cursor-pointer" data-action="click->nested-form#remove" data-new-record="true">
+        <span data-nested-form-target="capsuleText"></span>
+        <span class="text-xs text-red-500 font-bold">×</span>
+        <%= f.fields_for :relationships, CharacterRelationship.new, child_index: 'NEW_RECORD' do |ff| %>
+          <%= ff.hidden_field :related_character_id, data: { nested_form_target: "hiddenCategoryId" } %>
+          <%= ff.hidden_field :relationship_type, data: { nested_form_target: "hiddenExplanation" } %>
+          <%= ff.hidden_field :_destroy %>
+        <% end %>
+      </div>
+    </template>
+    <div data-nested-form-target="modalPlaceholder"></div>
+  </div>
+
+  <div data-controller="nested-form">
+    <p class="block text-lg font-bold mb-1">特徴</p>
+    <div class="border rounded-lg p-4 mb-2 space-y-2">
+      <select data-nested-form-target="inputType" class="block w-full px-3 py-2 border border-black rounded-md">
+        <option value="">特徴を選択してください</option>
+        <% @feature_categories.each do |category| %>
+          <option value="<%= category.id %>" data-name="<%= category.name %>"><%= category.name %></option>
+        <% end %>
+      </select>
+      <input type="text" data-nested-form-target="inputExplanation" class="block w-full px-3 py-2 border border-black rounded-md" placeholder="説明を記入してください">
+      <button type="button" data-action="click->nested-form#add" class="border border-gray-400 w-full py-2 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300">特徴を追加</button>
+    </div>
+    <div data-nested-form-target="flashContainer" class="mb-4"></div>
+    <div data-nested-form-target="container" class="flex flex-wrap gap-2">
+      <%= f.fields_for :character_features do |feature_form| %>
+        <% unless feature_form.object.new_record? %>
+          <div class="nested-fields-wrapper inline-flex items-center gap-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full cursor-pointer" data-action="click->nested-form#remove">
+            <span><%= feature_form.object.character_feature_category.name %> / <%= feature_form.object.explanation %></span>
+            <span class="text-xs text-red-500 font-bold">×</span>
+            <%= feature_form.hidden_field :id %>
+            <%= feature_form.hidden_field :_destroy %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <template data-nested-form-target="template">
+      <div class="nested-fields-wrapper inline-flex items-center gap-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full cursor-pointer" data-action="click->nested-form#remove" data-new-record="true">
+        <span data-nested-form-target="capsuleText"></span>
+        <span class="text-xs text-red-500 font-bold">×</span>
+        <%= f.fields_for :character_features, CharacterFeature.new, child_index: 'NEW_RECORD' do |ff| %>
+          <%= ff.hidden_field :character_feature_category_id, data: { nested_form_target: "hiddenCategoryId" } %>
+          <%= ff.hidden_field :explanation, data: { nested_form_target: "hiddenExplanation" } %>
+          <%= ff.hidden_field :_destroy %>
+        <% end %>
+      </div>
+    </template>
+    <div data-nested-form-target="modalPlaceholder"></div>
+  </div>
+
+  <div>
+    <p class="block text-lg font-bold">イメージ画像</p>
+    <div class="flex gap-4 mt-3">
+      <button type="button" disabled class="w-1/2 py-2 border border-gray-400 rounded-md bg-gray-100 text-gray-500">ファイルから画像を追加</button>
+      <button type="button" disabled class="w-1/2 py-2 border border-gray-400 rounded-md bg-gray-100 text-gray-500">イメージ画像を見つける</button>
+    </div>
+  </div>
+
+  <div class="text-center pt-6">
+    <% submit_text = character.new_record? ? "キャラクターを作成する" : "キャラクターを更新する" %>
+    <%= f.submit submit_text, class: "border border-gray-400 px-4 py-3 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300" %>
+  </div>
+
+<% end %>

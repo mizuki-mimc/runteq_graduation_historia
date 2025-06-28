@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  explanation: MyString
+  character: one
+  character_feature_category: one
+
+two:
+  explanation: MyString
+  character: two
+  character_feature_category: two

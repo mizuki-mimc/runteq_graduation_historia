@@ -7,10 +7,9 @@ export default class extends Controller {
     "inputType", 
     "inputExplanation",
     "flashContainer",
-    "modalPlaceholder" // 1. モーダルの置き場所をターゲットに追加
+    "modalPlaceholder"
   ]
 
-  // (addメソッドは変更なし)
   add(event) {
     event.preventDefault()
     const categoryId = this.inputTypeTarget.value
@@ -31,32 +30,27 @@ export default class extends Controller {
     this.inputTypeTarget.selectedIndex = 0
   }
 
-
-  // --- ▼▼▼ removeメソッドと、そのヘルパーメソッドを修正 ▼▼▼ ---
   remove(event) {
     event.preventDefault()
     const wrapper = event.target.closest(".nested-fields-wrapper")
-    
-    // 削除の実行ロジックを定義
+
     const removalLogic = () => {
       if (wrapper.dataset.newRecord === "true") {
-        // 新しいレコードなら、要素ごと削除
+
         wrapper.remove()
       } else {
-        // 既存のレコードなら、非表示にして_destroyフラグを立てる
+
         wrapper.style.display = "none"
         const destroyInput = wrapper.querySelector("input[name*='_destroy']")
         destroyInput.value = "1"
       }
     }
 
-    // モーダルを表示して、OKが押されたら上記のロジックを実行する
     this.showConfirmationModal("この特徴を削除しますか？", removalLogic)
   }
 
-  // モーダルを動的に生成・表示するメソッド
   showConfirmationModal(message, callback) {
-    // 既存のモーダルがあれば消す
+
     this.hideConfirmationModal()
 
     const modalHTML = `
@@ -84,27 +78,23 @@ export default class extends Controller {
       </div>
     `
     this.modalPlaceholderTarget.innerHTML = modalHTML
-    // 「削除する」ボタンが押されたときに実行する処理を、一時的にコントローラに保存しておく
     this.confirmCallback = callback
   }
 
-  // モーダルを非表示にするメソッド
   hideConfirmationModal() {
     this.modalPlaceholderTarget.innerHTML = ""
     this.confirmCallback = null
   }
 
-  // モーダルの「削除する」ボタンが押されたときに呼ばれるメソッド
   confirmAndHide() {
-    // 保存しておいた削除処理を実行
+
     if (this.confirmCallback) {
       this.confirmCallback()
     }
-    // モーダルを閉じる
     this.hideConfirmationModal()
   }
 
-  // (showFlashメソッドは変更なし)
+
   showFlash(message) {
     const flashEl = document.createElement("div")
     flashEl.className = "p-3 bg-red-100 border border-red-400 text-red-700 rounded-md text-sm"
