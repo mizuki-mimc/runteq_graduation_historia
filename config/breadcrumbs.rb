@@ -76,3 +76,8 @@ crumb :flag do |story, flag|
   link truncate(flag.title, length: 15), story_flag_path(story, flag)
   parent :flags, story
 end
+
+crumb :edit_flag do |story, flag|
+  link "フラグ編集", edit_story_flag_path(story, flag)
+  parent :flag, story, flag
+end

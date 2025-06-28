@@ -25,8 +25,6 @@ class FlagsController < ApplicationController
   end
 
   def edit
-    @flag.destroy
-    redirect_to story_flags_path(@story), success: "フラグを削除しました。", status: :see_other
   end
 
   def update
@@ -39,6 +37,8 @@ class FlagsController < ApplicationController
   end
 
   def destroy
+    @flag.destroy
+    redirect_to story_flags_path(@story), success: "フラグを削除しました。", status: :see_other
   end
 
   private
@@ -52,6 +52,6 @@ class FlagsController < ApplicationController
   end
 
   def flag_params
-    params.require(:flag).permit(:title, :content, :check_created, :check_recovered)
+    params.require(:flag).permit(:title, :content)
   end
 end
