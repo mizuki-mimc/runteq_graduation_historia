@@ -6,6 +6,14 @@ class Flag < ApplicationRecord
   validates :title, presence: true, length: { maximum: 30 }
   validates :content, presence: true
 
+   scope :unrecovered, -> {
+    where.not(id: joins(:plot_flags).where(plot_flags: { check_recovered: true }))
+  }
+
+  def already_created_in_story?
+    story.plot_flags.where(flag_id: id, check_created: true).exists?
+  end
+
   def created?
     plot_flags.any?(&:check_created)
   end

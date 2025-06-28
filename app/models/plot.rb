@@ -7,6 +7,8 @@ class Plot < ApplicationRecord
   has_many :plot_flags, dependent: :destroy
   has_many :flags, through: :plot_flags
 
+  accepts_nested_attributes_for :plot_flags, allow_destroy: true
+
   validates :chapter, presence: true, length: { maximum: 10 }
   validates :title, length: { maximum: 30 }
   validates :summary, length: { maximum: 30 }
