@@ -100,12 +100,22 @@
                   </div>
                 <% end %>
 
-                <% if plot.flags.any? %>
+                <% if plot.plot_flags.any? %>
                   <div>
                     <p class="font-bold mt-6">【フラグ】</p>
                     <div class="flex flex-wrap gap-2 mt-2 ml-4">
-                      <% plot.flags.each do |flag| %>
-                        <%= link_to flag.title, story_flag_path(@story, flag), class: "px-3 py-1 text-sm border border-black bg-gray-100 text-black rounded-full hover:bg-gray-300 transition-colors" %>
+                      <% plot.plot_flags.each do |plot_flag| %>
+                        <% status_class = if plot_flag.check_created && plot_flag.check_recovered
+                           "bg-green-100 border border-green-400 text-green-800 hover:bg-green-200"
+                         elsif plot_flag.check_created
+                           "bg-blue-100 border border-blue-400 text-blue-800 hover:bg-blue-200"
+                         elsif plot_flag.check_recovered
+                           "bg-green-100 border border-green-400 text-green-800 hover:bg-green-200"
+                         else
+                           "border border-black bg-gray-100 text-black hover:bg-gray-300"
+                         end
+                        base_class = "px-3 py-1 text-sm rounded-full transition-colors" %>
+                        <%= link_to plot_flag.flag.title, story_flag_path(@story, plot_flag.flag), class: "#{base_class} #{status_class}" %>
                       <% end %>
                     </div>
                   </div>

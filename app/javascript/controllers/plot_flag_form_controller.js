@@ -21,8 +21,9 @@ export default class extends Controller {
       return
     }
 
-    const isAlreadyCreated = selectedOption.dataset.isCreated === 'true'
     this.clearFlash()
+
+    const isAlreadyCreated = selectedOption.dataset.isCreated === 'true'
 
     const content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime())
     this.containerTarget.insertAdjacentHTML("beforeend", content)
@@ -32,12 +33,13 @@ export default class extends Controller {
     newRow.querySelector("[data-role='flag-name']").textContent = selectedOption.text
     newRow.querySelector("input[data-flag-id]").value = flagId
 
+    const createdCheckbox = newRow.querySelector("input[data-role='check-created']")
+    const recoveredCheckbox = newRow.querySelector("input[data-role='check-recovered']")
+
     if (isAlreadyCreated) {
-      const createdCheckbox = newRow.querySelector("input[data-role='check-created']")
-      if(createdCheckbox) {
-          createdCheckbox.checked = true
-          createdCheckbox.disabled = true
-      }
+      recoveredCheckbox.checked = true
+    } else {
+      createdCheckbox.checked = true
     }
     
     this.selectTarget.selectedIndex = 0
