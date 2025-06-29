@@ -1,5 +1,5 @@
 class Flag < ApplicationRecord
-  belongs_to :story
+  belongs_to :story, touch: true
   has_many :plot_flags, dependent: :destroy
   has_many :plots, through: :plot_flags
 

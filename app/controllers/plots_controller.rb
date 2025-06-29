@@ -2,6 +2,7 @@ class PlotsController < ApplicationController
   before_action :require_login
   before_action :set_story
   before_action :set_plot, only: [ :edit, :update, :destroy ]
+  before_action :check_for_missing_elements, only: [ :new, :edit ]
 
   def new
     @plot = @story.plots.build
@@ -63,5 +64,16 @@ class PlotsController < ApplicationController
       character_ids: [],
       plot_flags_attributes: [ :id, :flag_id, :check_created, :check_recovered, :_destroy ]
     )
+  end
+
+  def check_for_missing_elements
+    missing_elements = []
+    missing_elements << "「 ワールドガイド 」" unless @story.world_guides.exists?
+    missing_elements << "「 キャラクター 」" unless @story.characters.exists?
+    missing_elements << "「 フラグ 」" unless @story.flags.exists?
+
+    if missing_elements.any?
+      flash.now[:info] = "プロットに要素を紐付けるには、先に#{missing_elements.join('、')}を作成してください。"
+    end
   end
 end

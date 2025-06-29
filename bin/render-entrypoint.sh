@@ -4,8 +4,7 @@ set -o errexit
 
 rm -f /app/tmp/pids/server.pid
 
-echo "Setting up the database..."
-
-DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rails db:setup
+echo "Running database migrations..."
+bundle exec rails db:migrate
 
 exec "$@"
