@@ -4,7 +4,7 @@ set -o errexit
 
 rm -f /app/tmp/pids/server.pid
 
-echo "Running database migrations..."
-bundle exec rails db:migrate
+echo "Setting up the database..."
+bundle exec rails db:setup
 
 exec "$@"
