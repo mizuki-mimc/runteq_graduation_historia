@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  resources :stories, only: [ :index, :new, :create, :show, :destroy, :edit, :update ] do
+  resources :stories do
     member do
       patch "set_status"
     end
@@ -21,8 +21,6 @@ Rails.application.routes.draw do
   root "home#index"
 
   namespace :admin do
-    get "stories/index"
-    get "stories/destroy"
     root to: "dashboard#index"
     resources :users, only: [ :index, :edit, :update, :destroy ]
     resources :stories, only: [ :index, :destroy ]
