@@ -1,0 +1,11 @@
+<div>
+  <div data-image-viewer-target="container" class="hidden">
+    <div class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
+      data-action="click->image-viewer#close" >
+      <div class="max-w-4xl max-h-[90vh]" data-action="click->(event).stopPropagation()">
+        <img src="" data-image-viewer-target="image" class="max-w-full max-h-full rounded-lg">
+      </div>
+      <button class="absolute top-4 right-4 text-white text-3xl" data-action="click->image-viewer#close">&times;</button>
+    </div>
+  </div>
+</div>
