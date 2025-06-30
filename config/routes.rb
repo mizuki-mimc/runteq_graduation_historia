@@ -19,4 +19,8 @@ Rails.application.routes.draw do
   end
 
   root "home#index"
+
+  namespace :admin do
+    root to: "dashboard#index"
+  end
 end

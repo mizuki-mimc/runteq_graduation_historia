@@ -5,6 +5,9 @@
     <% end %>
   </div>
   <nav class="flex items-center space-x-4">
+    <% if current_user.admin? %>
+      <%= link_to "管理者ページ", admin_root_path, class: "bg-black text-white px-4 py-2 rounded-md font-semibold hover:bg-gray-700 transition-colors duration-300" %>
+    <% end %>
     <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete }, class: "border border-gray-400 px-4 py-2 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
     <%= link_to "使い方ガイド ※準備中", "#", class: "border border-gray-400 px-4 py-2 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
     <%= link_to "ストーリー作成", new_story_path, class: "bg-black text-white px-4 py-2 rounded-md font-semibold hover:bg-gray-700 transition-colors duration-300" %>
