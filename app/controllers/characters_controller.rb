@@ -66,7 +66,11 @@ class CharactersController < ApplicationController
   end
 
   def set_character
-    @character = @story.characters.find(params[:id])
+    @character = @story.characters.find_by(id: params[:id])
+    unless @character
+      flash[:error] = "キャラクターは存在しません。"
+      redirect_to story_characters_path(@story)
+    end
   end
 
   def character_params

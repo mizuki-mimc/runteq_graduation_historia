@@ -48,7 +48,11 @@ class FlagsController < ApplicationController
   end
 
   def set_flag
-    @flag = @story.flags.includes(plot_flags: :plot).find(params[:id])
+    @flag = @story.flags.includes(plot_flags: :plot).find_by(id: params[:id])
+    unless @flag
+      flash[:error] = "フラグは存在しません。"
+      redirect_to story_flags_path(@story)
+    end
   end
 
   def flag_params

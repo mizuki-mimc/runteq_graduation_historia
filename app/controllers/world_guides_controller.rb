@@ -51,7 +51,11 @@ class WorldGuidesController < ApplicationController
   end
 
   def set_world_guide
-    @world_guide = @story.world_guides.find(params[:id])
+    @world_guide = @story.world_guides.find_by(id: params[:id])
+    unless @world_guide
+      flash[:error] = "ワールドガイドは存在しません。"
+      redirect_to story_world_guides_path(@story)
+    end
   end
 
   def world_guide_params
