@@ -1,5 +1,5 @@
 class Admin::UsersController < Admin::BaseController
-  before_action :set_user, only: [ :edit, :update ]
+  before_action :set_user, only: [ :edit, :update, :destroy ]
 
   def index
     @users = User.all.order(created_at: :desc)
@@ -15,6 +15,11 @@ class Admin::UsersController < Admin::BaseController
       flash.now[:alert] = "ユーザー情報の更新に失敗しました。"
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @user.destroy!
+    redirect_to admin_users_path, notice: "ユーザー「#{@user.name}」を削除しました。", status: :see_other
   end
 
   private
