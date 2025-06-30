@@ -8,10 +8,13 @@
     
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <%= favicon_link_tag 'favicon.png' %>
+    <%= favicon_link_tag 'apple-touch-icon.png', rel: 'apple-touch-icon', type: 'image/png', sizes: '180x180' %>
   </head>
 
   <body class="flex flex-col min-h-screen" 
-      data-controller="modal" 
+      data-controller="modal image-viewer" 
       data-action="show-warning@window->modal#showWarning">
     <% if logged_in? %>
       <% if controller_name == 'stories' && action_name == 'index' %>
@@ -53,5 +56,7 @@
     <%= render 'layouts/footer' %>
 
     <%= render 'shared/delete_modal' %>
+
+    <%= render 'shared/image_viewer_modal' %>
   </body>
 </html>
