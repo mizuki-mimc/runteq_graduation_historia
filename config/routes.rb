@@ -21,7 +21,10 @@ Rails.application.routes.draw do
   root "home#index"
 
   namespace :admin do
+    get "stories/index"
+    get "stories/destroy"
     root to: "dashboard#index"
     resources :users, only: [ :index, :edit, :update, :destroy ]
+    resources :stories, only: [ :index, :destroy ]
   end
 end
