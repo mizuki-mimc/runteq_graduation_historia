@@ -1,0 +1,49 @@
+<div class="flex justify-between items-center mb-8">
+  <h1 class="text-3xl font-bold">ストーリー一覧</h1>
+  <%= link_to 'ダッシュボードに戻る', admin_root_path, class: 'inline-block px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50' %>
+</div>
+
+<div class="overflow-x-auto bg-white border rounded-lg shadow">
+  <table class="min-w-full text-sm text-left">
+    <thead class="bg-gray-100 text-xs text-gray-700 uppercase">
+      <tr>
+        <th scope="col" class="px-6 py-3">ID</th>
+        <th scope="col" class="px-6 py-3">タイトル</th>
+        <th scope="col" class="px-6 py-3">作者</th>
+        <th scope="col" class="px-6 py-3">ステータス</th>
+        <th scope="col" class="px-6 py-3">最終更新日時</th>
+        <th scope="col" class="px-6 py-3">
+          <span class="sr-only">Actions</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @stories.each do |story| %>
+        <tr class="border-b hover:bg-gray-50">
+          <td class="px-6 py-4"><%= story.id %></td>
+          <td class="px-6 py-4 font-medium text-gray-900"><%= story.title %></td>
+          <td class="px-6 py-4"><%= story.user.name %></td>
+          <td class="px-6 py-4">
+            <% if story.published? %>
+              <span class="px-2 py-1 text-xs font-medium text-green-800 bg-green-100 rounded-full">公開</span>
+            <% else %>
+              <span class="px-2 py-1 text-xs font-medium text-gray-800 bg-gray-100 rounded-full">下書き</span>
+            <% end %>
+          </td>
+          <td class="px-6 py-4"><%= l story.updated_at, format: :long %></td>
+          <td class="px-6 py-4 text-right">
+            <%= link_to '削除', '#', 
+                  class: 'inline-block px-3 py-1 text-sm font-medium text-white bg-red-600 rounded-md shadow-sm hover:bg-red-700 transition-colors',
+                  data: {
+                    action: "click->modal#open",
+                    modal_url: admin_story_path(story),
+                    modal_title: "ストーリーの削除",
+                    modal_body: "「<strong>#{story.title}</strong>」(作者: #{story.user.name}) を完全に削除します。この操作は元に戻せません。",
+                    modal_button_text: "削除する"
+                  } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
