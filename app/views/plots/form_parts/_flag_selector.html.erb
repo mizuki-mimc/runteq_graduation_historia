@@ -11,9 +11,9 @@
     </select>
     <button type="button" data-action="click->plot-flag-form#add" class="w-full sm:w-auto flex-shrink-0 border border-gray-400 px-4 h-10 rounded-md font-semibold hover:bg-black hover:text-white">追加</button>
   </div>
-  <div data-plot-flag-form-target="flashContainer" class="mt-6"></div>
+  <div data-plot-flag-form-target="flashContainer" class="mt-4 mb-4"></div>
 
-  <div data-plot-flag-form-target="container" class="space-y-4">
+  <div data-plot-flag-form-target="container" class="space-y-4 mt-4">
     <%= f.fields_for :plot_flags do |pf| %>
       <div class="nested-flag-fields flex items-center gap-3 p-2 border rounded-md bg-gray-50">
         <span class="flex-grow font-semibold" data-role="flag-name"><%= pf.object.flag.title %></span>
