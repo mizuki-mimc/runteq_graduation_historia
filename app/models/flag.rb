@@ -11,10 +11,12 @@ class Flag < ApplicationRecord
     where.not(id: recovered_flag_ids)
   }
 
+  # プロットでの確認
   def already_created_in_story?
     story.plot_flags.where(flag_id: id, check_created: true).exists?
   end
 
+  # フラグでの確認
   def created?
     plot_flags.any?(&:check_created)
   end
@@ -24,13 +26,14 @@ class Flag < ApplicationRecord
   end
 
   def status_display
-    recovered_plot_flag = plot_flags.find(&:check_recovered)
+      @plot_flags_cache ||= plot_flags.includes(:plot)
+      recovered_plot_flag = @plot_flags_cache.find(&:check_recovered)
     if recovered_plot_flag
       chapter = recovered_plot_flag.plot.chapter.presence || "（章未設定）"
       return "「#{chapter}」にてフラグを回収しました！"
     end
 
-    created_plot_flag = plot_flags.find(&:check_created)
+    created_plot_flag = @plot_flags_cache.find(&:check_created)
     if created_plot_flag
       chapter = created_plot_flag.plot.chapter.presence || "（章未設定）"
       return "「#{chapter}」にフラグを立てています！"

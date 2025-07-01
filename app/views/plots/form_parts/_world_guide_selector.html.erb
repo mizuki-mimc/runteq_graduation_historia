@@ -1,21 +1,21 @@
 <div data-controller="multi-select" 
        data-multi-select-duplicate-message-value="すでに選択されています。同じワールドガイドは複数追加できません。">
     <label class="block text-lg font-bold">ワールドガイド</label>
-    <div class="flex flex-col sm:flex-row items-center gap-2 mt-1">
-      <select data-multi-select-target="select" class="flex-grow block px-3 py-2 border border-black rounded-md shadow-sm">
+    <div class="flex flex-col sm:flex-row items-stretch gap-2 mt-1 sm:border-none sm:rounded-none sm:p-0 border border-black rounded-lg p-4">
+      <select data-multi-select-target="select" class="flex-grow block px-3 h-10 border border-black rounded-md shadow-sm">
         <option value="">舞台となるワールドガイドを選択</option>
         <% @world_guides.each do |wg| %>
           <option value="<%= wg.id %>" data-name="<%= wg.country_and_region %>"><%= wg.country_and_region %></option>
         <% end %>
       </select>
-      <button type="button" data-action="multi-select#add" class="w-full sm:w-auto flex-shrink-0 border border-gray-400 px-4 py-2 rounded-md font-semibold hover:bg-black hover:text-white">追加</button>
+      <button type="button" data-action="multi-select#add" class="w-full sm:w-auto flex-shrink-0 border border-gray-400 px-4 h-10 rounded-md font-semibold hover:bg-black hover:text-white">追加</button>
     </div>
 
     <div data-multi-select-target="flashContainer" class="mt-2">
 
     </div>
     
-    <div data-multi-select-target="container" class="flex flex-wrap gap-2 mt-2 mb-4">
+    <div data-multi-select-target="container" class="flex flex-wrap gap-2 mt-6 mb-4">
       <% plot.world_guides.each do |wg| %>
         <div class="capsule inline-flex items-center gap-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full">
           <span><%= wg.country_and_region %></span>
