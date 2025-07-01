@@ -1,0 +1,11 @@
+<div class="mt-12">
+  <p class="font-bold text-lg mb-2">■ プロット</p>
+  <div class="border-2 rounded-lg p-8 border-glay">
+
+    <%= render partial: 'plots/plot', locals: { story: @story } %>
+
+    <div class="flex justify-center mt-8">
+      <%= link_to "プロットを追加する", new_story_plot_path(@story), class: "border border-gray-400 px-4 py-3 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300" %>
+    </div>
+  </div>
+</div>
