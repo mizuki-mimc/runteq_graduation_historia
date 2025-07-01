@@ -53,6 +53,9 @@ class StoriesController < ApplicationController
 
   def set_story
     @story = current_user.stories.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    flash[:alert] = "お探しのストーリーは存在しないか、削除された可能性があります。"
+    redirect_to stories_path
   end
 
   def story_params
