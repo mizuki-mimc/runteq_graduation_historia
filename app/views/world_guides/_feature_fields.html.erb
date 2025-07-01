@@ -1,0 +1,42 @@
+<div>
+  <p class="block text-lg font-bold mb-2">特徴</p>
+
+  <div class="border rounded-lg p-4 mb-4 space-y-2">
+    <select data-nested-form-target="inputType" class="block w-full px-3 py-2 border border-black rounded-md">
+      <option value="">特徴を選択してください。</option>
+      <% WorldFeatureCategory.all.each do |category| %>
+        <option value="<%= category.id %>" data-name="<%= category.name %>"><%= category.name %></option>
+      <% end %>
+    </select>
+    <input type="text" data-nested-form-target="inputExplanation" class="block w-full px-3 py-2 border border-black rounded-md" placeholder="25文字以内で説明を記入してください。" maxlength="25">
+    <button type="button" data-action="click->nested-form#add" class="border border-gray-400 w-full py-2 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300">特徴を追加</button>
+  </div>
+    
+  <div data-nested-form-target="flashContainer" class="mb-4"></div>
+
+  <div data-nested-form-target="container" class="flex flex-wrap gap-2">
+    <%= f.fields_for :world_guide_features do |feature_form| %>
+      <% unless feature_form.object.new_record? %>
+        <div class="nested-fields-wrapper inline-flex items-center gap-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full cursor-pointer" data-action="click->nested-form#remove">
+          <span><%= feature_form.object.world_feature_category.name %> / <%= feature_form.object.explanation %></span>
+          <span class="text-xs text-red-500 font-bold">×</span>
+          <%= feature_form.hidden_field :id %>
+          <%= feature_form.hidden_field :_destroy %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<template data-nested-form-target="template">
+  <div class="nested-fields-wrapper inline-flex items-center gap-2 px-3 py-1 text-semimd bg-gray-100 border border-black rounded-full cursor-pointer" data-action="click->nested-form#remove" data-new-record="true">
+    <span data-nested-form-target="capsuleText"></span>
+    <span class="text-xs text-red-500 font-bold">×</span>
+      
+        <%= f.fields_for :world_guide_features, WorldGuideFeature.new, child_index: 'NEW_RECORD' do |ff| %>
+      <%= ff.hidden_field :world_feature_category_id, data: { nested_form_target: "hiddenCategoryId" } %>
+      <%= ff.hidden_field :explanation, data: { nested_form_target: "hiddenExplanation" } %>
+      <%= ff.hidden_field :_destroy %>
+    <% end %>
+  </div>
+</template>

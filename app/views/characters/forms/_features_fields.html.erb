@@ -1,0 +1,41 @@
+<div data-controller="nested-form"
+    data-nested-form-modal-title-value="特徴の削除"
+    data-nested-form-modal-message-value="この特徴を削除しますか？">
+  <p class="block text-lg font-bold mb-1">特徴</p>
+  <div class="border rounded-lg p-4 mb-2 space-y-2">
+    <select data-nested-form-target="inputType" class="block w-full px-3 py-2 border border-black rounded-md">
+      <option value="">特徴を選択してください。</option>
+      <% @feature_categories.each do |category| %>
+        <option value="<%= category.id %>" data-name="<%= category.name %>"><%= category.name %></option>
+      <% end %>
+    </select>
+
+    <input type="text" data-nested-form-target="inputExplanation" class="block w-full px-3 py-2 border border-black rounded-md" placeholder="説明を25文字以内で記入してください。" maxlength="25">
+    <button type="button" data-action="click->nested-form#add" class="border border-gray-400 w-full py-2 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300">特徴を追加</button>
+  </div>
+  <div data-nested-form-target="flashContainer" class="mb-4"></div>
+  <div data-nested-form-target="container" class="flex flex-wrap gap-2">
+    <%= f.fields_for :character_features do |feature_form| %>
+      <% unless feature_form.object.new_record? %>
+        <div class="nested-fields-wrapper inline-flex items-center gap-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full cursor-pointer" data-action="click->nested-form#remove">
+          <span><%= feature_form.object.character_feature_category.name %> / <%= feature_form.object.explanation %></span>
+          <span class="text-xs text-red-500 font-bold">×</span>
+          <%= feature_form.hidden_field :id %>
+          <%= feature_form.hidden_field :_destroy %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <template data-nested-form-target="template">
+    <div class="nested-fields-wrapper inline-flex items-center gap-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full cursor-pointer" data-action="click->nested-form#remove" data-new-record="true">
+      <span data-nested-form-target="capsuleText"></span>
+      <span class="text-xs text-red-500 font-bold">×</span>
+      <%= f.fields_for :character_features, CharacterFeature.new, child_index: 'NEW_RECORD' do |ff| %>
+        <%= ff.hidden_field :character_feature_category_id, data: { nested_form_target: "hiddenCategoryId" } %>
+        <%= ff.hidden_field :explanation, data: { nested_form_target: "hiddenExplanation" } %>
+        <%= ff.hidden_field :_destroy %>
+      <% end %>
+    </div>
+  </template>
+  <div data-nested-form-target="modalPlaceholder"></div>
+</div>

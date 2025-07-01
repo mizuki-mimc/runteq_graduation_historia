@@ -1,0 +1,10 @@
+<% if character.errors.any? %>
+  <div id="error_explanation" class="text-red-500 border border-red-300 bg-red-50 p-4 rounded-md">
+    <h2 class="font-bold text-lg mb-2"><%= character.errors.count %>件のエラーがあります。</h2>
+    <ul>
+      <% character.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

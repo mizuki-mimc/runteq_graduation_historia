@@ -1,95 +1,11 @@
 <% breadcrumb :character, @story, @character %>
 <div class="px-4 sm:px-6 lg:px-8 py-8">
   <div class="max-w-screen-xl mx-auto">
-    <h1 class="text-center text-4xl font-bold tracking-tight mt-12 mb-14">キャラクターを確認しよう！</h1>
+    <h1 class="text-center text-3xl md:text-4xl font-bold tracking-tight mt-12 mb-14">キャラクターを確認しよう！</h1>
 
-    <div class="flex justify-center items-center gap-4 mb-12">
-      <%= link_to "キャラクターを編集する", edit_story_character_path(@story, @character), class: "border border-gray-400 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
-      <%= link_to "キャラクターを削除する", "#", 
-        class: "border border-gray-400 px-8 py-3 rounded-md font-semibold hover:bg-red-500 hover:text-white",
-        data: { 
-          action: "click->modal#open",
-          modal_url: story_character_path(@story, @character),
-          modal_title: "キャラクターの削除",
-          modal_body: "「<strong>#{@character.name}</strong>」を完全に削除します。よろしいですか？",
-          modal_button_text: "削除する"
-        } %>
-    </div>
-    
-    <div class="max-w-3xl mx-auto space-y-6 border-2 border-gray-300 p-8 rounded-lg bg-white shadow">
-      <div>
-        <p class="font-bold">【キャラクター名】</p>
-        <p class="text-xl ml-4 mt-2"><%= @character.name %></p>
-      </div>
-      <div>
-        <p class="font-bold">【種族】</p>
-        <p class="text-xl ml-4 mt-2"><%= @character.race.presence || "未設定" %></p>
-      </div>
-      <div>
-        <p class="font-bold">【性別】</p>
-        <% if @character.gender.present? %>
-          <p class="text-xl ml-4 mt-2"><%= t("enums.character.gender.#{@character.gender}", default: "翻訳キーが見つかりません") %></p>
-        <% else %>
-          <p class="text-xl ml-4 mt-2">未設定</p>
-        <% end %>
-      </div>
-      <div>
-        <p class="font-bold">【年齢】</p>
-        <p class="text-xl ml-4 mt-2"><%= @character.age.presence || "未設定" %></p>
-      </div>
-      <div>
-        <p class="font-bold">【出身地】</p>
-        <div class="ml-4 mt-4 gap-3">
-          <% if @character.birthplace_world_guide %>
-            <%= link_to @character.birthplace_world_guide.country_and_region, story_world_guide_path(@story, @character.birthplace_world_guide), class: "inline-block px-3 py-1 text-md bg-gray-100 border border-black rounded-full hover:bg-gray-200" %>
-          <% else %>
-            <p>未設定</p>
-          <% end %>
-        </div>
-      </div>
-      <div>
-        <p class="font-bold">【現住所】</p>
-        <div class="ml-4 mt-4 gap-3">
-          <% if @character.address_world_guide %>
-            <%= link_to @character.address_world_guide.country_and_region, story_world_guide_path(@story, @character.address_world_guide), class: "inline-block px-3 py-1 text-md bg-gray-100 border border-black rounded-full hover:bg-gray-200" %>
-          <% else %>
-            <p>未設定</p>
-          <% end %>
-        </div>
-      </div>
-      <div>
-        <p class="font-bold">【関連するキャラクター】</p>
-        <div class="flex flex-wrap gap-3 mt-4 ml-4">
-          <% if @character.relationships.exists? %>
-            <% @character.relationships.each do |relationship| %>
-              <%= link_to story_character_path(@story, relationship.related_character), class: "px-3 py-1 text-md bg-gray-100 border border-black rounded-full hover:bg-gray-200" do %>
-                <%= relationship.related_character.name %> / <%= relationship.relationship_type %>
-              <% end %>
-            <% end %>
-          <% else %>
-            <p>なし</p>
-          <% end %>
-        </div>
-      </div>
-      <div>
-        <p class="font-bold">【特徴】</p>
-        <div class="flex flex-wrap gap-3 mt-4 ml-4">
-          <% if @character.character_features.exists? %>
-            <% @character.character_features.each do |feature| %>
-              <span class="px-3 py-1 text-md bg-gray-100 border border-black rounded-full">
-                <%= feature.character_feature_category.name %> / <%= feature.explanation %>
-              </span>
-            <% end %>
-          <% else %>
-            <p>なし</p>
-          <% end %>
-        </div>
-      </div>
-      <div>
-        <p class="font-bold">【イメージ画像】</p>
-        <p class="ml-4 mt-2">なし</p>
-      </div>
-    </div>
+    <%= render 'characters/details/action_buttons', story: @story, character: @character %>
+
+    <%= render 'characters/details/character_info_card', story: @story, character: @character %>
     
     <div class="text-center mt-12">
       <%= link_to "キャラクター一覧に戻る", story_characters_path(@story), class: "border border-gray-400 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>

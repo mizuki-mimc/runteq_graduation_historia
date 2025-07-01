@@ -2,43 +2,15 @@
 <div class="px-4 sm:px-6 lg:px-8 py-8">
   <div class="max-w-screen-xl mx-auto">
 
-    <div class="mb-14">
-      <nav class="-mb-px flex justify-center space-x-8" aria-label="Tabs">
-        <a href="<%= story_path(@story) %>" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-400 whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg">
-          ストーリー
-        </a>
-        <a href="<%= story_world_guides_path(@story) %>" class="border-black text-black whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg" aria-current="page">
-          ワールドガイド
-        </a>
-        <a href="<%= story_characters_path(@story) %>" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-400 whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg">
-          キャラクター
-        </a>
-        <a href="<%= story_flags_path(@story) %>" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-400 whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg">
-          フラグ
-        </a>
-      </nav>
-    </div>
+    <%= render 'stories/tab_navigation' %>
 
     <div class="space-y-10">
       <% @categories.each do |category_key| %>
-        <% category_name = WorldGuide.categories[category_key] %>
-        <div>
-          <div class="flex items-center gap-8 mb-8">
-            <h2 class="text-3xl font-bold border-l-8 border-black pl-4"><%= category_name %></h2>
-            <%= link_to "追加", new_story_world_guide_path(@story, world_guide: { category: category_key }), class: "border border-gray-400 px-4 py-1 gap-6 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300" %>
-          </div>
-          <div class="pl-8 flex flex-wrap gap-3">
-            <% if @grouped_world_guides[category_key] %>
-              <% @grouped_world_guides[category_key].each do |wg| %>
-                <%= link_to story_world_guide_path(@story, wg), class: "px-4 py-1.5 text-md bg-gray-100 border border-black rounded-full hover:bg-gray-200" do %>
-                  <%= [wg.country_name, wg.region_name].compact.reject(&:blank?).join(' / ') %>
-                <% end %>
-              <% end %>
-            <% else %>
-              <p class="text-gray-500">まだ登録されていません。</p>
-            <% end %>
-          </div>
-        </div>
+        <%= render partial: 'world_guides/category_section', locals: { 
+              category_key: category_key,
+              story: @story,
+              grouped_world_guides: @grouped_world_guides 
+            } %>
       <% end %>
     </div>
   </div>

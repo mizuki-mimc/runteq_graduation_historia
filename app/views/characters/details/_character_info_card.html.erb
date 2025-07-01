@@ -1,0 +1,53 @@
+<div class="max-w-3xl mx-auto space-y-6 border-2 border-gray-300 p-8 rounded-lg bg-white shadow">
+    <%= render 'characters/details/info_field', title: "キャラクター名", content: character.name %>
+    <%= render 'characters/details/info_field', title: "種族", content: character.race %>
+
+    <div>
+      <p class="font-bold">【性別】</p>
+      <% if @character.gender.present? %>
+        <p class="ml-4 mt-2"><%= t("enums.character.gender.#{@character.gender}", default: "翻訳キーが見つかりません") %></p>
+      <% else %>
+        <p class="ml-4 mt-2">未設定</p>
+      <% end %>
+    </div>
+
+    <%= render 'characters/details/info_field', title: "年齢", content: character.age %>
+
+    <%= render 'characters/details/location_info', title: "出身地", location: character.birthplace_world_guide, story: story %>
+    <%= render 'characters/details/location_info', title: "現住所", location: character.address_world_guide, story: story %>
+      
+    <div>
+      <p class="font-bold">【関連するキャラクター】</p>
+      <div class="flex flex-wrap gap-3 mt-4 ml-4">
+        <% if @character.relationships.exists? %>
+          <% @character.relationships.each do |relationship| %>
+            <%= link_to story_character_path(@story, relationship.related_character), class: "px-3 py-1 text-md bg-gray-100 border border-black rounded-full hover:bg-gray-200" do %>
+              <%= relationship.related_character.name %> / <%= relationship.relationship_type %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <p>なし</p>
+        <% end %>
+      </div>
+    </div>
+
+    <div>
+      <p class="font-bold">【特徴】</p>
+      <div class="flex flex-wrap gap-3 mt-4 ml-4">
+        <% if @character.character_features.exists? %>
+          <% @character.character_features.each do |feature| %>
+            <span class="px-3 py-1 text-md bg-gray-100 border border-black rounded-full">
+              <%= feature.character_feature_category.name %> / <%= feature.explanation %>
+            </span>
+          <% end %>
+        <% else %>
+          <p>なし</p>
+        <% end %>
+      </div>
+    </div>
+
+    <div>
+      <p class="font-bold">【イメージ画像】</p>
+     <p class="ml-4 mt-2">なし</p>
+    </div>
+</div>
