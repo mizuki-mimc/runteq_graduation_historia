@@ -1,8 +1,9 @@
 <div class="px-4 sm:px-6 lg:px-8 py-8">
   <div class="max-w-screen-xl mx-auto">
-    <h1 class="text-center text-4xl font-bold tracking-tight mt-12 mb-20">あなただけのストーリーをはじめましょう！</h1>
+    <% breadcrumb :new_story, @story %>
+    <h1 class="text-center text-3xl md:text-4xl font-bold tracking-tight mt-12 mb-20">あなただけのストーリーをはじめましょう！</h1>
 
-    <div class="max-w-3xl mx-auto p-8 border-2 rounded-lg mb-14 border-black">
+    <div class="max-w-3xl mx-auto p-8 rounded-lg mb-14">
       <%= render 'form', story: @story %>
     </div>
   </div>

@@ -2,6 +2,11 @@ crumb :stories do
   link "ホーム", stories_path
 end
 
+crumb :new_story do |story|
+  link "ストーリー作成", new_story_path(story)
+  parent :stories
+end
+
 crumb :story do |story|
   link truncate(story.title, length: 10), story_path(story)
   parent :stories

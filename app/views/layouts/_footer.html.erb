@@ -1,8 +1,15 @@
 <footer class="bg-black text-white text-center p-6 w-full">
-  <p class="text-sm whitespace-nowrap">
-    © <%= Time.now.year %> Historia. All rights reserved. |
-    <%= link_to "プライバシーポリシー ※準備中", "#", class: "mx-1 underline hover:no-underline" %> |
-    <%= link_to "利用規約 ※準備中", "#", class: "mx-1 underline hover:no-underline" %> |
-    <%= link_to "お問い合わせ ※準備中", "#", class: "mx-1 underline hover:no-underline" %>
-  </p>
+  <div class="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 text-sm">
+
+    <span>© <%= Time.now.year %> Historia. All rights reserved.</span>
+
+    <span class="hidden sm:inline">|</span>
+
+    <nav class="flex gap-x-4">
+      <%= link_to "プライバシーポリシー ※準備中", "#", class: "underline hover:no-underline" %>
+      <%= link_to "利用規約 ※準備中", "#", class: "underline hover:no-underline" %>
+      <%= link_to "お問い合わせ ※準備中", "#", class: "underline hover:no-underline" %>
+    </nav>
+
+  </div>
 </footer>

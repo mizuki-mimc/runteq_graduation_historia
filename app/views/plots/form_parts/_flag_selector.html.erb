@@ -1,0 +1,53 @@
+<div data-controller="plot-flag-form">
+  <label class="block text-lg font-bold">フラグ</label>
+  <div class="flex flex-col sm:flex-row items-center gap-2 mt-1">
+    <select data-plot-flag-form-target="select" class="flex-grow block px-3 py-2 border border-black rounded-md shadow-sm">
+      <option value="">プロットで扱うフラグを選択</option>
+      <% @flags_for_select.each do |flag| %>
+        <option value="<%= flag.id %>" data-is-created="<%= flag.already_created_in_story? %>">
+          <%= flag.title %>
+        </option>
+      <% end %>
+    </select>
+    <button type="button" data-action="click->plot-flag-form#add" class="w-full sm:w-auto flex-shrink-0 border border-gray-400 px-4 py-2 rounded-md font-semibold hover:bg-black hover:text-white">追加</button>
+  </div>
+  <div data-plot-flag-form-target="flashContainer" class="mt-2"></div>
+
+  <div data-plot-flag-form-target="container" class="mt-2 space-y-2">
+    <%= f.fields_for :plot_flags do |pf| %>
+      <div class="nested-flag-fields flex items-center gap-3 p-2 border rounded-md bg-gray-50">
+        <span class="flex-grow font-semibold" data-role="flag-name"><%= pf.object.flag.title %></span>
+        <div class="flex items-center gap-2">
+          <%= pf.check_box :check_created, { data: { action: "plot-flag-form#toggleCheckbox", role: "check-created" } }, true, false %>
+          <label>設置</label>
+        </div>
+        <div class="flex items-center gap-2">
+          <%= pf.check_box :check_recovered, { data: { action: "plot-flag-form#toggleCheckbox", role: "check-recovered" } }, true, false %>
+          <label>回収</label>
+        </div>
+        <button type="button" data-action="click->plot-flag-form#remove" class="text-red-500 hover:text-red-700 font-bold">×</button>
+        <%= pf.hidden_field :id %>
+        <%= pf.hidden_field :flag_id, data: { "flag-id": "" } %>
+        <%= pf.hidden_field :_destroy %>
+      </div>
+    <% end %>
+  </div>
+
+  <template data-plot-flag-form-target="template">
+    <%= f.fields_for :plot_flags, PlotFlag.new, child_index: 'NEW_RECORD' do |pf| %>
+      <div class="nested-flag-fields flex items-center gap-3 p-2 border rounded-md bg-green-50">
+        <span class="flex-grow font-semibold" data-role="flag-name"></span>
+        <div class="flex items-center gap-2">
+          <%= pf.check_box :check_created, { data: { action: "plot-flag-form#toggleCheckbox", role: "check-created" } }, true, false %>
+          <label>設置</label>
+        </div>
+        <div class="flex items-center gap-2">
+          <%= pf.check_box :check_recovered, { data: { action: "plot-flag-form#toggleCheckbox", role: "check-recovered" } }, true, false %>
+          <label>回収</label>
+        </div>
+        <button type="button" data-action="click->plot-flag-form#remove" class="text-red-500 hover:text-red-700 font-bold">×</button>
+        <%= pf.hidden_field :flag_id, data: { "flag-id": "" } %>
+      </div>
+    <% end %>
+  </template>
+</div>

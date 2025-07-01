@@ -2,7 +2,7 @@
 <div class="px-4 sm:px-6 lg:px-8 py-8">
   <div class="max-w-screen-xl mx-auto">
 
-    <div class="flex justify-center items-center space-x-4 mb-16 gap-8">
+    <div class="flex flex-wrap justify-center items-center gap-8 mb-16">
       <% if @story.published? %>
         <%= button_to "公開中", '#', class: "bg-black text-white px-8 py-3 rounded-md font-semibold", disabled: true %>
         <%= button_to "下書き", set_status_story_path(@story, status: :draft), method: :patch, class: "border border-gray-400 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
@@ -12,146 +12,11 @@
       <% end %>
     </div>
 
-    <div class="mb-12">
-      <div>
-        <nav class="-mb-px flex justify-center space-x-8" aria-label="Tabs">
-          <a href="<%= story_path(@story) %>" class="border-black text-black whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg" aria-current="page">
-            ストーリー
-          </a>
-          <a href="<%= story_world_guides_path(@story) %>" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-400 whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg">
-            ワールドガイド
-          </a>
-          <a href="<%= story_characters_path(@story) %>" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-400 whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg">
-            キャラクター
-          </a>
-          <a href="<%= story_flags_path(@story) %>" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-400 whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg">
-            フラグ
-          </a>
-        </nav>
-      </div>
-    </div>
+    <%= render 'stories/tab_navigation' %>
 
-    <div class="border-2 rounded-lg p-8 border-glay">
-      <div class="mb-6">
-        <p class="font-bold text-lg mb-4">【 タイトル 】</p>
-        <p class="text-xl ml-4 break-all"><%= @story.title %></p>
-      </div>
+    <%= render 'stories/details' %>
 
-      <div class="mb-6">
-        <p class="font-bold text-lg mb-4">【 ジャンル 】</p>
-        <p class="text-xl ml-4"><%= t("activerecord.attributes.story.genres.#{@story.genre}") %></p>
-      </div>
-
-      <div class="mb-6">
-        <p class="font-bold text-lg mb-4">【 テーマ 】</p>
-        <p class="text-xl ml-4"><%= @story.thema %></p>
-      </div>
-
-      <div class="mb-6">
-        <p class="font-bold text-lg mb-4">【 あらすじ 】</p>
-        <div class="text-xl ml-4 mb-20 break-all"><%= simple_format(@story.synopsis) %></div>
-      </div>
-
-      <div class="flex justify-center mt-8">
-        <%= link_to "ストーリーを編集する", edit_story_path(@story),
-          class: "border border-gray-400 px-4 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300",
-          data: { turbo: false } %>
-      </div>
-    </div>
-
-    <div class="mt-12">
-      <p class="font-bold text-lg mb-2">■ プロット</p>
-      <div class="border-2 rounded-lg p-8 border-glay">
-
-        <div class="space-y-6">
-          <% if @story.plots.any? %>
-            <% @story.plots.order(:order, :created_at).each do |plot| %>
-              <div class="border border-black rounded-lg p-6 space-y-4">
-
-                <div class="flex items-baseline">
-                  <span class="font-bold text-xl mr-2">【<%= plot.chapter %>】</span>
-                  <span class="font-bold text-xl"><%= plot.title %></span>
-                </div>
-
-                <div>
-                  <p class="font-bold mt-8 mb-4">【要約】</p>
-                  <p class="ml-4 text-gray-700"><%= plot.summary %></p>
-                </div>
-
-                <% if plot.world_guides.any? %>
-                  <div>
-                    <p class="font-bold mt-6 mb-4">【ワールドガイド】</p>
-                    <div class="flex flex-wrap gap-4 mt-2 mb-4 ml-4">
-                      <% plot.world_guides.each do |wg| %>
-                        <%= link_to wg.country_and_region, story_world_guide_path(@story, wg), class: "px-3 py-1 text-sm border border-black bg-gray-100 text-black rounded-full hover:bg-gray-300 transition-colors" %>
-                      <% end %>
-                    </div>
-                  </div>
-                <% end %>
-
-                <% if plot.characters.any? %>
-                  <div>
-                    <p class="font-bold mt-6 mb-4">【キャラクター】</p>
-                    <div class="flex flex-wrap gap-4 mt-2 ml-4">
-                      <% plot.characters.each do |char| %>
-                        <%= link_to char.name, story_character_path(@story, char), class: "px-3 py-1 text-sm border border-black bg-gray-100 text-black rounded-full hover:bg-gray-300 transition-colors" %>
-                      <% end %>
-                    </div>
-                  </div>
-                <% end %>
-
-                <% if plot.plot_flags.any? %>
-                  <div>
-                    <p class="font-bold mt-6 mb-4">【フラグ】</p>
-                    <div class="flex flex-wrap gap-4 mt-2 ml-4">
-                      <% plot.plot_flags.each do |plot_flag| %>
-                        <% status_class = if plot_flag.check_created && plot_flag.check_recovered
-                           "bg-green-100 border border-green-400 text-green-800 hover:bg-green-200"
-                         elsif plot_flag.check_created
-                           "bg-blue-100 border border-blue-400 text-blue-800 hover:bg-blue-200"
-                         elsif plot_flag.check_recovered
-                           "bg-green-100 border border-green-400 text-green-800 hover:bg-green-200"
-                         else
-                           "border border-black bg-gray-100 text-black hover:bg-gray-300"
-                         end
-                        base_class = "px-3 py-1 text-sm rounded-full transition-colors" %>
-                        <%= link_to plot_flag.flag.title, story_flag_path(@story, plot_flag.flag), class: "#{base_class} #{status_class}" %>
-                      <% end %>
-                    </div>
-                  </div>
-                <% end %>
-
-                <div>
-                  <p class="font-bold mt-8 mb-2">【構成メモ】</p>
-                  <div class="ml-4 mt-1 mb-16 text-gray-700 prose max-w-none">
-                    <%= simple_format(plot.content) %>
-                  </div>
-                </div>
-            
-                <div class="flex justify-end items-center gap-4 mt-12">
-                  <%= link_to "編集する", edit_story_plot_path(@story, plot), class: "border border-gray-400 px-8 py-2 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
-                  <%= link_to "削除する", "#",
-                      class: "border border-gray-400 px-8 py-2 rounded-md font-semibold hover:bg-red-500 hover:text-white transition-colors duration-300",
-                      data: {
-                        action: "click->modal#open",
-                        modal_url: story_plot_path(@story, plot),
-                        modal_title: "プロットの削除",
-                        modal_body: "「<strong>#{plot.chapter}：#{plot.title}</strong>」を完全に削除します。この操作は元に戻せません。",
-                        modal_button_text: "削除する"
-                      } %>
-                </div>
-              </div>
-            <% end %>
-          <% else %>
-            <p class="text-center text-gray-500">まだプロットはありません。</p>
-          <% end %>
-        </div>
-
-        <div class="flex justify-center mt-8">
-          <%= link_to "プロットを追加する", new_story_plot_path(@story), class: "border border-gray-400 px-4 py-3 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300" %>
-        </div>
-      </div>
-    </div>
+    <%= render 'stories/plots_section' %>
 
     <div class="flex justify-center mt-14">
       <%= link_to "ストーリーを削除する", "#",

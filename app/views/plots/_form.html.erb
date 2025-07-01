@@ -26,126 +26,11 @@
     <%= f.text_field :summary, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm", placeholder: "30文字以内で記入してください。" %>
   </div>
   
-  <div data-controller="multi-select" 
-       data-multi-select-duplicate-message-value="すでに選択されています。同じワールドガイドは複数追加できません。">
-    <label class="block text-lg font-bold">ワールドガイド</label>
-    <div class="flex items-center gap-2 mt-1">
-      <select data-multi-select-target="select" class="flex-grow block px-3 py-2 border border-black rounded-md shadow-sm">
-        <option value="">舞台となるワールドガイドを選択</option>
-        <% @world_guides.each do |wg| %>
-          <option value="<%= wg.id %>" data-name="<%= wg.country_and_region %>"><%= wg.country_and_region %></option>
-        <% end %>
-      </select>
-      <button type="button" data-action="multi-select#add" class="flex-shrink-0 border border-gray-400 px-4 py-2 rounded-md font-semibold hover:bg-black hover:text-white">追加</button>
-    </div>
+  <%= render partial: 'plots/form_parts/world_guide_selector', locals: { f: f, plot: plot } %>
 
-    <div data-multi-select-target="flashContainer" class="mt-2">
+  <%= render partial: 'plots/form_parts/character_selector', locals: { f: f, plot: plot } %>
 
-    </div>
-    
-    <div data-multi-select-target="container" class="flex flex-wrap gap-2 mt-2 mb-4">
-      <% plot.world_guides.each do |wg| %>
-        <div class="capsule inline-flex items-center gap-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full">
-          <span><%= wg.country_and_region %></span>
-          <button type="button" data-action="multi-select#remove" class="text-red-500 hover:text-red-700 font-bold">×</button>
-          <input type="hidden" name="plot[world_guide_ids][]" value="<%= wg.id %>">
-        </div>
-      <% end %>
-    </div>
-
-    <template data-multi-select-target="template">
-      <div class="capsule inline-flex items-center gap-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full">
-        <span data-multi-select-target="name"></span>
-        <button type="button" data-action="multi-select#remove" class="text-red-500 hover:text-red-700 font-bold">×</button>
-        <input type="hidden" name="plot[world_guide_ids][]" data-multi-select-target="value">
-      </div>
-    </template>
-  </div>
-
-  <div data-controller="multi-select"
-       data-multi-select-duplicate-message-value="すでに追加されています。同じキャラクターは複数追加できません。">
-    <label class="block text-lg font-bold">キャラクター</label>
-    <div class="flex items-center gap-2 mt-1">
-      <select data-multi-select-target="select" class="flex-grow block px-3 py-2 border border-black rounded-md shadow-sm">
-        <option value="">登場するキャラクターを選択</option>
-        <% @characters.each do |char| %>
-          <option value="<%= char.id %>" data-name="<%= char.name %>"><%= char.name %></option>
-        <% end %>
-      </select>
-      <button type="button" data-action="multi-select#add" class="flex-shrink-0 border border-gray-400 px-4 py-2 rounded-md font-semibold hover:bg-black hover:text-white">追加</button>
-    </div>
-    <div data-multi-select-target="flashContainer" class="mt-2"></div>
-    <div data-multi-select-target="container" class="flex flex-wrap gap-2 mt-2 mb-4">
-      <% plot.characters.each do |char| %>
-        <div class="capsule inline-flex items-center gap-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full">
-          <span><%= char.name %></span>
-          <button type="button" data-action="multi-select#remove" class="text-red-500 hover:text-red-700 font-bold">×</button>
-          <input type="hidden" name="plot[character_ids][]" value="<%= char.id %>">
-        </div>
-      <% end %>
-    </div>
-    <template data-multi-select-target="template">
-      <div class="capsule inline-flex items-center gap-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full">
-        <span data-multi-select-target="name"></span>
-        <button type="button" data-action="multi-select#remove" class="text-red-500 hover:text-red-700 font-bold">×</button>
-        <input type="hidden" name="plot[character_ids][]" data-multi-select-target="value">
-      </div>
-    </template>
-  </div>
-
-  <div data-controller="plot-flag-form">
-    <label class="block text-lg font-bold">フラグ</label>
-    <div class="flex items-center gap-2 mt-1">
-      <select data-plot-flag-form-target="select" class="flex-grow block px-3 py-2 border border-black rounded-md shadow-sm">
-        <option value="">プロットで扱うフラグを選択</option>
-        <% @flags_for_select.each do |flag| %>
-          <option value="<%= flag.id %>" data-is-created="<%= flag.already_created_in_story? %>">
-            <%= flag.title %>
-          </option>
-        <% end %>
-      </select>
-      <button type="button" data-action="click->plot-flag-form#add" class="flex-shrink-0 border border-gray-400 px-4 py-2 rounded-md font-semibold hover:bg-black hover:text-white">追加</button>
-    </div>
-    <div data-plot-flag-form-target="flashContainer" class="mt-2"></div>
-
-    <div data-plot-flag-form-target="container" class="mt-2 space-y-2">
-      <%= f.fields_for :plot_flags do |pf| %>
-        <div class="nested-flag-fields flex items-center gap-3 p-2 border rounded-md bg-gray-50">
-          <span class="flex-grow font-semibold" data-role="flag-name"><%= pf.object.flag.title %></span>
-          <div class="flex items-center gap-2">
-            <%= pf.check_box :check_created, { data: { action: "plot-flag-form#toggleCheckbox", role: "check-created" } }, true, false %>
-            <label>設置</label>
-          </div>
-          <div class="flex items-center gap-2">
-            <%= pf.check_box :check_recovered, { data: { action: "plot-flag-form#toggleCheckbox", role: "check-recovered" } }, true, false %>
-            <label>回収</label>
-          </div>
-          <button type="button" data-action="click->plot-flag-form#remove" class="text-red-500 hover:text-red-700 font-bold">×</button>
-          <%= pf.hidden_field :id %>
-          <%= pf.hidden_field :flag_id, data: { "flag-id": "" } %>
-          <%= pf.hidden_field :_destroy %>
-        </div>
-      <% end %>
-    </div>
-
-    <template data-plot-flag-form-target="template">
-      <%= f.fields_for :plot_flags, PlotFlag.new, child_index: 'NEW_RECORD' do |pf| %>
-        <div class="nested-flag-fields flex items-center gap-3 p-2 border rounded-md bg-green-50">
-          <span class="flex-grow font-semibold" data-role="flag-name"></span>
-          <div class="flex items-center gap-2">
-            <%= pf.check_box :check_created, { data: { action: "plot-flag-form#toggleCheckbox", role: "check-created" } }, true, false %>
-            <label>設置</label>
-          </div>
-          <div class="flex items-center gap-2">
-            <%= pf.check_box :check_recovered, { data: { action: "plot-flag-form#toggleCheckbox", role: "check-recovered" } }, true, false %>
-            <label>回収</label>
-          </div>
-          <button type="button" data-action="click->plot-flag-form#remove" class="text-red-500 hover:text-red-700 font-bold">×</button>
-          <%= pf.hidden_field :flag_id, data: { "flag-id": "" } %>
-        </div>
-      <% end %>
-    </template>
-  </div>
+  <%= render partial: 'plots/form_parts/flag_selector', locals: { f: f, plot: plot } %>
 
   <div>
     <%= f.label :content, "構成メモ", class: "block text-lg font-bold" %>
@@ -155,7 +40,7 @@
     <%= f.text_area :content, class: "mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm h-48", placeholder: "登録した要素を基に本編のメモ書きとしてご利用ください。" %>
   </div>
 
-  <div class="flex justify-center items-center gap-4 pt-4">
+  <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
     <button type="button" disabled class="w-1/2 py-3 px-4 border rounded-md shadow-sm text-lg font-semibold text-gray-500 bg-gray-100">
       AIプロットチェック
     </button>
