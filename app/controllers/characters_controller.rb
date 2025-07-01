@@ -2,6 +2,7 @@ class CharactersController < ApplicationController
   before_action :require_login
   before_action :set_story
   before_action :set_character, only: [ :show, :edit, :update, :destroy ]
+  before_action :prepare_form_data, only: [ :new, :create, :edit, :update ]
 
   def index
     @characters = @story.characters.includes(character_features: :character_feature_category, relationships: :related_character).order(:created_at)
@@ -15,10 +16,6 @@ class CharactersController < ApplicationController
   def new
     @character = @story.characters.build
     @character.category = params[:character][:category] if params.dig(:character, :category)
-
-    @world_guides = @story.world_guides.order(:created_at)
-    @feature_categories = CharacterFeatureCategory.order(:id)
-    @characters_for_relation = @story.characters.where.not(id: @character.id).order(:created_at)
   end
 
   def create
@@ -26,29 +23,18 @@ class CharactersController < ApplicationController
     if @character.save
       redirect_to story_characters_path(@story), success: "キャラクターを追加しました。"
     else
-      @world_guides = @story.world_guides
-      @feature_categories = CharacterFeatureCategory.all
-      @characters_for_relation = @story.characters.where.not(id: @character.id)
-
       flash.now[:error] = "キャラクターの作成に失敗しました。"
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
-    @world_guides = @story.world_guides.order(:created_at)
-    @feature_categories = CharacterFeatureCategory.order(:id)
-    @characters_for_relation = @story.characters.where.not(id: @character.id).order(:created_at)
   end
 
   def update
     if @character.update(character_params)
       redirect_to story_character_path(@story, @character), success: "キャラクターを更新しました。"
     else
-      @world_guides = @story.world_guides
-      @feature_categories = CharacterFeatureCategory.all
-      @characters_for_relation = @story.characters.where.not(id: @character.id)
-
       flash.now[:error] = "キャラクターの更新に失敗しました。"
       render :edit, status: :unprocessable_entity
     end
@@ -71,6 +57,12 @@ class CharactersController < ApplicationController
       flash[:error] = "キャラクターは存在しません。"
       redirect_to story_characters_path(@story)
     end
+  end
+
+  def prepare_form_data
+    @world_guides = @story.world_guides.order(:created_at)
+    @feature_categories = CharacterFeatureCategory.order(:id)
+    @characters_for_relation = @story.characters.where.not(id: @character&.id).order(:created_at)
   end
 
   def character_params

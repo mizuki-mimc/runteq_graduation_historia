@@ -2,13 +2,11 @@ class PlotsController < ApplicationController
   before_action :require_login
   before_action :set_story
   before_action :set_plot, only: [ :edit, :update, :destroy ]
+  before_action :prepare_plot_form_data, only: [ :new, :create, :edit, :update ]
   before_action :check_for_missing_elements, only: [ :new, :edit ]
 
   def new
     @plot = @story.plots.build
-    @world_guides = @story.world_guides.order(:created_at)
-    @characters = @story.characters.order(:created_at)
-    @flags_for_select = @story.flags.unrecovered.order(:created_at)
   end
 
   def create
@@ -16,27 +14,18 @@ class PlotsController < ApplicationController
     if @plot.save
       redirect_to story_path(@story), success: "プロットを追加しました。"
     else
-      @world_guides = @story.world_guides.order(:created_at)
-      @characters = @story.characters.order(:created_at)
-      @flags_for_select = @story.flags.unrecovered.order(:created_at)
       flash.now[:error] = "プロットの作成に失敗しました。"
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
-    @world_guides = @story.world_guides.order(:created_at)
-    @characters = @story.characters.order(:created_at)
-    @flags_for_select = @story.flags.unrecovered.order(:created_at)
   end
 
   def update
     if @plot.update(plot_params)
       redirect_to story_path(@story), success: "プロットを更新しました。"
     else
-      @world_guides = @story.world_guides.order(:created_at)
-      @characters = @story.characters.order(:created_at)
-      @flags_for_select = @story.flags.unrecovered.order(:created_at)
       flash.now[:error] = "プロットの更新に失敗しました。"
       render :edit, status: :unprocessable_entity
     end
@@ -55,6 +44,12 @@ class PlotsController < ApplicationController
 
   def set_plot
     @plot = @story.plots.find(params[:id])
+  end
+
+  def prepare_plot_form_data
+    @world_guides = @story.world_guides.order(:created_at)
+    @characters = @story.characters.order(:created_at)
+    @flags_for_select = @story.flags.unrecovered.order(:created_at)
   end
 
   def plot_params
