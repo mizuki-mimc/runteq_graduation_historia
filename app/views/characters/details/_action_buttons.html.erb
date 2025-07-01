@@ -1,0 +1,12 @@
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+  <%= link_to "キャラクターを編集する", edit_story_character_path(@story, @character), class: "border border-gray-400 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
+  <%= link_to "キャラクターを削除する", "#", 
+    class: "border border-gray-400 px-8 py-3 rounded-md font-semibold hover:bg-red-500 hover:text-white",
+    data: { 
+      action: "click->modal#open",
+      modal_url: story_character_path(@story, @character),
+      modal_title: "キャラクターの削除",
+      modal_body: "「<strong>#{@character.name}</strong>」を完全に削除します。よろしいですか？",
+      modal_button_text: "削除する"
+    } %>
+</div>

@@ -1,0 +1,28 @@
+<div class="max-w-3xl mx-auto space-y-6 border-2 border-glay p-8 rounded-lg">
+  <div>
+    <p class="font-bold">【世界名】</p>
+    <p class="text-xl ml-4 mt-2"><%= @world_guide.world_name %></p>
+  </div>
+  <div>
+    <p class="font-bold">【国名】</p>
+    <p class="text-xl ml-4 mt-2"><%= @world_guide.country_name %></p>
+  </div>
+  <div>
+    <p class="font-bold">【地域名】</p>
+    <p class="text-xl ml-4 mt-2"><%= @world_guide.region_name %></p>
+  </div>
+  <div>
+    <p class="font-bold">【特徴】</p>
+    <div class="flex flex-wrap gap-3 mt-4 ml-4">
+      <% @world_guide.world_guide_features.each do |feature| %>
+        <span class="px-3 py-1 text-md bg-gray-100 border border-black rounded-full">
+          <%= feature.world_feature_category.name %> / <%= feature.explanation %>
+        </span>
+      <% end %>
+    </div>
+  </div>
+  <div>
+    <p class="font-bold">【イメージ画像】</p>
+    <p class="text-xl ml-4 mt-2">なし</p>
+  </div>
+</div>

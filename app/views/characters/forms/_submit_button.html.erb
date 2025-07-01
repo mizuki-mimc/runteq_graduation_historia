@@ -1,0 +1,4 @@
+<div class="text-center pt-6">
+  <% submit_text = character.new_record? ? "キャラクターを作成する" : "キャラクターを更新する" %>
+  <%= f.submit submit_text, class: "border border-gray-400 px-4 py-3 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300" %>
+</div>

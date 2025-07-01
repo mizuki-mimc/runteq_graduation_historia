@@ -1,0 +1,14 @@
+<div class="space-y-3 max-w-2xl mx-auto">
+  <% if @flags.any? %>
+    <% @flags.each do |flag| %>
+      <div class="flex items-center gap-6">
+        <%= flag_status_indicator(flag) %>
+        <div class="flex-grow">
+          <%= link_to flag.title, story_flag_path(@story, flag), class: "block w-full text-left px-4 py-2 text-md bg-gray-100 border border-black rounded-full hover:bg-gray-200 transition-colors" %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="text-center text-gray-500 py-10">まだフラグはありません。</p>
+  <% end %>
+</div>
