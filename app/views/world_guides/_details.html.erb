@@ -1,5 +1,9 @@
 <div class="max-w-3xl mx-auto space-y-6 border-2 border-glay p-8 rounded-lg">
   <div>
+    <p class="font-bold">【カテゴリー】</p>
+    <p class="text-xl ml-4 mt-2"><%= @world_guide.category.presence || "未設定" %></p>
+  </div>
+  <div>
     <p class="font-bold">【世界名】</p>
     <p class="text-xl ml-4 mt-2"><%= @world_guide.world_name %></p>
   </div>

@@ -1,6 +1,9 @@
 <div>
-  <%= f.label :category, "カテゴリ", class: "block text-lg font-bold" %>
-  <%= f.select :category, Character.categories.keys.map { |k| [t("enums.character.category.#{k}"), k] }, { prompt: "カテゴリを選択してください" }, { class: "mt-2 w-full p-2 border border-black rounded" } %>
+  <%= f.label :category, "カテゴリー", class: "block text-lg font-bold" %>
+  <%= f.select :category, 
+               Character.categories.keys, 
+               { include_blank: 'カテゴリーを選択してください' }, 
+               { class: "mt-2 w-full p-2 border border-black rounded" } %>
 </div>
 
 <div>

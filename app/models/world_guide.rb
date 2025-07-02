@@ -9,11 +9,15 @@ class WorldGuide < ApplicationRecord
   accepts_nested_attributes_for :world_guide_features, allow_destroy: true, reject_if: :all_blank
 
   enum category: {
-    present: "現在",
-    future: "未来",
-    past: "過去",
-    fantasy: "空想"
+    "現在" => "現在",
+    "未来" => "未来",
+    "過去" => "過去",
+    "空想" => "空想"
   }
+
+  def category_with_display_name
+    "#{category} : #{country_and_region}"
+  end
 
   def country_and_region
     [ country_name, region_name ].compact.reject(&:blank?).join(" / ")

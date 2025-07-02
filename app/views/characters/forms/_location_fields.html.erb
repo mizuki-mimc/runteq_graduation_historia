@@ -1,8 +1,8 @@
 <div>
   <%= f.label :birthplace_world_guide_id, "出身地", class: "block text-lg font-bold" %>
-  <%= f.collection_select :birthplace_world_guide_id, @world_guides, :id, :country_and_region, { prompt: "作成済みのワールドガイドから選択してください。" }, { class: "mt-2 w-full p-2 border border-black rounded" } %>
+  <%= f.collection_select :birthplace_world_guide_id, @world_guides, :id, :category_with_display_name, { prompt: "作成済みのワールドガイドから選択してください。" }, { class: "mt-2 w-full p-2 border border-black rounded" } %>
 </div>
 <div>
   <%= f.label :address_world_guide_id, "現住所", class: "block text-lg font-bold" %>
-  <%= f.collection_select :address_world_guide_id, @world_guides, :id, :country_and_region, { prompt: "作成済みのワールドガイドから選択してください。" }, { class: "mt-2 w-full p-2 border border-black rounded" } %>
+  <%= f.collection_select :address_world_guide_id, @world_guides, :id, :category_with_display_name, { prompt: "作成済みのワールドガイドから選択してください。" }, { class: "mt-2 w-full p-2 border border-black rounded" } %>
 </div>

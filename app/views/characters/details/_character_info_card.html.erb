@@ -1,13 +1,14 @@
 <div class="max-w-3xl mx-auto space-y-6 border-2 border-gray-300 p-8 rounded-lg bg-white shadow">
+    <%= render 'characters/details/info_field', title: "カテゴリー", content: character.category %>
     <%= render 'characters/details/info_field', title: "キャラクター名", content: character.name %>
     <%= render 'characters/details/info_field', title: "種族", content: character.race %>
 
     <div>
       <p class="font-bold">【性別】</p>
       <% if @character.gender.present? %>
-        <p class="ml-4 mt-2"><%= t("enums.character.gender.#{@character.gender}", default: "翻訳キーが見つかりません") %></p>
+        <p class="text-xl ml-4 mt-2"><%= t("enums.character.gender.#{@character.gender}", default: "翻訳キーが見つかりません") %></p>
       <% else %>
-        <p class="ml-4 mt-2">未設定</p>
+        <p class="text-xl ml-4 mt-2">未設定</p>
       <% end %>
     </div>
 
@@ -21,8 +22,10 @@
       <div class="flex flex-wrap gap-3 mt-4 ml-4">
         <% if @character.relationships.exists? %>
           <% @character.relationships.each do |relationship| %>
-            <%= link_to story_character_path(@story, relationship.related_character), class: "px-3 py-1 text-md bg-gray-100 border border-black rounded-full hover:bg-gray-200" do %>
-              <%= relationship.related_character.name %> / <%= relationship.relationship_type %>
+            <%= link_to story_character_path(@story, relationship.related_character), class: "px-3 py-1 text-md bg-gray-100 border border-black rounded-full hover:bg-gray-200 flex items-stretch gap-x-2" do %>
+              <span class="flex items-center"><%= relationship.related_character.category %></span>
+              <span class="border-l border-gray-700"></span>
+              <span class="flex items-center"><%= relationship.related_character.name %> / <%= relationship.relationship_type %></span>
             <% end %>
           <% end %>
         <% else %>
@@ -48,6 +51,6 @@
 
     <div>
       <p class="font-bold">【イメージ画像】</p>
-     <p class="ml-4 mt-2">なし</p>
+     <p class="text-xl ml-4 mt-2">なし</p>
     </div>
 </div>

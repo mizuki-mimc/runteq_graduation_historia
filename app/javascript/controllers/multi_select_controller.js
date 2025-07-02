@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["select", "container", "template", "name", "value", "flashContainer"]
+  static targets = ["select", "container", "template", "category", "name", "value", "flashContainer"]
 
   static values = {
     duplicateMessage: { type: String, default: "すでに追加されています。この項目は複数追加できません。" }
@@ -12,6 +12,7 @@ export default class extends Controller {
     const selectedOption = this.selectTarget.selectedOptions[0]
     const selectedValue = selectedOption.value
     const selectedName = selectedOption.dataset.name
+    const selectedCategory = selectedOption.dataset.category
 
     if (!selectedValue) return
 
@@ -24,6 +25,7 @@ export default class extends Controller {
 
     const capsule = this.templateTarget.content.cloneNode(true)
 
+    capsule.querySelector("[data-multi-select-target='category']").textContent = selectedCategory
     capsule.querySelector("[data-multi-select-target='name']").textContent = selectedName
     capsule.querySelector("[data-multi-select-target='value']").value = selectedValue
     

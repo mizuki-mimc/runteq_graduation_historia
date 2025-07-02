@@ -16,7 +16,11 @@
             <p class="font-bold mt-6 mb-4">【ワールドガイド】</p>
             <div class="flex flex-wrap gap-4 mt-2 mb-4 ml-4">
               <% plot.world_guides.each do |wg| %>
-                <%= link_to wg.country_and_region, story_world_guide_path(@story, wg), class: "px-3 py-1 text-sm border border-black bg-gray-100 text-black rounded-full hover:bg-gray-300 transition-colors" %>
+                <%= link_to story_world_guide_path(@story, wg), class: "px-3 py-1 text-sm border border-black bg-gray-100 text-black rounded-full hover:bg-gray-300 transition-colors flex items-stretch gap-x-2" do %>
+                  <span class="flex items-center"><%= wg.category %></span>
+                  <span class="border-l border-gray-700"></span>
+                  <span class="flex items-center"><%= wg.country_and_region %></span>
+                <% end %>
               <% end %>
             </div>
           </div>
@@ -27,7 +31,11 @@
             <p class="font-bold mt-6 mb-4">【キャラクター】</p>
             <div class="flex flex-wrap gap-4 mt-2 ml-4">
               <% plot.characters.each do |char| %>
-                <%= link_to char.name, story_character_path(@story, char), class: "px-3 py-1 text-sm border border-black bg-gray-100 text-black rounded-full hover:bg-gray-300 transition-colors" %>
+                <%= link_to story_character_path(@story, char), class: "px-3 py-1 text-sm border border-black bg-gray-100 text-black rounded-full hover:bg-gray-300 transition-colors flex items-stretch gap-x-2" do %>
+                  <span class="flex items-center"><%= char.category %></span>
+                  <span class="border-l border-gray-700"></span>
+                  <span class="flex items-center"><%= char.name %></span>
+                <% end %>
               <% end %>
             </div>
           </div>
