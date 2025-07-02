@@ -15,22 +15,101 @@ export default class extends Controller {
     modalMessage: { type: String, default: "この項目を削除しますか？" }
   }
 
+  connect() {
+    console.log("✅ nested-form controller connected for:", this.element.dataset.formType);
+    this.restoreFieldsOnError();
+  }
+
+  restoreFieldsOnError() {
+    console.log("🔄 Attempting to restore fields...");
+    const errorTrigger = document.getElementById('form-validation-error-trigger');
+
+    if (!errorTrigger) {
+      console.log("  -> No error trigger found. Exiting restore.");
+      return;
+    }
+
+    if (!this.hasContainerTarget) {
+      console.error("  -> CRITICAL: container target is missing!");
+      return;
+    }
+
+    const formType = this.element.dataset.formType;
+    console.log(`  -> Error trigger found. This form is for: [${formType}]`);
+
+    const dataKey = formType === 'worldGuideFeatures' ? 'worldGuideFeatures' : formType;
+    if (!formType || !errorTrigger.dataset[dataKey]) {
+      console.log(`  -> No data to restore for [${formType}].`);
+      return;
+    }
+
+    const dataToRestore = JSON.parse(errorTrigger.dataset[dataKey]);
+    
+    if (dataToRestore.length === 0) {
+      console.log(`  -> Data for [${formType}] is empty.`);
+      return;
+    }
+    
+    console.log(`  -> Received ${dataToRestore.length} items for [${formType}]:`, dataToRestore);
+
+    this.containerTarget.innerHTML = '';
+
+    dataToRestore.forEach(data => {
+      if (!data.id) {
+        console.log("    -> Restoring unsaved item:", data);
+        
+        if (formType === 'features') {
+          this.inputTypeTarget.value = data.character_feature_category_id;
+          this.inputExplanationTarget.value = data.explanation;
+        } else if (formType === 'relationships') {
+          this.inputTypeTarget.value = data.related_character_id;
+          this.inputExplanationTarget.value = data.relationship_type;
+        } else if (formType === 'worldGuideFeatures') {
+          this.inputTypeTarget.value = data.world_feature_category_id;
+          this.inputExplanationTarget.value = data.explanation;
+        }
+
+        this.add(new Event('manual_restore'));
+      } else {
+        console.log("    -> Skipping saved item (already rendered by Rails):", data);
+      }
+    });
+  }
+
   add(event) {
-    event.preventDefault()
+    if (event.type !== 'manual_restore') {
+      event.preventDefault()
+    }
+
+    if (!this.hasInputTypeTarget || !this.hasInputExplanationTarget || !this.hasTemplateTarget || !this.hasContainerTarget) {
+      console.error("Cannot add field: one or more targets are missing (inputType, inputExplanation, template, container).");
+      return;
+    }
+
     const categoryId = this.inputTypeTarget.value
     const categoryName = this.inputTypeTarget.selectedOptions[0].text
     const explanation = this.inputExplanationTarget.value
     if (!categoryId || explanation.trim() === "") {
-      this.showFlash("特徴と説明の両方を入力してください。")
+      if (event.type !== 'manual_restore') {
+        this.showFlash("特徴と説明の両方を入力してください。")
+      }
       return
     }
-    this.flashContainerTarget.innerHTML = ""
-    const content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime())
+    
+    if (this.hasFlashContainerTarget) {
+      this.flashContainerTarget.innerHTML = ""
+    }
+    
+    const childIndex = new Date().getTime() + Math.floor(Math.random() * 1000);
+    const content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, childIndex);
+
     this.containerTarget.insertAdjacentHTML("beforeend", content)
     const newCapsule = this.containerTarget.lastElementChild
+    
     newCapsule.querySelector("[data-nested-form-target='capsuleText']").textContent = `${categoryName} / ${explanation}`
     newCapsule.querySelector("[data-nested-form-target='hiddenCategoryId']").value = categoryId
     newCapsule.querySelector("[data-nested-form-target='hiddenExplanation']").value = explanation
+    
     this.inputExplanationTarget.value = ""
     this.inputTypeTarget.selectedIndex = 0
   }
@@ -41,23 +120,19 @@ export default class extends Controller {
 
     const removalLogic = () => {
       if (wrapper.dataset.newRecord === "true") {
-
         wrapper.remove()
       } else {
-
         wrapper.style.display = "none"
         const destroyInput = wrapper.querySelector("input[name*='_destroy']")
         destroyInput.value = "1"
       }
     }
-
     this.showConfirmationModal(this.modalMessageValue, removalLogic)
   }
 
   showConfirmationModal(message, callback) {
-
+    if (!this.hasModalPlaceholderTarget) return;
     this.hideConfirmationModal()
-
     const modalHTML = `
       <div class="fixed inset-0 bg-gray-900 bg-opacity-50 transition-opacity" data-action="click->nested-form#hideConfirmationModal"></div>
       <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -87,20 +162,21 @@ export default class extends Controller {
   }
 
   hideConfirmationModal() {
-    this.modalPlaceholderTarget.innerHTML = ""
+    if (this.hasModalPlaceholderTarget) {
+      this.modalPlaceholderTarget.innerHTML = ""
+    }
     this.confirmCallback = null
   }
 
   confirmAndHide() {
-
     if (this.confirmCallback) {
       this.confirmCallback()
     }
     this.hideConfirmationModal()
   }
 
-
   showFlash(message) {
+    if (!this.hasFlashContainerTarget) return;
     const flashEl = document.createElement("div")
     flashEl.className = "p-3 bg-red-100 border border-red-400 text-red-700 rounded-md text-sm"
     flashEl.textContent = message

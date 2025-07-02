@@ -24,6 +24,7 @@ class CharactersController < ApplicationController
       redirect_to story_characters_path(@story), success: "キャラクターを追加しました。"
     else
       flash.now[:error] = "キャラクターの作成に失敗しました。"
+      @validation_error = true
       render :new, status: :unprocessable_entity
     end
   end
@@ -36,6 +37,7 @@ class CharactersController < ApplicationController
       redirect_to story_character_path(@story, @character), success: "キャラクターを更新しました。"
     else
       flash.now[:error] = "キャラクターの更新に失敗しました。"
+      @validation_error = true
       render :edit, status: :unprocessable_entity
     end
   end
