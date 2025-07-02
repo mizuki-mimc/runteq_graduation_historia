@@ -1,0 +1,2 @@
+module WorldGuideFeaturesHelper
+end

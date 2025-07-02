@@ -19,9 +19,10 @@
     <p class="font-bold">【特徴】</p>
     <div class="flex flex-wrap gap-3 mt-4 ml-4">
       <% @world_guide.world_guide_features.each do |feature| %>
-        <span class="px-3 py-1 text-md bg-gray-100 border border-black rounded-full">
+        <%# span を link_to に変更する %>
+        <%= link_to story_world_guide_feature_path(@story, feature), class: "px-3 py-1 text-md bg-gray-100 border border-black rounded-full hover:bg-gray-200" do %>
           <%= feature.world_feature_category.name %> / <%= feature.explanation %>
-        </span>
+        <% end %>
       <% end %>
     </div>
   </div>

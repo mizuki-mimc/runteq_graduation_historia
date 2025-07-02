@@ -5,8 +5,10 @@ class Story < ApplicationRecord
   has_many :world_guides, dependent: :destroy
   has_many :flags, dependent: :destroy
   has_many :plot_flags, through: :plots
-
   has_many :characters, dependent: :destroy
+  has_many :character_features, through: :characters
+  has_many :world_guide_features, through: :world_guides
+  has_many :character_relationships, through: :characters, source: :relationships
 
   enum status: { draft: 0, published: 1 }
 

@@ -25,39 +25,39 @@ export default class extends Controller {
     const errorTrigger = document.getElementById('form-validation-error-trigger');
 
     if (!errorTrigger) {
-      console.log("  -> No error trigger found. Exiting restore.");
+      console.log("   -> No error trigger found. Exiting restore.");
       return;
     }
 
     if (!this.hasContainerTarget) {
-      console.error("  -> CRITICAL: container target is missing!");
+      console.error("   -> CRITICAL: container target is missing!");
       return;
     }
 
     const formType = this.element.dataset.formType;
-    console.log(`  -> Error trigger found. This form is for: [${formType}]`);
+    console.log(`   -> Error trigger found. This form is for: [${formType}]`);
 
     const dataKey = formType === 'worldGuideFeatures' ? 'worldGuideFeatures' : formType;
     if (!formType || !errorTrigger.dataset[dataKey]) {
-      console.log(`  -> No data to restore for [${formType}].`);
+      console.log(`   -> No data to restore for [${formType}].`);
       return;
     }
 
     const dataToRestore = JSON.parse(errorTrigger.dataset[dataKey]);
     
     if (dataToRestore.length === 0) {
-      console.log(`  -> Data for [${formType}] is empty.`);
+      console.log(`   -> Data for [${formType}] is empty.`);
       return;
     }
     
-    console.log(`  -> Received ${dataToRestore.length} items for [${formType}]:`, dataToRestore);
+    console.log(`   -> Received ${dataToRestore.length} items for [${formType}]:`, dataToRestore);
 
     this.containerTarget.innerHTML = '';
 
     dataToRestore.forEach(data => {
       if (!data.id) {
-        console.log("    -> Restoring unsaved item:", data);
-        
+        console.log("     -> Restoring unsaved item:", data);
+
         if (formType === 'features') {
           this.inputTypeTarget.value = data.character_feature_category_id;
           this.inputExplanationTarget.value = data.explanation;
@@ -71,7 +71,7 @@ export default class extends Controller {
 
         this.add(new Event('manual_restore'));
       } else {
-        console.log("    -> Skipping saved item (already rendered by Rails):", data);
+        console.log("     -> Skipping saved item (already rendered by Rails):", data);
       }
     });
   }
@@ -92,35 +92,77 @@ export default class extends Controller {
     const characterName = selectedOption.dataset.name;
     const explanation = this.inputExplanationTarget.value;
 
+    const formType = this.element.dataset.formType; 
+    let newContentHTML;
+
     if (!categoryId || explanation.trim() === "") {
       if (event.type !== 'manual_restore') {
-        this.showFlash("キャラクターと関係性の両方を入力してください。")
+        if (formType === 'relationships') {
+          this.showFlash("キャラクターと関係性の両方を入力してください。");
+        } else if (formType === 'features' || formType === 'worldGuideFeatures') {
+          this.showFlash("特徴と説明の両方を入力してください。");
+        } else {
+          this.showFlash("項目を入力してください。");
+        }
+        return;
       }
-      return
     }
-  
+ 
     if (this.hasFlashContainerTarget) {
       this.flashContainerTarget.innerHTML = ""
     }
-  
+ 
     const childIndex = new Date().getTime() + Math.floor(Math.random() * 1000);
     const content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, childIndex);
     this.containerTarget.insertAdjacentHTML("beforeend", content)
     const newCapsule = this.containerTarget.lastElementChild;
     const capsuleTextSpan = newCapsule.querySelector("[data-nested-form-target='capsuleText']");
 
-    const newContentHTML = `
-      <span class="flex items-center">${categoryName}</span>
-      <span class="border-l border-gray-700"></span>
-      <span class="flex items-center">${characterName} / ${explanation}</span>
-    `;
+    if (formType === 'features' || formType === 'worldGuideFeatures') {
+      const featureCategoryName = selectedOption.dataset.name; 
+      newContentHTML = `
+        <span class="flex items-center">${featureCategoryName} / ${explanation}</span>
+      `;
+    } else if (formType === 'relationships') {
+      newContentHTML = `
+        <span class="flex items-center">${categoryName}</span>
+        <span class="border-l border-gray-700"></span>
+        <span class="flex items-center">${characterName} / ${explanation}</span>
+      `;
+    } else {
+      const genericCategoryName = selectedOption.dataset.category || selectedOption.dataset.name;
+      newContentHTML = `
+        <span class="flex items-center">${genericCategoryName} / ${explanation}</span>
+      `;
+    }
 
     capsuleTextSpan.innerHTML = newContentHTML;
     capsuleTextSpan.classList.add("flex", "items-stretch", "gap-x-2");
 
-    newCapsule.querySelector("[data-nested-form-target='hiddenCategoryId']").value = categoryId;
-    newCapsule.querySelector("[data-nested-form-target='hiddenExplanation']").value = explanation;
-  
+    if (formType === 'features') {
+        newCapsule.querySelector("[data-nested-form-target='hiddenCategoryId']").value = categoryId;
+        newCapsule.querySelector("[data-nested-form-target='hiddenExplanation']").value = explanation;
+    } else if (formType === 'relationships') {
+
+        const hiddenRelatedCharIdInput = newCapsule.querySelector("[data-nested-form-target='hiddenCategoryId']");
+        const hiddenRelationshipTypeInput = newCapsule.querySelector("[data-nested-form-target='hiddenExplanation']");
+        
+        if (hiddenRelatedCharIdInput) {
+            hiddenRelatedCharIdInput.value = categoryId;
+        } else {
+            console.warn("hiddenCategoryId target not found for relationships.");
+        }
+        
+        if (hiddenRelationshipTypeInput) {
+            hiddenRelationshipTypeInput.value = explanation;
+        } else {
+            console.warn("hiddenExplanation target not found for relationships.");
+        }
+    } else if (formType === 'worldGuideFeatures') {
+        newCapsule.querySelector("[data-nested-form-target='hiddenCategoryId']").value = categoryId;
+        newCapsule.querySelector("[data-nested-form-target='hiddenExplanation']").value = explanation;
+    }
+
     this.inputExplanationTarget.value = "";
     this.inputTypeTarget.selectedIndex = 0;
   }

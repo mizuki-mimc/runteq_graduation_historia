@@ -22,7 +22,7 @@
       <div class="flex flex-wrap gap-3 mt-4 ml-4">
         <% if @character.relationships.exists? %>
           <% @character.relationships.each do |relationship| %>
-            <%= link_to story_character_path(@story, relationship.related_character), class: "px-3 py-1 text-md bg-gray-100 border border-black rounded-full hover:bg-gray-200 flex items-stretch gap-x-2" do %>
+            <%= link_to story_character_relationship_path(@story, relationship), class: "px-3 py-1 text-md bg-gray-100 border border-black rounded-full hover:bg-gray-200 flex items-stretch gap-x-2" do %>
               <span class="flex items-center"><%= relationship.related_character.category %></span>
               <span class="border-l border-gray-700"></span>
               <span class="flex items-center"><%= relationship.related_character.name %> / <%= relationship.relationship_type %></span>
@@ -39,9 +39,9 @@
       <div class="flex flex-wrap gap-3 mt-4 ml-4">
         <% if @character.character_features.exists? %>
           <% @character.character_features.each do |feature| %>
-            <span class="px-3 py-1 text-md bg-gray-100 border border-black rounded-full">
+            <%= link_to story_character_feature_path(@story, feature), class: "px-3 py-1 text-md bg-gray-100 border border-black rounded-full hover:bg-gray-200 transition-colors" do %>
               <%= feature.character_feature_category.name %> / <%= feature.explanation %>
-            </span>
+            <% end %>
           <% end %>
         <% else %>
           <p>なし</p>
