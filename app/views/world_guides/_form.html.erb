@@ -1,4 +1,11 @@
-<%= form_with model: [story, world_guide], local: true, class: "space-y-8", data: { controller: "nested-form" } do |f| %>
+<%= form_with model: [story, world_guide], local: true, class: "space-y-8" do |f| %>
+
+  <% if @validation_error %>
+    <div id="form-validation-error-trigger" 
+         class="hidden"
+         data-world-guide-features="<%= world_guide.world_guide_features.to_json(only: [:id, :world_feature_category_id, :explanation]) %>">
+    </div>
+  <% end %>
 
   <% if world_guide.errors.any? %>
     <div id="error_explanation" class="text-red-500 border border-red-300 bg-red-50 p-4 rounded-md">
@@ -12,7 +19,6 @@
   <% end %>
 
   <%= render 'world_guides/basic_fields', f: f %>
-
   <%= render 'world_guides/feature_fields', f: f %>
 
   <div>
@@ -28,5 +34,4 @@
     <%= f.submit submit_text, class: "border border-gray-400 px-4 py-3 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300" %>
   </div>
 
-  <div data-nested-form-target="modalPlaceholder"></div>
 <% end %>

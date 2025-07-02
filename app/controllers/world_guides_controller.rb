@@ -2,6 +2,7 @@ class WorldGuidesController < ApplicationController
   before_action :require_login
   before_action :set_story
   before_action :set_world_guide, only: [ :show, :edit, :update, :destroy ]
+  before_action :prepare_form_data, only: [ :new, :create, :edit, :update ]
 
   def index
     @world_guides = @story.world_guides.order(:created_at)
@@ -26,6 +27,7 @@ class WorldGuidesController < ApplicationController
       redirect_to story_world_guides_path(@story), success: "ワールドガイドを追加しました。"
     else
       flash.now[:error] = "ワールドガイドの作成に失敗しました。"
+      @validation_error = true
       render :new, status: :unprocessable_entity
     end
   end
@@ -35,6 +37,7 @@ class WorldGuidesController < ApplicationController
       redirect_to story_world_guide_path(@story, @world_guide), success: "ワールドガイドを更新しました。"
     else
       flash.now[:error] = "ワールドガイドの更新に失敗しました。"
+      @validation_error = true
       render :edit, status: :unprocessable_entity
     end
   end
@@ -56,6 +59,10 @@ class WorldGuidesController < ApplicationController
       flash[:error] = "ワールドガイドは存在しません。"
       redirect_to story_world_guides_path(@story)
     end
+  end
+
+  def prepare_form_data
+    @feature_categories = WorldFeatureCategory.order(:id)
   end
 
   def world_guide_params

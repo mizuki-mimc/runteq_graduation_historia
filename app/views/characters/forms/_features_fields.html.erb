@@ -1,7 +1,6 @@
-<div data-controller="nested-form"
-    data-nested-form-modal-title-value="特徴の削除"
-    data-nested-form-modal-message-value="この特徴を削除しますか？">
+<div data-controller="nested-form" data-form-type="features" data-nested-form-modal-title-value="特徴の削除" data-nested-form-modal-message-value="この特徴を削除しますか？">
   <p class="block text-lg font-bold mb-1">特徴</p>
+
   <div class="border rounded-lg p-4 mb-2 space-y-2">
     <select data-nested-form-target="inputType" class="block w-full px-3 py-2 border border-black rounded-md">
       <option value="">特徴を選択してください。</option>
@@ -9,12 +8,13 @@
         <option value="<%= category.id %>" data-name="<%= category.name %>"><%= category.name %></option>
       <% end %>
     </select>
-
     <input type="text" data-nested-form-target="inputExplanation" class="block w-full px-3 py-2 border border-black rounded-md" placeholder="説明を25文字以内で記入してください。" maxlength="25">
     <button type="button" data-action="click->nested-form#add" class="border border-gray-400 w-full py-2 rounded-md font-semibold hover:bg-black hover:text-white transition-colors duration-300">特徴を追加</button>
   </div>
+  
   <div data-nested-form-target="flashContainer" class="mb-4"></div>
-  <div data-nested-form-target="container" class="flex flex-wrap gap-2">
+
+  <div class="flex flex-wrap gap-2">
     <%= f.fields_for :character_features do |feature_form| %>
       <% unless feature_form.object.new_record? %>
         <div class="nested-fields-wrapper inline-flex items-center gap-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full cursor-pointer" data-action="click->nested-form#remove">
@@ -25,7 +25,10 @@
         </div>
       <% end %>
     <% end %>
+
+    <div data-nested-form-target="container" class="contents"></div>
   </div>
+
   <template data-nested-form-target="template">
     <div class="nested-fields-wrapper inline-flex items-center gap-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full cursor-pointer" data-action="click->nested-form#remove" data-new-record="true">
       <span data-nested-form-target="capsuleText"></span>
