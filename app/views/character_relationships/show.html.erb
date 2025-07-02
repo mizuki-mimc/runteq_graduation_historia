@@ -1,0 +1,45 @@
+<% breadcrumb :character_relationship, @story, @character_relationship %>
+<div class="px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-screen-xl mx-auto">
+    <h1 class="text-center text-3xl md:text-4xl font-bold tracking-tight mt-12 mb-14">関係性を確認しよう！</h1>
+
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+      <%= link_to "関係性を編集する", edit_story_character_relationship_path(@story, @character_relationship), class: "border border-gray-400 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
+    </div>
+    
+    <div class="max-w-3xl mx-auto space-y-6 border-2 border-gray-300 p-8 rounded-lg bg-white shadow">
+      <div>
+        <p class="font-bold">【キャラクター】</p>
+        <div class="flex flex-col sm:flex-row sm:flex-wrap items-center gap-3 mt-4 ml-4">
+          <%= link_to story_character_path(@story, @character_relationship.character), class: "px-3 py-1 text-md bg-gray-100 border border-black rounded-full hover:bg-gray-200" do %>
+            <%= @character_relationship.character.category %> : <%= @character_relationship.character.name %>
+          <% end %>
+          <span class="font-bold text-2xl flex items-center sm:rotate-0 rotate-90 text-black">➡</span>
+          <%= link_to story_character_path(@story, @character_relationship.related_character), class: "px-3 py-1 text-md bg-gray-100 border border-black rounded-full hover:bg-gray-200" do %>
+            <%= @character_relationship.related_character.category %> : <%= @character_relationship.related_character.name %>
+          <% end %>
+        </div>
+      </div>
+      <div>
+        <p class="font-bold">【関係性】</p>
+        <p class="text-xl ml-4 mt-2"><%= @character_relationship.relationship_type.presence || "未設定" %></p>
+      </div>
+      <div>
+        <p class="font-bold">【詳細説明】</p>
+        <div class="ml-4 mt-2">
+          <% if @character_relationship.description.present? %>
+            <div class="prose max-w-none">
+              <%= simple_format(@character_relationship.description) %>
+            </div>
+          <% else %>
+            <p class="text-gray-500">詳細説明は未設定です。「関係性を編集する」ボタンより作成ください。</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-12">
+      <%= link_to "キャラクター詳細に戻る", story_character_path(@story, @character_relationship.character), class: "border border-gray-400 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_30_075611) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_02_091552) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,6 +26,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_30_075611) do
     t.bigint "character_feature_category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "description"
     t.index ["character_feature_category_id"], name: "index_character_features_on_character_feature_category_id"
     t.index ["character_id"], name: "index_character_features_on_character_id"
   end
@@ -36,6 +37,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_30_075611) do
     t.bigint "related_character_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "description"
     t.index ["character_id"], name: "index_character_relationships_on_character_id"
     t.index ["related_character_id"], name: "index_character_relationships_on_related_character_id"
   end
@@ -142,6 +144,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_30_075611) do
     t.bigint "world_feature_category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "description"
     t.index ["world_feature_category_id"], name: "index_world_guide_features_on_world_feature_category_id"
     t.index ["world_guide_id"], name: "index_world_guide_features_on_world_guide_id"
   end

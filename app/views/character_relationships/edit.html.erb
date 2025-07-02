@@ -1,0 +1,35 @@
+<% breadcrumb :edit_character_relationship, @story, @character_relationship %>
+<div class="px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-screen-xl mx-auto">
+    <h1 class="text-center text-3xl md:text-4xl font-bold tracking-tight mt-12 mb-14">関係性を編集しよう！</h1>
+
+    <%= form_with model: @character_relationship, url: story_character_relationship_path(@story, @character_relationship), local: true, class: "max-w-3xl mx-auto space-y-6" do |f| %>
+      <div>
+        <p class="font-bold">【キャラクター】</p>
+        <div class="flex flex-col sm:flex-row sm:flex-wrap items-center gap-3 mt-4 ml-4">
+          <span class="px-3 py-1 text-md bg-gray-100 border border-black rounded-full">
+            <%= @character_relationship.character.category %> : <%= @character_relationship.character.name %>
+          </span>
+          <span class="font-bold text-2xl flex items-center sm:rotate-0 rotate-90 text-black">➡</span>
+          <span class="px-3 py-1 text-md bg-gray-100 border border-black rounded-full">
+            <%= @character_relationship.related_character.category %> : <%= @character_relationship.related_character.name %>
+          </span>
+        </div>
+      </div>
+
+      <div>
+        <p class="font-bold">【関係性】</p>
+        <p class="text-xl ml-4 mt-2"><%= @character_relationship.relationship_type.presence || "未設定" %></p>
+      </div>
+      
+      <div>
+        <%= f.label :description, "【詳細説明】", class: "font-bold" %>
+        <%= f.text_area :description, class: "mt-2 block w-full border-2 border-gray-300 rounded-md shadow-sm p-4", rows: 10, placeholder: "この関係性に関するより詳細な設定や背景を記述できます。" %>
+      </div>
+
+      <div class="flex justify-center space-x-4 pt-4">
+        <%= f.submit "関係性を更新する", class: "border border-gray-400 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300" %>
+      </div>
+    <% end %>
+  </div>
+</div>

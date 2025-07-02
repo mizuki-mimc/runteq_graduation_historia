@@ -86,3 +86,33 @@ crumb :edit_flag do |story, flag|
   link "フラグ編集", edit_story_flag_path(story, flag)
   parent :flag, story, flag
 end
+
+crumb :character_feature do |story, character_feature|
+  link "特徴詳細: #{character_feature.character_feature_category.name}", story_character_feature_path(story, character_feature)
+  parent :character, story, character_feature.character
+end
+
+crumb :edit_character_feature do |story, character_feature|
+  link "特徴編集", edit_story_character_feature_path(story, character_feature)
+  parent :character_feature, story, character_feature
+end
+
+crumb :world_guide_feature do |story, world_guide_feature|
+  link "特徴詳細: #{world_guide_feature.world_feature_category.name}", story_world_guide_feature_path(story, world_guide_feature)
+  parent :world_guide, story, world_guide_feature.world_guide
+end
+
+crumb :edit_world_guide_feature do |story, world_guide_feature|
+  link "特徴編集", edit_story_world_guide_feature_path(story, world_guide_feature)
+  parent :world_guide_feature, story, world_guide_feature
+end
+
+crumb :character_relationship do |story, character_relationship|
+  link "関係性詳細: #{character_relationship.relationship_type}", story_character_relationship_path(story, character_relationship)
+  parent :character, story, character_relationship.character
+end
+
+crumb :edit_character_relationship do |story, character_relationship|
+  link "関係性編集", edit_story_character_relationship_path(story, character_relationship)
+  parent :character_relationship, story, character_relationship
+end
