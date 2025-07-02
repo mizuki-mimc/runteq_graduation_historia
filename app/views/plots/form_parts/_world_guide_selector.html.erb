@@ -1,35 +1,36 @@
 <div data-controller="multi-select" 
-       data-multi-select-duplicate-message-value="すでに選択されています。同じワールドガイドは複数追加できません。">
-    <label class="block text-lg font-bold">ワールドガイド</label>
-    <div class="flex flex-col sm:flex-row items-stretch gap-2 mt-1 sm:border-none sm:rounded-none sm:p-0 border border-black rounded-lg p-4">
-      <select data-multi-select-target="select" class="flex-grow block px-3 h-10 border border-black rounded-md shadow-sm">
-        <option value="">舞台となるワールドガイドを選択</option>
-        <% @world_guides.each do |wg| %>
-          <option value="<%= wg.id %>" data-name="<%= wg.country_and_region %>"><%= wg.country_and_region %></option>
-        <% end %>
-      </select>
-      <button type="button" data-action="multi-select#add" class="w-full sm:w-auto flex-shrink-0 border border-gray-400 px-4 h-10 rounded-md font-semibold hover:bg-black hover:text-white">追加</button>
-    </div>
-
-    <div data-multi-select-target="flashContainer" class="mt-4">
-
-    </div>
-    
-    <div data-multi-select-target="container" class="flex flex-wrap gap-2 mt-4 mb-4">
-      <% plot.world_guides.each do |wg| %>
-        <div class="capsule inline-flex items-center gap-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full">
-          <span><%= wg.country_and_region %></span>
-          <button type="button" data-action="multi-select#remove" class="text-red-500 hover:text-red-700 font-bold">×</button>
-          <input type="hidden" name="plot[world_guide_ids][]" value="<%= wg.id %>">
-        </div>
+     data-multi-select-duplicate-message-value="すでに選択されています。同じワールドガイドは複数追加できません。">
+  <label class="block text-lg font-bold">ワールドガイド</label>
+  <div class="flex flex-col sm:flex-row items-stretch gap-2 mt-1 sm:border-none sm:rounded-none sm:p-0 border border-black rounded-lg p-4">
+    <select data-multi-select-target="select" class="flex-grow block px-3 h-10 border border-black rounded-md shadow-sm">
+      <option value="">舞台となるワールドガイドを選択</option>
+      <% @world_guides.each do |wg| %>
+        <option value="<%= wg.id %>" data-name="<%= wg.country_and_region %>" data-category="<%= wg.category %>">
+          <%= wg.category %> : <%= wg.country_and_region %>
+        </option>
       <% end %>
-    </div>
-
-    <template data-multi-select-target="template">
-      <div class="capsule inline-flex items-center gap-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full">
-        <span data-multi-select-target="name"></span>
-        <button type="button" data-action="multi-select#remove" class="text-red-500 hover:text-red-700 font-bold">×</button>
-        <input type="hidden" name="plot[world_guide_ids][]" data-multi-select-target="value">
-      </div>
-    </template>
+    </select>
+    <button type="button" data-action="multi-select#add" class="w-full sm:w-auto flex-shrink-0 border border-gray-400 px-4 h-10 rounded-md font-semibold hover:bg-black hover:text-white">追加</button>
   </div>
+  <div data-multi-select-target="flashContainer" class="mt-4"></div>
+  <div data-multi-select-target="container" class="flex flex-wrap gap-2 mt-4 mb-4">
+    <% plot.world_guides.each do |wg| %>
+      <div class="capsule inline-flex items-stretch gap-x-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full">
+        <span class="flex items-center"><%= wg.category %></span>
+        <span class="border-l border-gray-700"></span>
+        <span class="flex items-center"><%= wg.country_and_region %></span>
+        <button type="button" data-action="multi-select#remove" class="text-red-500 hover:text-red-700 font-bold ml-1">×</button>
+        <input type="hidden" name="plot[world_guide_ids][]" value="<%= wg.id %>">
+      </div>
+    <% end %>
+  </div>
+  <template data-multi-select-target="template">
+    <div class="capsule inline-flex items-stretch gap-x-2 px-3 py-1 text-md bg-gray-100 border border-black rounded-full">
+      <span data-multi-select-target="category" class="flex items-center"></span>
+      <span class="border-l border-gray-700"></span>
+      <span data-multi-select-target="name" class="flex items-center"></span>
+      <button type="button" data-action="multi-select#remove" class="text-red-500 hover:text-red-700 font-bold ml-1">×</button>
+      <input type="hidden" name="plot[world_guide_ids][]" data-multi-select-target="value">
+    </div>
+  </template>
+</div>

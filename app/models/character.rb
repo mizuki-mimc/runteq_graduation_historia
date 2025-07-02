@@ -18,11 +18,12 @@ class Character < ApplicationRecord
   has_many :plots, through: :plot_characters
 
   enum category: {
-    present: "現在",
-    future: "未来",
-    past: "過去",
-    fantasy: "空想"
+    "現在" => "現在",
+    "未来" => "未来",
+    "過去" => "過去",
+    "空想" => "空想"
   }
+
   enum gender: {
     male: 0,
     female: 1,

@@ -86,32 +86,43 @@ export default class extends Controller {
       return;
     }
 
-    const categoryId = this.inputTypeTarget.value
-    const categoryName = this.inputTypeTarget.selectedOptions[0].text
-    const explanation = this.inputExplanationTarget.value
+    const selectedOption = this.inputTypeTarget.selectedOptions[0];
+    const categoryId = selectedOption.value;
+    const categoryName = selectedOption.dataset.category; 
+    const characterName = selectedOption.dataset.name;
+    const explanation = this.inputExplanationTarget.value;
+
     if (!categoryId || explanation.trim() === "") {
       if (event.type !== 'manual_restore') {
-        this.showFlash("特徴と説明の両方を入力してください。")
+        this.showFlash("キャラクターと関係性の両方を入力してください。")
       }
       return
     }
-    
+  
     if (this.hasFlashContainerTarget) {
       this.flashContainerTarget.innerHTML = ""
     }
-    
+  
     const childIndex = new Date().getTime() + Math.floor(Math.random() * 1000);
     const content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, childIndex);
-
     this.containerTarget.insertAdjacentHTML("beforeend", content)
-    const newCapsule = this.containerTarget.lastElementChild
-    
-    newCapsule.querySelector("[data-nested-form-target='capsuleText']").textContent = `${categoryName} / ${explanation}`
-    newCapsule.querySelector("[data-nested-form-target='hiddenCategoryId']").value = categoryId
-    newCapsule.querySelector("[data-nested-form-target='hiddenExplanation']").value = explanation
-    
-    this.inputExplanationTarget.value = ""
-    this.inputTypeTarget.selectedIndex = 0
+    const newCapsule = this.containerTarget.lastElementChild;
+    const capsuleTextSpan = newCapsule.querySelector("[data-nested-form-target='capsuleText']");
+
+    const newContentHTML = `
+      <span class="flex items-center">${categoryName}</span>
+      <span class="border-l border-gray-700"></span>
+      <span class="flex items-center">${characterName} / ${explanation}</span>
+    `;
+
+    capsuleTextSpan.innerHTML = newContentHTML;
+    capsuleTextSpan.classList.add("flex", "items-stretch", "gap-x-2");
+
+    newCapsule.querySelector("[data-nested-form-target='hiddenCategoryId']").value = categoryId;
+    newCapsule.querySelector("[data-nested-form-target='hiddenExplanation']").value = explanation;
+  
+    this.inputExplanationTarget.value = "";
+    this.inputTypeTarget.selectedIndex = 0;
   }
 
   remove(event) {

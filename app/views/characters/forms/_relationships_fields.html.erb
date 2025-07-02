@@ -5,7 +5,7 @@
     <select data-nested-form-target="inputType" class="block w-full px-3 py-2 border border-black rounded-md">
       <option value="">キャラクターを選択してください。</option>
       <% @characters_for_relation.each do |char| %>
-        <option value="<%= char.id %>" data-name="<%= char.name %>"><%= char.name %></option>
+        <option value="<%= char.id %>" data-name="<%= char.name %>" data-category="<%= char.category %>"><%= char.category %> : <%= char.name %></option>
       <% end %>
     </select>
     <input type="text" data-nested-form-target="inputExplanation" class="block w-full px-3 py-2 border border-black rounded-md" placeholder="関係性を25文字以内で記入してください。（例：友人、男友達で一番仲がいい）" maxlength="25">
