@@ -19,7 +19,7 @@
                 <%= link_to story_world_guide_path(@story, wg), class: "px-3 py-1 text-sm border border-black bg-gray-100 text-black rounded-full hover:bg-gray-300 transition-colors flex items-stretch gap-x-2" do %>
                   <span class="flex items-center"><%= wg.category %></span>
                   <span class="border-l border-gray-700"></span>
-                  <span class="flex items-center"><%= [wg.world_name, wg.region_name].compact_blank.join(' / ') %></span>
+                  <span class="flex items-center"><%= wg.country_and_region %></span>
                 <% end %>
               <% end %>
             </div>
