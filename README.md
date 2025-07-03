@@ -1,5 +1,5 @@
 ## 📖 サービス名 ： Historia （ヒストリア）
-![白　ビジネス　採用向け企業案内　プレゼンテーション (1)](https://github.com/user-attachments/assets/dab5aa3b-a3cb-4d74-8e35-3c347d7f6720)
+![白　ビジネス　採用向け企業案内　プレゼンテーション (2)](https://github.com/user-attachments/assets/827cf6a1-d248-45a3-a530-9b788e103cee)
 
 ## 📚 サービス概要 
 Historia（ヒストリア）は設定管理の側面から小説の一貫性維持と創作活動の継続を支援するWebアプリです。<br>
