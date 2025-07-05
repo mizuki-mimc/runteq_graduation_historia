@@ -10,7 +10,7 @@ services:
       - key: DATABASE_URL
         fromDatabase:
           name: historia-db
-          property: internalConnectionString
+          property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
   - type: web
@@ -24,7 +24,7 @@ services:
       - key: DATABASE_URL
         fromDatabase:
           name: historia-db
-          property: internalConnectionString
+          property: connectionString
       - key: RAILS_MASTER_KEY
         fromService:
           type: web
