@@ -1,5 +1,4 @@
-previews:
-  enabled: true
+previewsEnabled: true
 
 services:
   - type: web
