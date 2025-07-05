@@ -3,12 +3,10 @@ previews: true
 services:
   - type: web
     name: historia
-    env: ruby
+    env: docker
     plan: free
     branch: main
     autoDeploy: false
-    buildCommand: "./bin/render-build.sh"
-    startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -16,15 +14,12 @@ services:
           property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
-
   - type: web
     name: historia-staging
-    env: ruby
+    env: docker
     plan: free
     branch: main
     autoDeploy: true
-    buildCommand: "./bin/render-build.sh"
-    startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -36,5 +31,6 @@ services:
           name: historia
           envVarKey: RAILS_MASTER_KEY
 
-  - type: psql
-    name: historia-db
+databases:
+  - name: historia-db
+    plan: free
