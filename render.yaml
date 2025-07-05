@@ -3,6 +3,7 @@ services:
     name: historia
     env: docker
     plan: free
+    region: singapore
     branch: main
     autoDeploy: false
     envVars:
@@ -16,6 +17,7 @@ services:
     name: historia-staging
     env: docker
     plan: free
+    region: singapore
     branch: main
     autoDeploy: true
     envVars:
@@ -32,3 +34,4 @@ services:
 databases:
   - name: historia-db
     plan: free
+    region: singapore
