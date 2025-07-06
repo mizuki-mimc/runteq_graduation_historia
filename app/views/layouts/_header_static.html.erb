@@ -1,0 +1,12 @@
+<header class="relative flex justify-between items-center px-4 md:px-8 py-4 border-b border-gray-200 bg-white shadow-sm sticky top-0 z-50">
+
+  <div class="flex-shrink-0">
+    <%= link_to root_path do %>
+      <%= image_tag "logo.png", alt: "Historia", class: "w-24" %>
+    <% end %>
+  </div>
+
+  <nav>
+    <%= link_to "ホームに戻る", root_path, class:"bg-black text-white px-4 py-2 rounded-md font-semibold hover:bg-gray-700" %>
+  </nav>
+</header>
