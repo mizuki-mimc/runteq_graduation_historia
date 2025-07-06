@@ -21,7 +21,7 @@
   </head>
 
   <body class="flex flex-col min-h-screen" 
-      data-controller="modal image-viewer" 
+      data-controller="modal image-viewer guide-modal" 
       data-action="show-warning@window->modal#showWarning">
     <% if controller_name == 'static_pages' %>
       <%= render 'layouts/header_static' %>
@@ -65,5 +65,6 @@
     <%= render 'layouts/footer' %>
     <%= render 'shared/delete_modal' %>
     <%= render 'shared/image_viewer_modal' %>
+    <%= render 'shared/guide_modal' %>
   </body>
 </html>
