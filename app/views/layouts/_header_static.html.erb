@@ -6,7 +6,10 @@
     <% end %>
   </div>
 
-  <nav>
-    <%= link_to "ホームに戻る", root_path, class:"bg-black text-white px-4 py-2 rounded-md font-semibold hover:bg-gray-700" %>
+  <nav class="flex items-center space-x-4">
+    <button data-controller="back-button" data-action="click->back-button#goBack" class="border border-gray-400 px-4 py-2 rounded-md font-semibold bg-white hover:bg-gray-100">
+      前のページに戻る
+    </button>
+    <%= link_to "ホームに戻る", root_path, class:"border border-gray-400 px-4 py-2 rounded-md font-semibold bg-white hover:bg-gray-100" %>
   </nav>
 </header>

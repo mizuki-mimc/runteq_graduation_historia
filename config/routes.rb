@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get "static_pages/privacy"
+  get "static_pages/terms"
   get "stories/index"
   get "/auth/:provider/callback", to: "sessions#omniauth"
   get "/auth/failure", to: "sessions#auth_failure"
