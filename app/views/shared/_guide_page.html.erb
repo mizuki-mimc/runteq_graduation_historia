@@ -1,0 +1,13 @@
+<div data-guide-modal-target="page" class="guide-page <%= 'hidden' unless local_assigns.fetch(:is_first, false) %>">
+  <h3 class="text-xl font-semibold mb-6"><%= title %></h3>
+  <div class="relative w-full pb-[75%] border border-black border-2 mb-4 rounded-md overflow-hidden">
+    <video src="<%= video_path %>" controls loop muted preload="none" playsinline data-guide-modal-target="videoElement" class="absolute top-0 left-0 w-full h-full object-cover rounded-md">
+      お使いのブラウザは動画タグをサポートしていません。
+    </video>
+  </div>
+  <div class="space-y-4">
+    <% content.each do |paragraph| %>
+      <p><%= paragraph.html_safe %></p>
+    <% end %>
+  </div>
+</div>

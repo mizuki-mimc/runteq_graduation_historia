@@ -1,6 +1,79 @@
+<%
+  guide_pages = [
+    {
+      title: "1. ストーリーを作成しよう！",
+      video_path: "/videos/story_create.mp4",
+      content: [
+        "【 Historia 】は、創作物の設定管理をサポートするWebアプリです。<br>まずは「ログイン」か「お試し作成」ボタンを押してストーリーを作りましょう！",
+        "ストーリー作成はヘッダーのボタンより作成できます！<br>まずはタイトルだけでも入力してあなただけのストーリーを作成してみましょう！"
+      ]
+    },
+    {
+      title: "2. ワールドガイド（物語の舞台）を作成しよう！",
+      video_path: "/videos/world_guides.mp4",
+      content: [
+        "ストーリーを作成したら次にワールドガイドを作成してみましょう！<br>「特徴」を複数作成することでより詳細に舞台設定が可能です！",
+        "作成後にカテゴリー欄を変更もでき、異なる時間軸や空想上の舞台もわかりやすく管理できます！"
+      ]
+    },
+    {
+      title: "3. キャラクター（登場人物）を作成しよう！",
+      video_path: "/videos/characters.mp4",
+      content: [
+        "ワールドガイドの次はキャラクターを作成してみましょう！<br>ワールドガイドを先に作成することで、キャラクターの出身地と住所も選択することができます！",
+        "キャラクターも「特徴」を複数作成することで詳細な人物像を設定可能です！<br>また、他にもキャラクターを作成している場合、「関連するキャラクター」も複数作成可能です！これらを設定しより詳細な人物像を作り上げましょう！"
+      ]
+    },
+    {
+      title: "4. フラグ（伏線）を作成しよう！",
+      video_path: "/videos/flags.mp4",
+      content: [
+        "フラグも作成していきましょう！煩雑になりがちな伏線管理もこれでばっちりです！",
+        "タイトルと内容を記載しましょう！内容は詳細に記載しておくことをおススメします！ 新規作成時の状態は「このフラグはまだ立てていません。」になります。<br>※プロット操作により状態は変化します。"
+      ]
+    },
+    {
+      title: "5. プロットを作成しよう！",
+      video_path: "/videos/plots.mp4",
+      content: [
+        "最後に今まで作成してきた要素を使用しプロットを作成しましょう！<br>要約にはこのプロットの内容を簡潔にまとめてみましょう！そうすることでオチを見失わなくなります！",
+        "ワールドガイド、キャラクター、フラグは作成した要素を使用できます！このプロットで登場する要素を複数選択して設定を見失わないようにしましょう！",
+        "フラグは「設置」、「回収」を選択できます！<br>作成後に見返しやすいように「設置＝青」「回収＝緑」で表しています！",
+        "構成メモには、各要素の情報をもとにプロットの内容を自分がわかりやすくメモ書きしてください！",
+        "★ 作成したプロットを見返しながら、自分だけの物語を作成していきましょう！ ★"
+      ]
+    },
+    {
+      title: "おまけ 1. プロットから各詳細ページを確認しよう！",
+      video_path: "/videos/historia2.mp4",
+      content: [
+        "プロットを作成後、プロットを確認しながら創作物を作成します！<br>プロットに追加した要素は押すとその詳細ページへ移ります！<br>細かい設定が知りたいときには要素を押してすぐに設定を確認しましょう！",
+        "※ワールドガイド、キャラクターの「特徴」「関連するキャラクター」は詳細説明も登録することができます。 詳細説明を追加してより詳細な要素に仕上げましょう！"
+      ]
+    },
+    {
+      title: "おまけ 2. 特徴と関連するキャラクターを編集しよう！",
+      video_path: "/videos/historia3.mp4",
+      content: [
+        "ワールドガイド、キャラクターの詳細ページより「特徴」「関連するキャラクター」の内容を確認することができます！",
+        "作成時には詳細説明は入力されません！編集ページより詳細説明を作成し、より詳細な要素を作り上げましょう！"
+      ]
+    },
+    {
+      title: "おまけ 3. 作成後のフラグとストーリーの表示を確認しよう！",
+      video_path: "/videos/historia.mp4",
+      content: [
+        "プロットで「設置」「回収」設定したフラグは、フラグ一覧ページでもアイコンによりすぐに状態を確認できます！（設置 ＝ 旗、回収 ＝ チェックマーク）",
+        "また、作成したストーリーは選択したジャンルによりアイコンが変化します！（ファンタジーなら剣、恋愛ならハートなど）",
+        "★ これらの要素を覚えて、設定管理時間を削減しましょう！ ★"
+      ]
+    }
+  ]
+%>
+
 <div data-guide-modal-target="overlay" class="hidden fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 p-4">
   <div data-guide-modal-target="modalBox" class="bg-white rounded-lg shadow-xl p-6 w-full max-w-2xl max-h-[90vh] flex flex-col
-              absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                      absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
     <div data-guide-modal-target="handle" data-action="mousedown->guide-modal#startDrag"
          class="flex justify-between items-center border-b pb-3 mb-4 cursor-grab">
       <h2 class="text-2xl font-bold">使い方ガイド</h2>
@@ -10,92 +83,18 @@
     </div>
 
     <div class="flex-grow overflow-y-auto mb-4 p-2 -mx-2">
-      <div data-guide-modal-target="page" class="guide-page">
-        <h3 class="text-xl font-semibold mb-6">1. ストーリーを作成しよう！</h3>
-        <div class="relative w-full pb-[75%] border border-black border-2 mb-4 rounded-md overflow-hidden">
-          <video src="<%= asset_path 'story_create.mp4' %>"  controls loop muted preload="none" playsinline data-guide-modal-target="videoElement" class="absolute top-0 left-0 w-full h-full object-cover rounded-md">
-            お使いのブラウザは動画タグをサポートしていません。
-          </video>
-        </div>
-        <p class="mb-4">【 Historia 】は、創作物の設定管理をサポートするWebアプリです。<br>まずは「ログイン」か「お試し作成」ボタンを押してストーリーを作りましょう！</p>
-        <p>ストーリー作成はヘッダーのボタンより作成できます！<br>まずはタイトルだけでも入力してあなただけのストーリーを作成してみましょう！</p>
-      </div>
-
-      <div data-guide-modal-target="page" class="guide-page hidden">
-        <h3 class="text-xl font-semibold mb-6">2. ワールドガイド（物語の舞台）を作成しよう！</h3>
-        <div class="relative w-full pb-[75%] border border-black border-2 mb-4 rounded-md overflow-hidden">
-          <video src="<%= asset_path 'world_guides.mp4' %>"  controls loop muted preload="none" playsinline data-guide-modal-target="videoElement" class="absolute top-0 left-0 w-full h-full object-cover rounded-md">
-            お使いのブラウザは動画タグをサポートしていません。
-          </video>
-        </div>
-        <p class="mb-4">ストーリーを作成したら次にワールドガイドを作成してみましょう！<br>「特徴」を複数作成することでより詳細に舞台設定が可能です！</p>
-        <p>作成後にカテゴリー欄を変更もでき、異なる時間軸や空想上の舞台もわかりやすく管理できます！
-      </div>
-
-      <div data-guide-modal-target="page" class="guide-page hidden">
-        <h3 class="text-xl font-semibold mb-6">3. キャラクター（登場人物）を作成しよう！</h3>
-        <div class="relative w-full pb-[75%] border border-black border-2 mb-4 rounded-md overflow-hidden">
-          <video src="<%= asset_path 'characters.mp4' %>"  controls loop muted preload="none" playsinline data-guide-modal-target="videoElement" class="absolute top-0 left-0 w-full h-full object-cover rounded-md">
-            お使いのブラウザは動画タグをサポートしていません。
-          </video>
-        </div>
-        <p class="mb-4">ワールドガイドの次はキャラクターを作成してみましょう！<br>ワールドガイドを先に作成することで、キャラクターの出身地と住所も選択することができます！</p>
-        <p class="mb-4">キャラクターも「特徴」を複数作成することで詳細な人物像を設定可能です！<br>また、他にもキャラクターを作成している場合、「関連するキャラクター」も複数作成可能です！これらを設定しより詳細な人物像を作り上げましょう！</p>
-      </div>
-
-      <div data-guide-modal-target="page" class="guide-page hidden">
-        <h3 class="text-xl font-semibold mb-6">4. フラグ（伏線）を作成しよう！</h3>
-        <div class="relative w-full pb-[75%] border border-black border-2 mb-4 rounded-md overflow-hidden">
-          <video src="<%= asset_path 'flags.mp4' %>"  controls loop muted preload="none" playsinline data-guide-modal-target="videoElement" class="absolute top-0 left-0 w-full h-full object-cover rounded-md">
-            お使いのブラウザは動画タグをサポートしていません。
-          </video>
-        </div>
-        <p class="mb-4">フラグも作成していきましょう！煩雑になりがちな伏線管理もこれでばっちりです！</p>
-        <p>タイトルと内容を記載しましょう！内容は詳細に記載しておくことをおススメします！ 新規作成時の状態は「このフラグはまだ立てていません。」になります。<br>※プロット操作により状態は変化します。</p>
-      </div>
-
-      <div data-guide-modal-target="page" class="guide-page hidden">
-        <h3 class="text-xl font-semibold mb-6">5. プロットを作成しよう！</h3>
-        <div class="relative w-full pb-[75%] border border-black border-2 mb-4 rounded-md overflow-hidden">
-          <video src="<%= asset_path 'plots.mp4' %>"  controls loop muted preload="none" playsinline data-guide-modal-target="videoElement" class="absolute top-0 left-0 w-full h-full object-cover rounded-md">
-            お使いのブラウザは動画タグをサポートしていません。
-          </video>
-        </div>
-        <p class="mb-4">最後に今まで作成してきた要素を使用しプロットを作成しましょう！<br>要約にはこのプロットの内容を簡潔にまとめてみましょう！そうすることでオチを見失わなくなります！</p>
-        <p class="mb-4">ワールドガイド、キャラクター、フラグは作成した要素を使用できます！このプロットで登場する要素を複数選択して設定を見失わないようにしましょう！<p>
-        <p class="mb-4">フラグは「設置」、「回収」を選択できます！<br>作成後に見返しやすいように「設置＝青」「回収＝緑」で表しています！</p>
-        <p class="mb-4">構成メモには、各要素の情報をもとにプロットの内容を自分がわかりやすくメモ書きしてください！</p>
-        <p>★ 作成したプロットを見返しながら、自分だけの物語を作成していきましょう！ ★</p>
-      </div>
-
-      <div data-guide-modal-target="page" class="guide-page hidden">
-        <h3 class="text-xl font-semibold mb-6">おまけ. プロットから各詳細ページを確認できるよ！</h3>
-        <div class="relative w-full pb-[75%] border border-black border-2 mb-4 rounded-md overflow-hidden">
-          <video src="<%= asset_path 'historia2.mp4' %>"  controls loop muted preload="none" playsinline  data-guide-modal-target="videoElement" class="absolute top-0 left-0 w-full h-full object-cover rounded-md">
-            お使いのブラウザは動画タグをサポートしていません。
-          </video>
-        </div>
-        <p class="mb-4">プロットを作成後、プロットを確認しながら創作物を作成します！<br>プロットに追加した要素は押すとその詳細ページへ移ります！<br>細かい設定が知りたいときには要素を押してすぐに設定を確認しましょう！</p>
-        <p>※ワールドガイド、キャラクターの「特徴」「関連するキャラクター」は詳細説明も登録することができます。 詳細説明を追加してより詳細な要素に仕上げましょう！
-      </div>
-
-      <div data-guide-modal-target="page" class="guide-page hidden">
-        <h3 class="text-xl font-semibold mb-6">おまけ 2. 作成後のフラグとストーリーの表示を確認しよう！</h3>
-        <div class="relative w-full pb-[75%] border border-black border-2 mb-4 rounded-md overflow-hidden">
-          <video src="<%= asset_path 'historia.mp4' %>"  controls loop muted preload="none" playsinline data-guide-modal-target="videoElement" class="absolute top-0 left-0 w-full h-full object-cover rounded-md">
-            お使いのブラウザは動画タグをサポートしていません。
-          </video>
-        </div>
-        <p class="mb-4">プロットで「設置」「回収」設定したフラグは、フラグ一覧ページでもアイコンによりすぐに状態を確認できます！（設置 ＝ 旗、回収 ＝ チェックマーク）</p>
-        <p class="mb-4">また、作成したストーリーは選択したジャンルによりアイコンが変化します！（ファンタジーなら剣、恋愛ならハートなど）
-        <p>★ これらの要素を覚えて、設定管理時間を削減しましょう！ ★
-      </div>
-
+      <% guide_pages.each_with_index do |page, index| %>
+        <%= render 'shared/guide_page', 
+            title: page[:title], 
+            video_path: page[:video_path],
+            content: page[:content],
+            is_first: index == 0 %>
+      <% end %>
     </div>
 
     <div class="flex justify-between items-center pt-3 border-t">
       <button data-action="click->guide-modal#prevPage" data-guide-modal-target="prevButton" class="border border-gray-400 px-4 py-2 rounded-md font-semibold hover:bg-gray-100">前へ</button>
-      <span data-guide-modal-target="currentPage" class="text-lg font-semibold">1 / 7</span>
+      <span data-guide-modal-target="currentPage" class="text-lg font-semibold">1 / <%= guide_pages.length %></span>
       <button data-action="click->guide-modal#nextPage" data-guide-modal-target="nextButton" class="px-4 py-2 bg-black text-white rounded-md font-semibold hover:bg-gray-700 transition-colors duration-200">次へ</button>
     </div>
   </div>

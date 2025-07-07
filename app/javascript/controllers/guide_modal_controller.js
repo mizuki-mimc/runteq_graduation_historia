@@ -21,7 +21,8 @@ export default class extends Controller {
     this.modalBoxTarget.style.left = '50%';
     this.modalBoxTarget.style.top = '50%';
     this.modalBoxTarget.style.transform = 'translate(-50%, -50%)';
-    this.showPage(0);
+    this.pageIndexValue = 0;
+    this.showPage(this.pageIndexValue);
   }
 
   close() {
