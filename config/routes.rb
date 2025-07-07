@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
   get "static_pages/privacy"
   get "static_pages/terms"
+  resource :contact, only: [ :new, :create ]
+
   get "stories/index"
   get "/auth/:provider/callback", to: "sessions#omniauth"
   get "/auth/failure", to: "sessions#auth_failure"
