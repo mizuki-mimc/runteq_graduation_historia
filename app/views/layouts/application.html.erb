@@ -23,7 +23,7 @@
   <body class="flex flex-col min-h-screen" 
       data-controller="modal image-viewer guide-modal" 
       data-action="show-warning@window->modal#showWarning">
-    <% if controller_name == 'static_pages' %>
+    <% if controller_name == 'static_pages' || controller_name == 'contacts' %>
       <%= render 'layouts/header_static' %>
     <% elsif logged_in? %>
       <% if controller_name == 'stories' && action_name == 'index' %>
