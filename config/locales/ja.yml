@@ -39,6 +39,21 @@ ja:
         category: "カテゴリ"
         birthplace_world_guide_id: "出身地"
         address_world_guide_id: "現住所"
+
+  activemodel:
+    attributes:
+      contact:
+        name: "お名前"
+        email: "返信先メールアドレス"
+        category: "お問い合わせ種別"
+        content: "お問い合わせ内容"
+  
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      blank: "を入力してください"
+      invalid: "は不正な値です"
+      inclusion: "は一覧にありません"
         
   
   enums:

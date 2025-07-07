@@ -1,0 +1,40 @@
+<div class="container mx-auto px-4 py-8 max-w-lg">
+  <h1 class="text-3xl font-bold mb-6 text-center">お問い合わせ</h1>
+
+  <%= form_with(model: @contact, url: contact_path, local: true) do |f| %>
+    <% if @contact.errors.any? %>
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+        <strong class="font-bold">入力内容にエラーがあります</strong>
+        <ul>
+        <% @contact.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-4">
+      <%= f.label :name, 'お名前', class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= f.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :email, '返信先メールアドレス', class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= f.email_field :email, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :category, 'お問い合わせ種別', class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= f.select :category, Contact::VALID_CATEGORIES, { include_blank: '選択してください' }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
+
+    <div class="mb-6">
+      <%= f.label :content, 'お問い合わせ内容', class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= f.text_area :content, rows: 7, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
+
+    <div class="flex items-center justify-center">
+      <%= f.submit '送信する', class: "bg-black hover:bg-gray-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline cursor-pointer" %>
+    </div>
+  <% end %>
+</div>
