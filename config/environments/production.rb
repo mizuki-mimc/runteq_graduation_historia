@@ -116,4 +116,5 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
   config.hosts << "historia-web-service.onrender.com"
   config.hosts << "historia-staging.onrender.com"
+  config.hosts << "historia-novel.com"
 end
